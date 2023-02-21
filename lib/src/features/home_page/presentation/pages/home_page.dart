@@ -21,16 +21,8 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Builder(
-                    builder: (context) {
-                      if (state.chessModel == null) {
-                        return const Text('Brak danych');
-                      } else {
-                        return Text(
-                          state.chessModel![0].id,
-                        );
-                      }
-                    },
+                  Text(
+                    state.chessModel?[0].id ?? 'No data',
                   ),
                   ElevatedButton(
                     onPressed: () {
