@@ -11,7 +11,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   final ChessGameRepository _chessGameRepository;
 
   Future<void> getChessGame(String id) async {
-    final chessGame = await _chessGameRepository.getChessGameModel();
-    emit(HomePageState(chessModel: chessGame!));
+    final chessGame = await _chessGameRepository.getChessGameModel(id);
+    emit(HomePageState(chessModel: chessGame));
   }
 }

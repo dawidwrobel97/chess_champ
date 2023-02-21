@@ -17,12 +17,31 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           return Scaffold(
-            body: Column(
-              children: [
-                Text(
-                  state.chessModel[0].id,
-                ),
-              ],
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Builder(
+                    builder: (context) {
+                      if (state.chessModel == null) {
+                        return const Text('Brak danych');
+                      } else {
+                        return Text(
+                          state.chessModel![0].id,
+                        );
+                      }
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<HomePageCubit>().getChessGame('J9iArtcQ');
+                    },
+                    child: const Text(
+                      'Press for data',
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
