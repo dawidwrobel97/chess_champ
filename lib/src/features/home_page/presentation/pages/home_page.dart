@@ -22,11 +22,13 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    state.chessModel?[0].id ?? 'No data',
+                    state.chessModel?[1].id ?? 'No data',
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<HomePageCubit>().getChessGame('J9iArtcQ');
+                      context
+                          .read<HomePageCubit>()
+                          .getChessGameFromId('J9iArtcQ');
                     },
                     child: const Text(
                       'Press for data',

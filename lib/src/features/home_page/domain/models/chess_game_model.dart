@@ -4,7 +4,7 @@ class ChessGameModel {
     required this.rated,
   });
   final String id;
-  final String rated;
+  final bool rated;
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],

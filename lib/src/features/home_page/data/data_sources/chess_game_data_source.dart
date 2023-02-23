@@ -1,15 +1,26 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class ChessGameDataSource {
-  Future<List<Map<String, dynamic>>?> getChessGame(String id) async {
+  Future<List<Map<String, dynamic>>?> getChessGames(String id) async {
+    final dio = Dio();
+    dio.options.headers = {"Accept": "application/x-ndjson"};
+
     try {
-      final response = await Dio()
-          .get<List<dynamic>>('https://lichess.org/api/game/export/$id');
-      final listDynamic = response.data;
-      if (listDynamic == null) {
+      final response = await dio.get(
+          'https://lichess.org/api/games/user/Pliskin420?max=3&rated=true');
+      if (response.data == null) {
         return null;
       }
-      return listDynamic.map((e) => e as Map<String, dynamic>).toList();
+      List<dynamic> responseAsDynamicList =
+          const LineSplitter().convert(response.data);
+      final List<Map<String, dynamic>> responseAsMapList = [];
+      for (final response in responseAsDynamicList) {
+        responseAsMapList.add(jsonDecode(response));
+      }
+      return responseAsMapList;
+
     } on DioError catch (error) {
       throw Exception(error.response?.data ?? '');
     }
