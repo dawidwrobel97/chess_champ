@@ -37,8 +37,27 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HomePageBody extends StatelessWidget {
+class _HomePageBody extends StatefulWidget {
   const _HomePageBody();
+
+  @override
+  State<_HomePageBody> createState() => _HomePageBodyState();
+}
+
+class _HomePageBodyState extends State<_HomePageBody> {
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textEditingController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +67,22 @@ class _HomePageBody extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: const [
-            _SearchTextField(),
-            _GridviewBuilder(),
+          children: [
+            _SearchTextField(
+              textEditingController: _textEditingController,
+              onTextChanged: (newValue) {
+                setState(() {
+                  _textEditingController.text = newValue;
+                });
+              },
+            ),
+            const _GridviewBuilder(),
+            SizedBox(
+              height: 100,
+              child: Text(
+                _textEditingController.text,
+              ),
+            )
           ],
         ),
       ),
@@ -59,7 +91,13 @@ class _HomePageBody extends StatelessWidget {
 }
 
 class _SearchTextField extends StatelessWidget {
-  const _SearchTextField();
+  const _SearchTextField({
+    required this.textEditingController,
+    required this.onTextChanged,
+  });
+
+  final TextEditingController textEditingController;
+  final Function(String) onTextChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +105,18 @@ class _SearchTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          FractionallySizedBox(
-            widthFactor: 0.9,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  filled: true,
-                  fillColor: const Color(0xFFDDDBDB),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: textEditingController,
+              onChanged: onTextChanged,
+              decoration: InputDecoration(
+                labelText: 'Username',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
+                filled: true,
+                fillColor: const Color(0xFFDDDBDB),
               ),
             ),
           ),
