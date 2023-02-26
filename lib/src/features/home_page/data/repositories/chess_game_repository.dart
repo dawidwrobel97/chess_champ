@@ -6,7 +6,7 @@ class ChessGameRepository {
 
   final ChessGameDataSource _chessGameDataSource;
 
-  Future<List<ChessGameModel>?> getChessGameFromId(String id) async {
+  Future<List<ChessGameModel>?> getUserChessGamesFromId(String id) async {
     final json = await _chessGameDataSource.getChessGames(id);
 
     if (json == null) {

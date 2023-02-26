@@ -1,5 +1,6 @@
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
+import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,28 +12,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          HomePageCubit(ChessGameRepository(ChessGameDataSource())),
-      child: BlocBuilder<HomePageCubit, HomePageState>(
-        builder: (context, state) {
-          return Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "lib/src/assets/images/background_image.png",
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                "lib/src/assets/images/background_image.png",
               ),
-              const _HomePageBody(),
-            ],
-          );
-        },
-      ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const _HomePageBody(),
+      ],
     );
   }
 }
@@ -61,25 +54,31 @@ class _HomePageBodyState extends State<_HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            _SearchTextField(
-              textEditingController: _textEditingController,
-            ),
-            const _GridviewBuilder(),
-            SizedBox(
-              height: 100,
-              child: Text(
-                _textEditingController.text,
+    return BlocProvider(
+      create: (context) =>
+          HomePageCubit(ChessGameRepository(ChessGameDataSource())),
+      child: BlocBuilder<HomePageCubit, HomePageState>(
+        builder: (context, state) {
+          final chessGamesModels = state.listOfChessGamesModels;
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  _SearchTextField(
+                    textEditingController: _textEditingController,
+                  ),
+                  _GridviewBuilder(chessGamesModels: chessGamesModels),
+                  Text(
+                    _textEditingController.text,
+                  )
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -113,7 +112,11 @@ class _SearchTextField extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context
+                  .read<HomePageCubit>()
+                  .getUserChessGamesFromId(textEditingController.text);
+            },
             child: const Text(
               'Search',
             ),
@@ -125,7 +128,9 @@ class _SearchTextField extends StatelessWidget {
 }
 
 class _GridviewBuilder extends StatelessWidget {
-  const _GridviewBuilder();
+  const _GridviewBuilder({required this.chessGamesModels});
+
+  final List<ChessGameModel>? chessGamesModels;
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +143,21 @@ class _GridviewBuilder extends StatelessWidget {
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
           ),
-          // itemCount: state.chessModel?.length ?? 0,
-          itemCount: 5,
+          itemCount: chessGamesModels?.length ?? 0,
           itemBuilder: (context, index) {
-            return const Placeholder();
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(chessGamesModels![index].id),
+                  Text(chessGamesModels![index].rated.toString()),
+                ],
+              ),
+            );
           },
         ),
       ),

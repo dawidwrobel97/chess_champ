@@ -3,8 +3,8 @@ part of 'home_page_cubit.dart';
 @immutable
 class HomePageState {
   const HomePageState({
-    this.chessModel,
+    this.listOfChessGamesModels,
   });
 
-  final List<ChessGameModel>? chessModel;
+  final List<ChessGameModel>? listOfChessGamesModels;
 }
