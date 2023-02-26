@@ -70,11 +70,6 @@ class _HomePageBodyState extends State<_HomePageBody> {
           children: [
             _SearchTextField(
               textEditingController: _textEditingController,
-              onTextChanged: (newValue) {
-                setState(() {
-                  _textEditingController.text = newValue;
-                });
-              },
             ),
             const _GridviewBuilder(),
             SizedBox(
@@ -93,11 +88,9 @@ class _HomePageBodyState extends State<_HomePageBody> {
 class _SearchTextField extends StatelessWidget {
   const _SearchTextField({
     required this.textEditingController,
-    required this.onTextChanged,
   });
 
   final TextEditingController textEditingController;
-  final Function(String) onTextChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +102,6 @@ class _SearchTextField extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: textEditingController,
-              onChanged: onTextChanged,
               decoration: InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(
