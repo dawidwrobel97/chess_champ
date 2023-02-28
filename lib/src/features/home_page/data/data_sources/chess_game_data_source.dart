@@ -9,7 +9,7 @@ class ChessGameDataSource {
 
     try {
       final response = await dio.get(
-          'https://lichess.org/api/games/user/$id?max=10&rated=true&analysed=true&evals=true');
+          'https://lichess.org/api/games/user/$id?max=10&rated=true&analysed=true&evals=true&lastFen=true');
       if (response.data == null) {
         return null;
       }

@@ -1,5 +1,4 @@
 import 'package:chess_app/src/common_widgets/app_bar.dart';
-import 'package:chess_app/src/features/chess_game/presentation/chess_game.dart';
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
@@ -66,21 +65,6 @@ class _HomePageBodyState extends State<_HomePageBody> {
           return Scaffold(
             backgroundColor: Colors.transparent,
             appBar: const MyAppBar(),
-            endDrawer: Drawer(
-              child: ListView(
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ChessGame(),
-                          ),
-                        );
-                      },
-                      child: const Text('test'))
-                ],
-              ),
-            ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

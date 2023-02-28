@@ -1,4 +1,5 @@
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_thumbnail.dart';
 import 'package:flutter/material.dart';
 
 class GridviewBuilder extends StatelessWidget {
@@ -22,18 +23,8 @@ class GridviewBuilder extends StatelessWidget {
           ),
           itemCount: chessGamesModels?.length ?? 0,
           itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-              ),
-              child: Column(
-                children: [
-                  Text(chessGamesModels![index].id),
-                  Text(chessGamesModels![index].rated.toString()),
-                ],
-              ),
+            return ChessGameThumbnail(
+              chessGameModel: chessGamesModels![index],
             );
           },
         ),
