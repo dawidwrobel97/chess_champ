@@ -68,12 +68,8 @@ class _HomePageBodyState extends State<_HomePageBody> {
               child: Column(
                 children: [
                   _SearchTextField(
-                    textEditingController: _textEditingController,
-                  ),
+                      textEditingController: _textEditingController),
                   _GridviewBuilder(chessGamesModels: chessGamesModels),
-                  Text(
-                    _textEditingController.text,
-                  )
                 ],
               ),
             ),
@@ -113,9 +109,7 @@ class _SearchTextField extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context
-                  .read<HomePageCubit>()
-                  .getUserChessGamesFromId(textEditingController.text);
+              submit(context);
             },
             child: const Text(
               'Search',
@@ -124,6 +118,13 @@ class _SearchTextField extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void submit(BuildContext context) {
+    context
+        .read<HomePageCubit>()
+        .getUserChessGamesFromId(textEditingController.text);
+    textEditingController.clear();
   }
 }
 
