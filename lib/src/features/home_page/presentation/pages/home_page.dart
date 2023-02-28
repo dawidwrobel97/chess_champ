@@ -1,7 +1,8 @@
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/gridview_builder.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,9 +68,9 @@ class _HomePageBodyState extends State<_HomePageBody> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  _SearchTextField(
+                  SearchTextField(
                       textEditingController: _textEditingController),
-                  _GridviewBuilder(chessGamesModels: chessGamesModels),
+                  GridviewBuilder(chessGamesModels: chessGamesModels),
                 ],
               ),
             ),
@@ -80,88 +81,4 @@ class _HomePageBodyState extends State<_HomePageBody> {
   }
 }
 
-class _SearchTextField extends StatelessWidget {
-  const _SearchTextField({
-    required this.textEditingController,
-  });
 
-  final TextEditingController textEditingController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: textEditingController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                filled: true,
-                fillColor: const Color(0xFFDDDBDB),
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              submit(context);
-            },
-            child: const Text(
-              'Search',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void submit(BuildContext context) {
-    context
-        .read<HomePageCubit>()
-        .getUserChessGamesFromId(textEditingController.text);
-    textEditingController.clear();
-  }
-}
-
-class _GridviewBuilder extends StatelessWidget {
-  const _GridviewBuilder({required this.chessGamesModels});
-
-  final List<ChessGameModel>? chessGamesModels;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-          ),
-          itemCount: chessGamesModels?.length ?? 0,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-              ),
-              child: Column(
-                children: [
-                  Text(chessGamesModels![index].id),
-                  Text(chessGamesModels![index].rated.toString()),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
