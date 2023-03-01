@@ -2,7 +2,7 @@ import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/listview_builder.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/chess_games_list.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,7 +71,7 @@ class _HomePageBodyState extends State<_HomePageBody> {
                 children: [
                   SearchTextField(
                       textEditingController: _textEditingController),
-                  ListviewBuilder(chessGamesModels: chessGamesModels),
+                  ChessGamesList(chessGamesModels: chessGamesModels),
                 ],
               ),
             ),

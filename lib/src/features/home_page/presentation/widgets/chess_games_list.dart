@@ -4,8 +4,8 @@ import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_thumbnail.dart';
 import 'package:flutter/material.dart';
 
-class ListviewBuilder extends StatelessWidget {
-  const ListviewBuilder({
+class ChessGamesList extends StatelessWidget {
+  const ChessGamesList({
     super.key,
     required this.chessGamesModels,
   });
