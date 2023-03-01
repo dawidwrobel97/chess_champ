@@ -1,4 +1,5 @@
 import 'package:chess_app/src/common_widgets/app_bar.dart';
+import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
@@ -71,7 +72,35 @@ class _HomePageBodyState extends State<_HomePageBody> {
                 children: [
                   SearchTextField(
                       textEditingController: _textEditingController),
-                  ChessGamesList(chessGamesModels: chessGamesModels),
+                  Builder(builder: (context) {
+                    switch (state.status) {
+                      case Status.initial:
+                        return const SizedBox.shrink();
+                      case Status.loading:
+                        return Expanded(
+                          child: Column(
+                            children: const [
+                              Expanded(
+                                flex: 3,
+                                child: SizedBox(),
+                              ),
+                              CircularProgressIndicator(color: Colors.blue),
+                              Expanded(
+                                flex: 4,
+                                child: SizedBox(),
+                              ),
+                            ],
+                          ),
+                        );
+                      case Status.error:
+                        return Center(
+                          child: SizedBox(child: Text(state.errorMessage!)),
+                        );
+                      case Status.success:
+                        return ChessGamesList(
+                            chessGamesModels: chessGamesModels);
+                    }
+                  }),
                 ],
               ),
             ),

@@ -8,8 +8,8 @@ class ChessGameDataSource {
     dio.options.headers = {"Accept": "application/x-ndjson"};
 
     try {
-      final response = await dio.get(
-          'https://lichess.org/api/games/user/$id?max=10&rated=true&analysed=true&evals=true&lastFen=true');
+      final response = await dio
+          .get('https://lichess.org/api/games/user/$id?max=10&lastFen=true');
       if (response.data == null) {
         return null;
       }
