@@ -47,6 +47,7 @@ class SearchTextField extends StatelessWidget {
     context
         .read<HomePageCubit>()
         .getUserChessGamesFromId(textEditingController.text.trim());
+    FocusScope.of(context).unfocus();
     textEditingController.clear();
   }
 }

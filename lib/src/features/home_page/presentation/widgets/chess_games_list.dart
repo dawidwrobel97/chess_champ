@@ -24,10 +24,13 @@ class ChessGamesList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
-                  SizedBox(
-                    height: 150,
-                    child: ChessGameThumbnail(
-                      chessGameModel: chessGamesModels![index],
+                  Hero(
+                    tag: chessGamesModels![index].id,
+                    child: SizedBox(
+                      height: 150,
+                      child: ChessGameThumbnail(
+                        chessGameModel: chessGamesModels![index],
+                      ),
                     ),
                   ),
                   Expanded(

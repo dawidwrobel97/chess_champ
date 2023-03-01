@@ -3,7 +3,7 @@ import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_da
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_games_list.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/searchbar.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/search_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
