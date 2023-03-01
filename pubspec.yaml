@@ -40,6 +40,7 @@ dependencies:
   meta: ^1.8.0
   flutter_bloc: ^8.1.2
   flutter_chess_board: ^1.0.1
+  flutter_stateless_chessboard: ^1.1.2
 
 dev_dependencies:
   flutter_test:

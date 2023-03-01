@@ -2,31 +2,37 @@ import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.
 import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-class ChessGameThumbnail extends StatefulWidget {
-  const ChessGameThumbnail({
+class ChessGame extends StatefulWidget {
+  const ChessGame({
     super.key,
     required this.chessGameModel,
   });
 
   final ChessGameModel chessGameModel;
+
   @override
-  State<ChessGameThumbnail> createState() => _ChessGameThumbnailState();
+  State<ChessGame> createState() => _ChessGameState();
 }
 
-class _ChessGameThumbnailState extends State<ChessGameThumbnail> {
-  ChessBoardController controller = ChessBoardController();
+
+class _ChessGameState extends State<ChessGame> {
+  
+ChessBoardController controller = ChessBoardController();
 
   @override
   void initState() {
     super.initState();
+    controller.addListener(() {});
     controller.loadFen(widget.chessGameModel.lastFen);
   }
 
   @override
   Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: ChessBoard(
-        controller: controller,
+    return Scaffold(
+      body: Center(
+        child: ChessBoard(
+          controller: controller,
+        ),
       ),
     );
   }
