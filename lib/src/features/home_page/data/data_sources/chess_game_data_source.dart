@@ -16,8 +16,9 @@ class ChessGameDataSource {
       List<dynamic> responseAsDynamicList =
           const LineSplitter().convert(response.data);
       final List<Map<String, dynamic>> responseAsMapList = [];
-      for (final response in responseAsDynamicList) {
-        responseAsMapList.add(jsonDecode(response));
+      for (var i = 0; i < responseAsDynamicList.length; i++) {
+        responseAsMapList.add(jsonDecode(responseAsDynamicList[i]));
+        responseAsMapList[i].addAll({'userID': id});
       }
       return responseAsMapList;
     } on DioError catch (error) {
