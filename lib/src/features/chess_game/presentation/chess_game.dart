@@ -1,5 +1,5 @@
 import 'package:chess_app/src/common_widgets/app_bar.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/features/home_page/domain/models/chess_game_model/chess_game_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 

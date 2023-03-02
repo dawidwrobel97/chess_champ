@@ -1,6 +1,6 @@
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/chess_game/presentation/chess_game.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/features/home_page/domain/models/chess_game_model/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_thumbnail.dart';
 import 'package:flutter/material.dart';
 

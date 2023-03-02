@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/features/home_page/domain/models/chess_game_model/chess_game_model.dart';
 import 'package:meta/meta.dart';
 
 part 'home_page_state.dart';
