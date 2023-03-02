@@ -8,39 +8,14 @@ import 'package:chess_app/src/features/home_page/presentation/widgets/search_tex
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-  });
+class ChessHomePage extends StatefulWidget {
+  const ChessHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "lib/src/assets/images/background_image.png",
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        const _HomePageBody(),
-      ],
-    );
-  }
+  State<ChessHomePage> createState() => ChessHomePageState();
 }
 
-class _HomePageBody extends StatefulWidget {
-  const _HomePageBody();
-
-  @override
-  State<_HomePageBody> createState() => _HomePageBodyState();
-}
-
-class _HomePageBodyState extends State<_HomePageBody> {
+class ChessHomePageState extends State<ChessHomePage> {
   late TextEditingController _textEditingController;
 
   @override
@@ -64,7 +39,7 @@ class _HomePageBodyState extends State<_HomePageBody> {
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
           return Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor: const Color.fromARGB(255, 61, 61, 61),
             appBar: const MyAppBar(),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
