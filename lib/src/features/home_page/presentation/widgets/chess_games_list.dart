@@ -24,62 +24,68 @@ class ChessGamesList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
-                  Hero(
-                    tag: chessGamesModels![index].id,
-                    child: SizedBox(
-                      height: 150,
-                      child: ChessGameThumbnail(
-                        chessGameModel: chessGamesModels![index],
-                      ),
-                    ),
+                  ChessGameThumbnail(
+                    chessGameModel: chessGamesModels![index],
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 150,
-                      color: Colors.white,
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Gra ${chessGamesModels![index].id}',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            PopupMenuButton<MenuItem>(
-                              onSelected: (value) async {
-                                if (MenuItem.select == value) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ChessGame(
-                                        chessGameModel:
-                                            chessGamesModels![index],
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              itemBuilder: (context) => const [
-                                PopupMenuItem(
-                                  value: MenuItem.select,
-                                  child: Text('Wybierz'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
+                  _GameDescription(chessGamesModel: chessGamesModels![index])
                 ],
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _GameDescription extends StatelessWidget {
+  const _GameDescription({
+    required this.chessGamesModel,
+  });
+
+  final ChessGameModel chessGamesModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        height: 150,
+        color: Colors.white,
+        child: Center(
+          child: Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Gra ${chessGamesModel.id} \nNajwiększa róznica: ${chessGamesModel.largestNumberDifference}',
+                    ),
+                  ),
+                ],
+              ),
+              PopupMenuButton<MenuItem>(
+                onSelected: (value) async {
+                  if (MenuItem.select == value) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChessGame(
+                          chessGameModel: chessGamesModel,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                itemBuilder: (context) => const [
+                  PopupMenuItem(
+                    value: MenuItem.select,
+                    child: Text('Wybierz'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

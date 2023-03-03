@@ -24,13 +24,19 @@ class _ChessGameThumbnailState extends State<ChessGameThumbnail> {
 
   @override
   Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: ChessBoard(
-        controller: controller,
-        boardOrientation:
-            widget.chessGameModel.userID == widget.chessGameModel.whitePlayer
+    return Hero(
+      tag: widget.chessGameModel.id,
+      child: SizedBox(
+        height: 150,
+        child: IgnorePointer(
+          child: ChessBoard(
+            controller: controller,
+            boardOrientation: widget.chessGameModel.userID ==
+                    widget.chessGameModel.whitePlayer
                 ? PlayerColor.white
                 : PlayerColor.black,
+          ),
+        ),
       ),
     );
   }
