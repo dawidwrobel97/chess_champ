@@ -12,7 +12,7 @@ class ChessGameModel {
   final String lastFen;
   final String whitePlayer;
   final String blackPlayer;
-  final List movesAnalysis;
+  final List<dynamic> movesAnalysis;
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -24,11 +24,15 @@ class ChessGameModel {
 
   int get largestNumberDifference {
     int currentBiggestDifference = 0;
-    for (var i = 0; i < movesAnalysis.length; i++) {
+    for (var i = 0; i < movesAnalysis.length - 1; i++) {
+      if (movesAnalysis[i].containsKey('mate') ||
+          movesAnalysis[i + 1].containsKey('mate')) {
+        continue;
+      }
       int currentDifference =
           movesAnalysis[i]['eval'] - movesAnalysis[i + 1]['eval'];
-      if (currentDifference.abs() > currentBiggestDifference) {
-        currentBiggestDifference == currentDifference.abs();
+      if ((currentDifference).abs() > currentBiggestDifference) {
+        currentBiggestDifference = (currentDifference).abs();
       }
     }
     return currentBiggestDifference;
