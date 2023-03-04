@@ -13,16 +13,22 @@ class ChessGameDataSource {
       if (response.data == null) {
         return null;
       }
-      List<dynamic> responseAsDynamicList =
+      // Lichess API sends it's response in a specific way where each line is it's own json string
+      // so we need to seperate them and put them in a List first
+      List<String> responseAsListOfStrings =
           const LineSplitter().convert(response.data);
-      final List<Map<String, dynamic>> responseAsMapList = [];
-      for (var i = 0; i < responseAsDynamicList.length; i++) {
-        responseAsMapList.add(jsonDecode(responseAsDynamicList[i]));
-        responseAsMapList[i].addAll({'userID': id});
+      final List<Map<String, dynamic>> responseAsListMap = [];
+      for (var i = 0; i < responseAsListOfStrings.length; i++) {
+        responseAsListMap.add(jsonDecode(responseAsListOfStrings[i]));
+        responseAsListMap[i].addAll({'userID': id});
       }
-      return responseAsMapList;
+      return responseAsListMap;
     } on DioError catch (error) {
-      throw Exception(error.response?.data ?? '');
+      if (error.message ==
+          'The request returned an invalid status code of 404.') {
+        throw ('Error: This username doesn\'t exist!');
+      }
+      throw (error.response?.data ?? 'Unknown error');
     }
   }
 }
