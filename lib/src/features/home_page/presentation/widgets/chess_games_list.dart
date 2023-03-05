@@ -61,11 +61,11 @@ class _GameDescription extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text('Gra ${chessGamesModel.gameId}'),
+                          Text('Game ${chessGamesModel.gameId}'),
                           Text(
-                              'Największa róznica: ${chessGamesModel.largestNumberDifference['biggestDifference']}'),
+                              'Biggest mistake: ${chessGamesModel.largestNumberDifference['biggestDifference']}'),
                           Text(
-                              'Największy błąd popełniony na ruchu ${chessGamesModel.largestNumberDifference['moveNumberOfBiggestDifference']}')
+                              'Biggest mistake was made on move ${chessGamesModel.largestNumberDifference['moveNumberOfBiggestDifference']}')
                         ],
                       ),
                     ),

@@ -22,7 +22,7 @@ class ChessGameModel {
         blackPlayer = json['players']['black']['user']['name'],
         movesAnalysis = json['analysis'];
 
-  Map<String, int> get largestNumberDifference {
+  Map<String, dynamic> get largestNumberDifference {
     int biggestDifference = 0;
     int moveNumberOfBiggestDifference = 0;
     for (var i = 0; i < movesAnalysis.length - 1; i++) {
@@ -31,6 +31,8 @@ class ChessGameModel {
           movesAnalysis[i + 1].containsKey('mate')) {
         continue;
       }
+      // We only want to see our mistakes so we ignore moves made by our opponent
+      // All moves by white are even and all moves by black are odd so this filters the moves based on which color the user is
       if (userId == whitePlayer) {
         if ((i % 2) != 0) {
           continue;
@@ -54,7 +56,7 @@ class ChessGameModel {
       }
     }
     return {
-      'biggestDifference': biggestDifference,
+      'biggestDifference': biggestDifference / 100,
       'moveNumberOfBiggestDifference': moveNumberOfBiggestDifference,
     };
   }
