@@ -20,7 +20,9 @@ class ChessGameDataSource {
       final List<Map<String, dynamic>> responseAsListMap = [];
       for (var i = 0; i < responseAsListOfStrings.length; i++) {
         responseAsListMap.add(jsonDecode(responseAsListOfStrings[i]));
-        responseAsListMap[i].addAll({'userID': id});
+        responseAsListMap[i].addAll({'userId': id});
+        // Analysis doesn't have the starting position analysis in it so I have to add one myself
+        responseAsListMap[i]['analysis'].insert(0, {'eval': 26});
       }
       return responseAsListMap;
     } on DioError catch (error) {

@@ -1,7 +1,7 @@
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/chess_game/presentation/chess_game.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_thumbnail.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:flutter/material.dart';
 
 class ChessGamesList extends StatelessWidget {
@@ -24,7 +24,7 @@ class ChessGamesList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
-                  ChessGameThumbnail(
+                  _ChessGameThumbnail(
                     chessGameModel: chessGamesModels![index],
                   ),
                   _GameDescription(chessGamesModel: chessGamesModels![index])
@@ -54,15 +54,23 @@ class _GameDescription extends StatelessWidget {
         child: Center(
           child: Row(
             children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Gra ${chessGamesModel.id} \nNajwiększa róznica: ${chessGamesModel.largestNumberDifference}',
+              Flexible(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text('Gra ${chessGamesModel.gameId}'),
+                          Text(
+                              'Największa róznica: ${chessGamesModel.largestNumberDifference['biggestDifference']}'),
+                          Text(
+                              'Największy błąd popełniony na ruchu ${chessGamesModel.largestNumberDifference['moveNumberOfBiggestDifference']}')
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               PopupMenuButton<MenuItem>(
                 onSelected: (value) async {
@@ -85,6 +93,45 @@ class _GameDescription extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChessGameThumbnail extends StatefulWidget {
+  const _ChessGameThumbnail({
+    required this.chessGameModel,
+  });
+
+  final ChessGameModel chessGameModel;
+  @override
+  State<_ChessGameThumbnail> createState() => _ChessGameThumbnailState();
+}
+
+class _ChessGameThumbnailState extends State<_ChessGameThumbnail> {
+  ChessBoardController controller = ChessBoardController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.loadFen(widget.chessGameModel.lastFen);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: widget.chessGameModel.gameId,
+      child: SizedBox(
+        height: 150,
+        child: IgnorePointer(
+          child: ChessBoard(
+            controller: controller,
+            boardOrientation: widget.chessGameModel.userId ==
+                    widget.chessGameModel.whitePlayer
+                ? PlayerColor.white
+                : PlayerColor.black,
           ),
         ),
       ),

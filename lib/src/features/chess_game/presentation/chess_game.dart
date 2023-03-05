@@ -31,10 +31,10 @@ class _ChessGameState extends State<ChessGame> {
       appBar: const MyAppBar(),
       body: Center(
         child: Hero(
-          tag: widget.chessGameModel.id,
+          tag: widget.chessGameModel.gameId,
           child: ChessBoard(
             controller: controller,
-            boardOrientation: widget.chessGameModel.userID ==
+            boardOrientation: widget.chessGameModel.userId ==
                     widget.chessGameModel.whitePlayer
                 ? PlayerColor.white
                 : PlayerColor.black,
