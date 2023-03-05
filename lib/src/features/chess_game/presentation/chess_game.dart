@@ -22,7 +22,14 @@ class _ChessGameState extends State<ChessGame> {
   void initState() {
     super.initState();
     controller.addListener(() {});
-    controller.loadFen(widget.chessGameModel.lastFen);
+    for (var i = 0;
+        i <
+            widget.chessGameModel
+                .largestNumberDifference['moveNumberOfBiggestDifference'];
+        i++) {
+      controller
+          .makeMoveWithNormalNotation(widget.chessGameModel.movesAsList[i]);
+    }
   }
 
   @override

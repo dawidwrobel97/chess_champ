@@ -6,6 +6,7 @@ class ChessGameModel {
     required this.whitePlayer,
     required this.blackPlayer,
     required this.movesAnalysis,
+    required this.movesAsList,
   });
   final String gameId;
   final String userId;
@@ -13,6 +14,7 @@ class ChessGameModel {
   final String whitePlayer;
   final String blackPlayer;
   final List<dynamic> movesAnalysis;
+  final List<String> movesAsList;
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : gameId = json['id'],
@@ -20,7 +22,8 @@ class ChessGameModel {
         lastFen = json['lastFen'],
         whitePlayer = json['players']['white']['user']['name'],
         blackPlayer = json['players']['black']['user']['name'],
-        movesAnalysis = json['analysis'];
+        movesAnalysis = json['analysis'],
+        movesAsList = json['movesAsList'];
 
   Map<String, dynamic> get largestNumberDifference {
     int biggestDifference = 0;

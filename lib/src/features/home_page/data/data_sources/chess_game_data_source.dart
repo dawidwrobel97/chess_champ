@@ -23,6 +23,8 @@ class ChessGameDataSource {
         responseAsListMap[i].addAll({'userId': id});
         // Analysis doesn't have the starting position analysis in it so I have to add one myself
         responseAsListMap[i]['analysis'].insert(0, {'eval': 26});
+        List<String> movesAsList = responseAsListMap[i]['moves'].split(' ');
+        responseAsListMap[i].addAll({'movesAsList': movesAsList});
       }
       return responseAsListMap;
     } on DioError catch (error) {
