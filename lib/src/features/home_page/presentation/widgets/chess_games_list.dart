@@ -24,6 +24,7 @@ class ChessGamesList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
+                  const Divider(),
                   _ChessGameThumbnail(
                     chessGameModel: chessGamesModels![index],
                   ),
