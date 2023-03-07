@@ -25,7 +25,7 @@ class _ChessGameState extends State<ChessGame> {
     for (var i = 0;
         i <
             widget.chessGameModel
-                .largestNumberDifference['moveNumberOfBiggestDifference'];
+                .biggestMistakeInGame['moveOnWhichMistakeHappened'];
         i++) {
       controller
           .makeMoveWithNormalNotation(widget.chessGameModel.movesAsList[i]);
