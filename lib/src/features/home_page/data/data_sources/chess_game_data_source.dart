@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class ChessGameDataSource {
-  Future<List<Map<String, dynamic>>?> getChessGames(String id) async {
+  Future<List<Map<String, dynamic>>?> getUserChessGamesFromId(String id) async {
     final dio = Dio();
     dio.options.headers = {"Accept": "application/x-ndjson"};
 

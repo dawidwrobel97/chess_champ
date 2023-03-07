@@ -1,7 +1,7 @@
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
-import 'package:chess_app/src/features/home_page/data/repositories/chess_game_repository.dart';
+import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/cubit/home_page_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_games_list.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/search_textfield.dart';
@@ -34,7 +34,7 @@ class ChessHomePageState extends State<ChessHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          HomePageCubit(ChessGameRepository(ChessGameDataSource())),
+          HomePageCubit(UserChessGamesRepository(ChessGameDataSource())),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
