@@ -51,7 +51,7 @@ class ChessGameRepository {
           hasMistake = true;
         }
         // In analysis there are 3 names for mistakes based on how bad they are: blunder, mistake and inaccuracy
-        // but sometimes mistakes can have bigger difference number while not being as important as blunders
+        // but sometimes mistakes and innacuracies can technically have bigger difference number while not being as important as blunders
         // that's why if there is a blunder it should always take priority
         if (chessGame.movesAnalysis[i]['judgment']['name'] == 'Mistake' &&
             hasBlunder == true) {
