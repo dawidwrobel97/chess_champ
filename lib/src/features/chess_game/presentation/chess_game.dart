@@ -45,6 +45,13 @@ class _ChessGameState extends State<ChessGame> {
                     widget.chessGameModel.whitePlayer
                 ? PlayerColor.white
                 : PlayerColor.black,
+            arrows: [
+              BoardArrow(
+                from: 'd2',
+                to: 'd4',
+                color: Colors.red.withOpacity(0.5),
+              ),
+            ],
           ),
         ),
       ),
