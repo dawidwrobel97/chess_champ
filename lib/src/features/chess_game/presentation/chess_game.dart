@@ -18,21 +18,6 @@ class ChessGame extends StatefulWidget {
 }
 
 class _ChessGameState extends State<ChessGame> {
-  ChessBoardController controller = ChessBoardController();
-
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(() {});
-    for (var i = 0;
-        i <
-            widget.chessGameModel
-                .biggestMistakeInGame['moveOnWhichMistakeHappened'];
-        i++) {
-      controller
-          .makeMoveWithNormalNotation(widget.chessGameModel.movesAsList[i]);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +31,7 @@ class _ChessGameState extends State<ChessGame> {
               child: Hero(
                 tag: widget.chessGameModel.gameId,
                 child: ChessBoard(
-                  controller: controller,
+                  controller: state.chessBoardController!,
                   boardOrientation: widget.chessGameModel.userId ==
                           widget.chessGameModel.whitePlayer
                       ? PlayerColor.white

@@ -6,9 +6,11 @@ class ChessGameState {
     this.status = Status.initial,
     this.errorMessage,
     this.chessGameModel,
+    this.chessBoardController,
   });
 
   final Status status;
   final String? errorMessage;
   final ChessGameModel? chessGameModel;
+  final ChessBoardController? chessBoardController;
 }
