@@ -9,8 +9,7 @@ part 'chess_game_state.dart';
 class ChessGameCubit extends Cubit<ChessGameState> {
   ChessGameCubit() : super(const ChessGameState());
 
-  ChessBoardController chessBoardController = ChessBoardController()
-    ..addListener(() {});
+  ChessBoardController chessBoardController = ChessBoardController();
 
   Future<void> start(ChessGameModel chessGameModel) async {
     for (var i = 0;

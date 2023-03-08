@@ -18,7 +18,6 @@ class ChessGame extends StatefulWidget {
 }
 
 class _ChessGameState extends State<ChessGame> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
