@@ -77,11 +77,15 @@ class BottomSquareAnnotation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const int outlineOffset = 5;
+    const int margin = 3;
+    final double sizeOfASingleSquare =
+        (MediaQuery.of(context).size.width - outlineOffset) / 8;
     return Positioned(
       bottom: 2,
-      left: (MediaQuery.of(context).size.width - 2) / 8 -
-          ((MediaQuery.of(context).size.width - 2) / 8 / 6) +
-          squareNumber * ((MediaQuery.of(context).size.width - 2) / 8),
+      left: sizeOfASingleSquare -
+          (sizeOfASingleSquare - margin) +
+          squareNumber * sizeOfASingleSquare,
       child: Text(
         squareName,
         style: TextStyle(
