@@ -64,9 +64,9 @@ class _GameDescription extends StatelessWidget {
                         children: [
                           Text('Game ${chessGamesModel.gameId}'),
                           Text(
-                              'Biggest mistake: ${chessGamesModel.biggestMistakeInGame['biggestDifference']}'),
+                              'Biggest mistake: ${chessGamesModel.biggestScoreDifference}'),
                           Text(
-                              'Biggest mistake was made on move ${chessGamesModel.biggestMistakeInGame['moveOnWhichMistakeHappened']}')
+                              'Biggest mistake was made on move ${chessGamesModel.moveOnWhichMistakeHappened}')
                         ],
                       ),
                     ),

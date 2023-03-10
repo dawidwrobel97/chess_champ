@@ -42,6 +42,8 @@ dependencies:
   flutter_chess_board: ^1.0.1
   flutter_stateless_chessboard: ^1.1.2
   json_annotation: ^4.8.0
+  chess: ^0.7.0
+
 
 dev_dependencies:
   flutter_test:

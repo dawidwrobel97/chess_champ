@@ -13,7 +13,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
 
   Future<void> start(ChessGameModel chessGameModel) async {
     for (var i = 0;
-        i < chessGameModel.biggestMistakeInGame['moveOnWhichMistakeHappened'];
+        i < chessGameModel.biggestScoreDifference;
         i++) {
       chessBoardController
           .makeMoveWithNormalNotation(chessGameModel.movesAsList[i]);

@@ -4,7 +4,7 @@ import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chess_board/flutter_chess_board.dart' as chess;
+import 'package:flutter_chess_board/flutter_chess_board.dart' as ch;
 
 class ChessGame extends StatefulWidget {
   const ChessGame({
@@ -40,12 +40,14 @@ class _ChessGameState extends State<ChessGame> {
                     children: [
                       Hero(
                         tag: widget.chessGameModel.gameId,
-                        child: chess.ChessBoard(
+                        child: ch.ChessBoard(
+                          onMove: () {
+                          },
                           controller: state.chessBoardController!,
                           boardOrientation: widget.chessGameModel.userId ==
                                   widget.chessGameModel.whitePlayer
-                              ? chess.PlayerColor.white
-                              : chess.PlayerColor.black,
+                              ? ch.PlayerColor.white
+                              : ch.PlayerColor.black,
                         ),
                       ),
                       for (var i = 0; i < 8; i++)
