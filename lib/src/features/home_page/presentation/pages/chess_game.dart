@@ -42,12 +42,22 @@ class _ChessGameState extends State<ChessGame> {
                         tag: widget.chessGameModel.gameId,
                         child: ch.ChessBoard(
                           onMove: () {
+                            context.read<ChessGameCubit>().madeMove(widget
+                                .chessGameModel.moveOnWhichMistakeHappened);
                           },
                           controller: state.chessBoardController!,
                           boardOrientation: widget.chessGameModel.userId ==
                                   widget.chessGameModel.whitePlayer
                               ? ch.PlayerColor.white
                               : ch.PlayerColor.black,
+                          arrows: [
+                            ch.BoardArrow(
+                              from: state.wrongMove!.move.fromAlgebraic
+                                  .toString(),
+                              to: state.wrongMove!.move.toAlgebraic.toString(),
+                              color: Colors.red.withOpacity(0.8),
+                            )
+                          ],
                         ),
                       ),
                       for (var i = 0; i < 8; i++)

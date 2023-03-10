@@ -75,7 +75,7 @@ class UserChessGamesRepository {
           }
         }
       }
-      chessGame.biggestScoreDifference = biggestDifference;
+      chessGame.biggestScoreDifference = biggestDifference/100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;

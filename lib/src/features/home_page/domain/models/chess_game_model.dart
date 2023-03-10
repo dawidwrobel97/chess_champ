@@ -16,7 +16,7 @@ class ChessGameModel {
   final String blackPlayer;
   final List<dynamic> movesAnalysis;
   final List<String> movesAsList;
-  int biggestScoreDifference = 0;
+  double biggestScoreDifference = 0;
   int moveOnWhichMistakeHappened = 0;
 
   ChessGameModel.fromJson(Map<String, dynamic> json)

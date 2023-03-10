@@ -7,10 +7,12 @@ class ChessGameState {
     this.errorMessage,
     this.chessGameModel,
     this.chessBoardController,
+    this.wrongMove,
   });
 
   final Status status;
   final String? errorMessage;
   final ChessGameModel? chessGameModel;
   final ChessBoardController? chessBoardController;
+  final State? wrongMove;
 }
