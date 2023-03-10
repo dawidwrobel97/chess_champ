@@ -45,28 +45,35 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.wrongMove!.move.fromAlgebraic) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.wrongMove!.move.toAlgebraic)) {
-      chessBoardController.undoMove();
-      // Check whether the move is not the best move
-    } else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
+      undoMove();
+    }
+    // Check whether the move is not the best move
+    // TO DO : Error that comes with pawns, it might be because the controller is in cubit, might be worth moving it back to front
+    else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
             state.chessGameModel!.bestMove[0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
             state.chessGameModel!.bestMove[1])) {
-      chessBoardController.undoMove();
-      print('Wrong Move');
-      // Check whether the move is the best possible move
-    } else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
+      undoMove();
+    }
+    // Check whether the move is the best possible move
+    else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
             state.chessGameModel!.bestMove[0]) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.chessGameModel!.bestMove[1])) {
-      emit(ChessGameState(
-        status: state.status,
-        errorMessage: state.errorMessage,
-        chessGameModel: state.chessGameModel,
-        chessBoardController: state.chessBoardController,
-        wrongMove: state.wrongMove,
-        enabledMoves: false,
-      ));
-      print('That is the move!!!!');
+      emit(
+        ChessGameState(
+          status: state.status,
+          errorMessage: state.errorMessage,
+          chessGameModel: state.chessGameModel,
+          chessBoardController: state.chessBoardController,
+          wrongMove: state.wrongMove,
+          enabledMoves: false,
+        ),
+      );
     }
+  }
+
+  Future<void> undoMove() async {
+    chessBoardController.undoMove();
   }
 }

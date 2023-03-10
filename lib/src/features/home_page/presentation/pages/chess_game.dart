@@ -61,11 +61,20 @@ class _ChessGameState extends State<ChessGame> {
                           ],
                         ),
                       ),
-                      for (var i = 0; i < 8; i++)
-                        BottomSquareAnnotation(
-                          squareName: squareNames[i],
-                          squareNumber: i,
-                        ),
+                      if (widget.chessGameModel.userId ==
+                          widget.chessGameModel.whitePlayer)
+                        for (var i = 0; i < 8; i++)
+                          WhiteBottomSquareAnnotation(
+                            squareName: squareNames[i],
+                            squareNumber: i,
+                          ),
+                      if (widget.chessGameModel.userId ==
+                          widget.chessGameModel.blackPlayer)
+                        for (var i = 0; i < 8; i++)
+                          BlackBottomSquareAnnotation(
+                            squareName: squareNames.reversed.toList()[i],
+                            squareNumber: i,
+                          ),
                     ],
                   ),
                 ],
@@ -78,8 +87,40 @@ class _ChessGameState extends State<ChessGame> {
   }
 }
 
-class BottomSquareAnnotation extends StatelessWidget {
-  const BottomSquareAnnotation({
+class WhiteBottomSquareAnnotation extends StatelessWidget {
+  const WhiteBottomSquareAnnotation({
+    super.key,
+    required this.squareName,
+    required this.squareNumber,
+  });
+
+  final String squareName;
+  final int squareNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    const int outlineOffset = 5;
+    const int margin = 3;
+    final double sizeOfASingleSquare =
+        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+    return Positioned(
+      bottom: 2,
+      left: sizeOfASingleSquare -
+          (sizeOfASingleSquare - margin) +
+          squareNumber * sizeOfASingleSquare,
+      child: Text(
+        squareName,
+        style: TextStyle(
+            color: squareNumber % 2 == 0
+                ? const Color(0xFFf0d9b5)
+                : const Color(0xFFb58863)),
+      ),
+    );
+  }
+}
+
+class BlackBottomSquareAnnotation extends StatelessWidget {
+  const BlackBottomSquareAnnotation({
     super.key,
     required this.squareName,
     required this.squareNumber,
