@@ -40,17 +40,20 @@ class ChessGameCubit extends Cubit<ChessGameState> {
   }
 
   Future<void> madeMove(int move) async {
-    if ((chessBoardController.game.history[move].move.from ==
-            state.wrongMove!.move.from) &&
-        (chessBoardController.game.history[move].move.to ==
-            state.wrongMove!.move.to)) {
+    // Check whether the move is same as the mistake
+    if ((chessBoardController.game.history[move].move.fromAlgebraic ==
+            state.wrongMove!.move.fromAlgebraic) &&
+        (chessBoardController.game.history[move].move.toAlgebraic ==
+            state.wrongMove!.move.toAlgebraic)) {
       chessBoardController.undoMove();
+      // Check whether the move is not the best move
     } else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
             state.chessGameModel!.bestMove[0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
             state.chessGameModel!.bestMove[1])) {
       chessBoardController.undoMove();
       print('Wrong Move');
+      // Check whether the move is the best possible move
     } else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
             state.chessGameModel!.bestMove[0]) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
