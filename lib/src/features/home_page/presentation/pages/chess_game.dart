@@ -41,6 +41,7 @@ class _ChessGameState extends State<ChessGame> {
                       Hero(
                         tag: widget.chessGameModel.gameId,
                         child: ch.ChessBoard(
+                          enableUserMoves: state.enabledMoves,
                           onMove: () {
                             context.read<ChessGameCubit>().madeMove(widget
                                 .chessGameModel.moveOnWhichMistakeHappened);

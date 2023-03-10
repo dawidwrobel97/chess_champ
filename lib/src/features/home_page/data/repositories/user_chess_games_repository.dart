@@ -75,12 +75,24 @@ class UserChessGamesRepository {
           }
         }
       }
-      chessGame.biggestScoreDifference = biggestDifference/100;
+      chessGame.biggestScoreDifference = biggestDifference / 100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;
       hasBlunder = false;
       hasMistake = false;
+      // We take the best move analysis and split the string into 2 so it's easier to use in the future
+      for (int i = 0;
+          i <
+              chessGame
+                  .movesAnalysis[chessGame.moveOnWhichMistakeHappened + 1]
+                      ['best']
+                  .length;
+          i += 2) {
+        chessGame.bestMove.add(chessGame
+            .movesAnalysis[chessGame.moveOnWhichMistakeHappened + 1]['best']
+            .substring(i, i + 2));
+      }
     }
     return listOfChessGames;
   }

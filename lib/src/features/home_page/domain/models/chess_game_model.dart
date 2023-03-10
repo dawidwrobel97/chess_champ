@@ -1,14 +1,16 @@
 class ChessGameModel {
-  ChessGameModel(
-      {required this.gameId,
-      required this.userId,
-      required this.lastFen,
-      required this.whitePlayer,
-      required this.blackPlayer,
-      required this.movesAnalysis,
-      required this.movesAsList,
-      required this.biggestScoreDifference,
-      required this.moveOnWhichMistakeHappened});
+  ChessGameModel({
+    required this.gameId,
+    required this.userId,
+    required this.lastFen,
+    required this.whitePlayer,
+    required this.blackPlayer,
+    required this.movesAnalysis,
+    required this.movesAsList,
+    required this.bestMove,
+    required this.biggestScoreDifference,
+    required this.moveOnWhichMistakeHappened,
+  });
   final String gameId;
   final String userId;
   final String lastFen;
@@ -16,6 +18,7 @@ class ChessGameModel {
   final String blackPlayer;
   final List<dynamic> movesAnalysis;
   final List<String> movesAsList;
+  List<String> bestMove = [];
   double biggestScoreDifference = 0;
   int moveOnWhichMistakeHappened = 0;
 

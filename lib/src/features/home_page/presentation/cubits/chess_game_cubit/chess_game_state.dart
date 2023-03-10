@@ -8,6 +8,7 @@ class ChessGameState {
     this.chessGameModel,
     this.chessBoardController,
     this.wrongMove,
+    this.enabledMoves = true,
   });
 
   final Status status;
@@ -15,4 +16,5 @@ class ChessGameState {
   final ChessGameModel? chessGameModel;
   final ChessBoardController? chessBoardController;
   final State? wrongMove;
+  final bool enabledMoves;
 }
