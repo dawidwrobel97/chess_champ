@@ -1,5 +1,5 @@
 import 'package:chess_app/src/core/enums/enums.dart';
-import 'package:chess_app/src/features/chess_game/presentation/chess_game.dart';
+import 'package:chess_app/src/features/home_page/presentation/pages/chess_game.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:flutter/material.dart';
@@ -64,9 +64,9 @@ class _GameDescription extends StatelessWidget {
                         children: [
                           Text('Game ${chessGamesModel.gameId}'),
                           Text(
-                              'Biggest mistake: ${chessGamesModel.biggestMistakeInGame['biggestDifference']}'),
+                              'Biggest mistake: ${chessGamesModel.biggestScoreDifference}'),
                           Text(
-                              'Biggest mistake was made on move ${chessGamesModel.biggestMistakeInGame['moveOnWhichMistakeHappened']}')
+                              'Biggest mistake was made on move ${chessGamesModel.moveOnWhichMistakeHappened}')
                         ],
                       ),
                     ),
