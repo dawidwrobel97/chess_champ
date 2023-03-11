@@ -20,7 +20,12 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     }
     final State wrongMove = chessBoardController
         .game.history[chessGameModel.moveOnWhichMistakeHappened];
+    if (wrongMove.move.piece.name == 'p') {
+      chessBoardController.game.half_moves = 1;
+      chessBoardController.undoMove();
+    }
     chessBoardController.undoMove();
+
     try {
       emit(ChessGameState(
         wrongMove: wrongMove,
@@ -42,14 +47,18 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.wrongMove!.move.fromAlgebraic) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.wrongMove!.move.toAlgebraic)) {
+      // Every time I want to undoMove i have to make the half.moves value equal to 1 else it might bug out and not work correctly
+      // I don't actually understand why, but it has to be a deeper issue within flutter_chess_board.dart or chess.dart widgets
+      // They are not mine so I just put this fix here, with it everything works fine
+      chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
     }
     // Check whether the move is not the best move
-    // TO DO : Error that comes with pawns, it might be because the controller is in cubit, might be worth moving it back to front
     else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
             state.chessGameModel!.bestMove[0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
             state.chessGameModel!.bestMove[1])) {
+      chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
     }
     // Check whether the move is the best possible move
@@ -57,6 +66,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.chessGameModel!.bestMove[0]) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.chessGameModel!.bestMove[1])) {
+      chessBoardController.game.half_moves = 1;
       emit(
         ChessGameState(
           status: state.status,

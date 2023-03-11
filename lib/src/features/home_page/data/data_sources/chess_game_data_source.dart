@@ -9,7 +9,8 @@ class ChessGameDataSource {
 
     try {
       final response = await dio.get(
-          'https://lichess.org/api/games/user/$id?max=10&lastFen=true&analysed=true&evals=true');
+          //TO DO : Werid bug, it tries to get games that aren't analysed
+          'https://lichess.org/api/games/user/$id?max=15&lastFen=true&analysed=true&evals=true');
       if (response.data == null) {
         return null;
       }
@@ -32,7 +33,7 @@ class ChessGameDataSource {
           'The request returned an invalid status code of 404.') {
         throw ('Error: This username doesn\'t exist!');
       }
-      throw (error.response?.data ?? 'Unknown error');
     }
+    return null;
   }
 }
