@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:chess/chess.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
@@ -22,7 +20,6 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     }
     final State wrongMove = chessBoardController
         .game.history[chessGameModel.moveOnWhichMistakeHappened];
-    inspect(wrongMove);
     chessBoardController.undoMove();
     try {
       emit(ChessGameState(
@@ -45,7 +42,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.wrongMove!.move.fromAlgebraic) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.wrongMove!.move.toAlgebraic)) {
-      undoMove();
+      chessBoardController.undoMove();
     }
     // Check whether the move is not the best move
     // TO DO : Error that comes with pawns, it might be because the controller is in cubit, might be worth moving it back to front
@@ -53,7 +50,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.chessGameModel!.bestMove[0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
             state.chessGameModel!.bestMove[1])) {
-      undoMove();
+      chessBoardController.undoMove();
     }
     // Check whether the move is the best possible move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
@@ -71,9 +68,5 @@ class ChessGameCubit extends Cubit<ChessGameState> {
         ),
       );
     }
-  }
-
-  Future<void> undoMove() async {
-    chessBoardController.undoMove();
   }
 }
