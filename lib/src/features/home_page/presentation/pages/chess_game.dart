@@ -23,8 +23,10 @@ class _ChessGameState extends State<ChessGame> {
 
   @override
   Widget build(BuildContext context) {
+    final game = widget.chessGameModel;
+
     return BlocProvider(
-      create: (context) => ChessGameCubit()..start(widget.chessGameModel),
+      create: (context) => ChessGameCubit()..start(game),
       child: BlocBuilder<ChessGameCubit, ChessGameState>(
         builder: (context, state) {
           return Scaffold(
@@ -39,37 +41,38 @@ class _ChessGameState extends State<ChessGame> {
                   Stack(
                     children: [
                       Hero(
-                        tag: widget.chessGameModel.gameId,
+                        tag: game.gameId,
                         child: ch.ChessBoard(
                           enableUserMoves: state.enabledMoves,
                           onMove: () {
-                            context.read<ChessGameCubit>().madeMove(widget
-                                .chessGameModel.moveOnWhichMistakeHappened);
+                            context
+                                .read<ChessGameCubit>()
+                                .madeMove(game.moveOnWhichMistakeHappened);
                           },
                           controller: state.chessBoardController!,
-                          boardOrientation: widget.chessGameModel.userId ==
-                                  widget.chessGameModel.whitePlayer
+                          boardOrientation: game.userId == game.whitePlayer
                               ? ch.PlayerColor.white
                               : ch.PlayerColor.black,
-                          arrows: [
-                            ch.BoardArrow(
-                              from: state.wrongMove!.move.fromAlgebraic
-                                  .toString(),
-                              to: state.wrongMove!.move.toAlgebraic.toString(),
-                              color: Colors.red.withOpacity(0.8),
-                            )
-                          ],
+                          arrows: state.enabledMoves == true
+                              ? [
+                                  ch.BoardArrow(
+                                    from: state.wrongMove!.move.fromAlgebraic
+                                        .toString(),
+                                    to: state.wrongMove!.move.toAlgebraic
+                                        .toString(),
+                                    color: Colors.red.withOpacity(0.8),
+                                  ),
+                                ]
+                              : [],
                         ),
                       ),
-                      if (widget.chessGameModel.userId ==
-                          widget.chessGameModel.whitePlayer)
+                      if (game.userId == game.whitePlayer)
                         for (var i = 0; i < 8; i++)
                           WhiteBottomSquareAnnotation(
                             squareName: squareNames[i],
                             squareNumber: i,
                           ),
-                      if (widget.chessGameModel.userId ==
-                          widget.chessGameModel.blackPlayer)
+                      if (game.userId == game.blackPlayer)
                         for (var i = 0; i < 8; i++)
                           BlackBottomSquareAnnotation(
                             squareName: squareNames.reversed.toList()[i],
