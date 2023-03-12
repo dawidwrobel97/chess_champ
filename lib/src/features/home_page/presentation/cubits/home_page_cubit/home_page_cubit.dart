@@ -14,21 +14,21 @@ class HomePageCubit extends Cubit<HomePageState> {
   final UserChessGamesRepository _userChessGamesRepository;
 
   Future<void> getUserChessGamesFromId(String id) async {
-    emit(const HomePageState(status: Status.loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       final chessGames =
           await _userChessGamesRepository.getUserChessGamesFromId(id);
       emit(
-        HomePageState(
+        state.copyWith(
           listOfChessGamesModels: chessGames,
           status: Status.success,
         ),
       );
     } catch (error) {
       emit(
-        HomePageState(
-          status: Status.error,
+        state.copyWith(
           errorMessage: error.toString(),
+          status: Status.error,
         ),
       );
     }
