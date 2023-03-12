@@ -23,8 +23,10 @@ class _ChessGameState extends State<ChessGame> {
 
   @override
   Widget build(BuildContext context) {
+    final game = widget.chessGameModel;
+
     return BlocProvider(
-      create: (context) => ChessGameCubit()..start(widget.chessGameModel),
+      create: (context) => ChessGameCubit()..start(game),
       child: BlocBuilder<ChessGameCubit, ChessGameState>(
         builder: (context, state) {
           return Scaffold(
@@ -39,42 +41,35 @@ class _ChessGameState extends State<ChessGame> {
                   Stack(
                     children: [
                       Hero(
-                        tag: widget.chessGameModel.gameId,
+                        tag: game.gameId,
                         child: ch.ChessBoard(
                           enableUserMoves: state.enabledMoves,
                           onMove: () {
-                            context.read<ChessGameCubit>().madeMove(widget
-                                .chessGameModel.moveOnWhichMistakeHappened);
+                            context
+                                .read<ChessGameCubit>()
+                                .madeMove(game.moveOnWhichMistakeHappened);
                           },
                           controller: state.chessBoardController!,
-                          boardOrientation: widget.chessGameModel.userId ==
-                                  widget.chessGameModel.whitePlayer
+                          boardOrientation: game.userId == game.whitePlayer
                               ? ch.PlayerColor.white
                               : ch.PlayerColor.black,
-                          arrows: [
-                            ch.BoardArrow(
-                              from: state.wrongMove!.move.fromAlgebraic
-                                  .toString(),
-                              to: state.wrongMove!.move.toAlgebraic.toString(),
-                              color: Colors.red.withOpacity(0.8),
-                            )
-                          ],
+                          arrows: state.enabledMoves == true
+                              ? [
+                                  ch.BoardArrow(
+                                    from: state.wrongMove!.move.fromAlgebraic
+                                        .toString(),
+                                    to: state.wrongMove!.move.toAlgebraic
+                                        .toString(),
+                                    color: Colors.red.withOpacity(0.8),
+                                  ),
+                                ]
+                              : [],
                         ),
                       ),
-                      if (widget.chessGameModel.userId ==
-                          widget.chessGameModel.whitePlayer)
-                        for (var i = 0; i < 8; i++)
-                          WhiteBottomSquareAnnotation(
-                            squareName: squareNames[i],
-                            squareNumber: i,
-                          ),
-                      if (widget.chessGameModel.userId ==
-                          widget.chessGameModel.blackPlayer)
-                        for (var i = 0; i < 8; i++)
-                          BlackBottomSquareAnnotation(
-                            squareName: squareNames.reversed.toList()[i],
-                            squareNumber: i,
-                          ),
+                      if (game.userId == game.whitePlayer)
+                        ..._buildWhiteAnnotations(squareNames),
+                      if (game.userId == game.blackPlayer)
+                        ..._buildBlackAnnotations(squareNames),
                     ],
                   ),
                 ],
@@ -87,9 +82,30 @@ class _ChessGameState extends State<ChessGame> {
   }
 }
 
-class WhiteBottomSquareAnnotation extends StatelessWidget {
-  const WhiteBottomSquareAnnotation({
-    super.key,
+List<Widget> _buildWhiteAnnotations(List<String> squareNames) {
+  return [
+    for (var i = 0; i < 8; i++)
+      _WhiteBottomSquareAnnotation(
+        squareName: squareNames[i],
+        squareNumber: i,
+      ),
+    for (var i = 0; i < 8; i++) _WhiteSideSquareAnnotation(squareNumber: i),
+  ];
+}
+
+List<Widget> _buildBlackAnnotations(List<String> squareNames) {
+  return [
+    for (var i = 0; i < 8; i++)
+      BlackBottomSquareAnnotation(
+        squareName: squareNames.reversed.toList()[i],
+        squareNumber: i,
+      ),
+    for (var i = 0; i < 8; i++) BlackSideSquareAnnotation(squareNumber: i),
+  ];
+}
+
+class _WhiteBottomSquareAnnotation extends StatelessWidget {
+  const _WhiteBottomSquareAnnotation({
     required this.squareName,
     required this.squareNumber,
   });
@@ -142,6 +158,65 @@ class BlackBottomSquareAnnotation extends StatelessWidget {
           squareNumber * sizeOfASingleSquare,
       child: Text(
         squareName,
+        style: TextStyle(
+            color: squareNumber % 2 == 0
+                ? const Color(0xFFf0d9b5)
+                : const Color(0xFFb58863)),
+      ),
+    );
+  }
+}
+
+class _WhiteSideSquareAnnotation extends StatelessWidget {
+  const _WhiteSideSquareAnnotation({
+    required this.squareNumber,
+  });
+
+  final int squareNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    const int outlineOffset = 5;
+    const int margin = 3;
+    final double sizeOfASingleSquare =
+        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+    return Positioned(
+      right: 2,
+      top: sizeOfASingleSquare -
+          (sizeOfASingleSquare - margin) +
+          squareNumber * sizeOfASingleSquare,
+      child: Text(
+        (8 - squareNumber).toString(),
+        style: TextStyle(
+            color: squareNumber % 2 == 0
+                ? const Color(0xFFf0d9b5)
+                : const Color(0xFFb58863)),
+      ),
+    );
+  }
+}
+
+class BlackSideSquareAnnotation extends StatelessWidget {
+  const BlackSideSquareAnnotation({
+    super.key,
+    required this.squareNumber,
+  });
+
+  final int squareNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    const int outlineOffset = 5;
+    const int margin = 3;
+    final double sizeOfASingleSquare =
+        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+    return Positioned(
+      right: 2,
+      top: sizeOfASingleSquare -
+          (sizeOfASingleSquare - margin) +
+          squareNumber * sizeOfASingleSquare,
+      child: Text(
+        (squareNumber + 1).toString(),
         style: TextStyle(
             color: squareNumber % 2 == 0
                 ? const Color(0xFFf0d9b5)
