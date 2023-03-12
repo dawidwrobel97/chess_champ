@@ -67,23 +67,9 @@ class _ChessGameState extends State<ChessGame> {
                         ),
                       ),
                       if (game.userId == game.whitePlayer)
-                        for (var i = 0; i < 8; i++)
-                          WhiteBottomSquareAnnotation(
-                            squareName: squareNames[i],
-                            squareNumber: i,
-                          ),
-                      if (game.userId == game.whitePlayer)
-                        for (var i = 0; i < 8; i++)
-                          WhiteSideSquareAnnotation(squareNumber: i),
+                        ..._buildWhiteAnnotations(squareNames),
                       if (game.userId == game.blackPlayer)
-                        for (var i = 0; i < 8; i++)
-                          BlackBottomSquareAnnotation(
-                            squareName: squareNames.reversed.toList()[i],
-                            squareNumber: i,
-                          ),
-                      if (game.userId == game.blackPlayer)
-                        for (var i = 0; i < 8; i++)
-                          BlackSideSquareAnnotation(squareNumber: i),
+                        ..._buildBlackAnnotations(squareNames),
                     ],
                   ),
                 ],
@@ -96,9 +82,30 @@ class _ChessGameState extends State<ChessGame> {
   }
 }
 
-class WhiteBottomSquareAnnotation extends StatelessWidget {
-  const WhiteBottomSquareAnnotation({
-    super.key,
+List<Widget> _buildWhiteAnnotations(List<String> squareNames) {
+  return [
+    for (var i = 0; i < 8; i++)
+      _WhiteBottomSquareAnnotation(
+        squareName: squareNames[i],
+        squareNumber: i,
+      ),
+    for (var i = 0; i < 8; i++) _WhiteSideSquareAnnotation(squareNumber: i),
+  ];
+}
+
+List<Widget> _buildBlackAnnotations(List<String> squareNames) {
+  return [
+    for (var i = 0; i < 8; i++)
+      BlackBottomSquareAnnotation(
+        squareName: squareNames.reversed.toList()[i],
+        squareNumber: i,
+      ),
+    for (var i = 0; i < 8; i++) BlackSideSquareAnnotation(squareNumber: i),
+  ];
+}
+
+class _WhiteBottomSquareAnnotation extends StatelessWidget {
+  const _WhiteBottomSquareAnnotation({
     required this.squareName,
     required this.squareNumber,
   });
@@ -160,9 +167,8 @@ class BlackBottomSquareAnnotation extends StatelessWidget {
   }
 }
 
-class WhiteSideSquareAnnotation extends StatelessWidget {
-  const WhiteSideSquareAnnotation({
-    super.key,
+class _WhiteSideSquareAnnotation extends StatelessWidget {
+  const _WhiteSideSquareAnnotation({
     required this.squareNumber,
   });
 
