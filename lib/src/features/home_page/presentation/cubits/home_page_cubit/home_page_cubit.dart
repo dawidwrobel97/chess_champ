@@ -2,12 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_page_state.dart';
+part 'home_page_cubit.freezed.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit(this._userChessGamesRepository) : super(const HomePageState());
+  HomePageCubit(this._userChessGamesRepository)
+      : super(const HomePageState(status: Status.initial));
 
   final UserChessGamesRepository _userChessGamesRepository;
 

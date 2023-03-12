@@ -3,17 +3,22 @@ import 'package:chess/chess.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chess_game_state.dart';
+part 'chess_game_cubit.freezed.dart';
 
 class ChessGameCubit extends Cubit<ChessGameState> {
-  ChessGameCubit() : super(const ChessGameState());
+  ChessGameCubit()
+      : super(const ChessGameState(
+          status: Status.initial,
+          enabledMoves: true,
+        ));
 
   ChessBoardController chessBoardController = ChessBoardController();
 
   Future<void> start(ChessGameModel chessGameModel) async {
-    emit(const ChessGameState(status: Status.loading));
+    emit(state.copyWith(status: Status.loading));
     for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened + 1; i++) {
       chessBoardController
           .makeMoveWithNormalNotation(chessGameModel.movesAsList[i]);
@@ -27,14 +32,14 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     chessBoardController.undoMove();
 
     try {
-      emit(ChessGameState(
-        wrongMove: wrongMove,
+      emit(state.copyWith(
         chessBoardController: chessBoardController,
+        wrongMove: wrongMove,
         chessGameModel: chessGameModel,
         status: Status.success,
       ));
     } catch (error) {
-      emit(ChessGameState(
+      emit(state.copyWith(
         errorMessage: error.toString(),
         status: Status.error,
       ));
@@ -68,14 +73,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.chessGameModel!.bestMove[1])) {
       chessBoardController.game.half_moves = 1;
       emit(
-        ChessGameState(
-          status: state.status,
-          errorMessage: state.errorMessage,
-          chessGameModel: state.chessGameModel,
-          chessBoardController: state.chessBoardController,
-          wrongMove: state.wrongMove,
-          enabledMoves: false,
-        ),
+        state.copyWith(enabledMoves: false),
       );
     }
   }
