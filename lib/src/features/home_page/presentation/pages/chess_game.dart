@@ -36,7 +36,7 @@ class _ChessGameState extends State<ChessGame> {
               children: [
                 _UpperBox(state: state, game: game),
                 _ChessGameBoard(state: state, game: game),
-                _BottomContainer(state: state),
+                _BottomContainer(state: state, game: game),
               ],
             ),
           );
@@ -65,19 +65,17 @@ class _UpperBox extends StatelessWidget {
             Text(
               'Game between',
               style: GoogleFonts.oswald(
-                textStyle: const TextStyle(
-                  letterSpacing: 0.3,
+                textStyle: TextStyle(
                   fontSize: 17,
-                  color: Color.fromARGB(255, 190, 190, 190),
+                  color: AppTheme.fontColor,
                 ),
               ),
             ),
             Text(
               '${game.whitePlayer} and ${game.blackPlayer}',
               style: GoogleFonts.oswald(
-                textStyle: const TextStyle(
-                  letterSpacing: 0.3,
-                  color: Color.fromARGB(255, 190, 190, 190),
+                textStyle: TextStyle(
+                  color: AppTheme.fontColor,
                 ),
               ),
             ),
@@ -104,26 +102,38 @@ class _ChessGameBoard extends StatelessWidget {
       children: [
         Hero(
           tag: game.gameId,
-          child: ch.ChessBoard(
-            enableUserMoves: state.enabledMoves,
-            onMove: () {
-              context
-                  .read<ChessGameCubit>()
-                  .madeMove(game.moveOnWhichMistakeHappened);
-            },
-            controller: state.chessBoardController!,
-            boardOrientation: game.userId == game.whitePlayer
-                ? ch.PlayerColor.white
-                : ch.PlayerColor.black,
-            arrows: state.enabledMoves == true
-                ? [
-                    ch.BoardArrow(
-                      from: state.wrongMove!.move.fromAlgebraic.toString(),
-                      to: state.wrongMove!.move.toAlgebraic.toString(),
-                      color: Colors.red.withOpacity(0.8),
-                    ),
-                  ]
-                : [],
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.shadowColor,
+                  blurRadius: 4.0,
+                  spreadRadius: 1.0,
+                  offset: const Offset(3, 3),
+                ),
+              ],
+            ),
+            child: ch.ChessBoard(
+              enableUserMoves: state.enabledMoves,
+              onMove: () {
+                context
+                    .read<ChessGameCubit>()
+                    .madeMove(game.moveOnWhichMistakeHappened);
+              },
+              controller: state.chessBoardController!,
+              boardOrientation: game.userId == game.whitePlayer
+                  ? ch.PlayerColor.white
+                  : ch.PlayerColor.black,
+              arrows: state.enabledMoves == true
+                  ? [
+                      ch.BoardArrow(
+                        from: state.wrongMove!.move.fromAlgebraic.toString(),
+                        to: state.wrongMove!.move.toAlgebraic.toString(),
+                        color: Colors.red.withOpacity(0.8),
+                      ),
+                    ]
+                  : [],
+            ),
           ),
         ),
         if (game.userId == game.whitePlayer)
@@ -162,34 +172,59 @@ List<Widget> _buildBlackAnnotations(List<String> squareNames) {
 class _BottomContainer extends StatelessWidget {
   const _BottomContainer({
     required this.state,
+    required this.game,
   });
 
   final ChessGameState state;
+  final ChessGameModel game;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        margin: const EdgeInsets.fromLTRB(10, 7, 10, 12),
         decoration: BoxDecoration(
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-                color: Color.fromARGB(255, 32, 32, 32),
-                blurRadius: 4.0,
-                spreadRadius: 1.0,
-                offset: Offset(3, 4.5)),
+              color: AppTheme.shadowColor,
+              blurRadius: 4.0,
+              spreadRadius: 1.0,
+              offset: const Offset(3, 5),
+            ),
             BoxShadow(
-                color: Color.fromARGB(255, 32, 32, 32),
-                blurRadius: 4.0,
-                spreadRadius: 1.0,
-                offset: Offset(-3, 4.5))
+              color: AppTheme.shadowColor,
+              blurRadius: 4.0,
+              spreadRadius: 1.0,
+              offset: const Offset(-3, 5),
+            ),
           ],
-          border: Border.all(
-              width: 2, color: const Color.fromARGB(255, 136, 136, 136)),
+          border: Border.all(width: 2, color: AppTheme.borderColor),
           borderRadius: const BorderRadius.all(
             Radius.circular(30),
           ),
-          color: const Color.fromARGB(255, 87, 87, 87),
+          color: AppTheme.contanierColor,
+        ),
+        child: SizedBox.expand(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                // TO DO: The mistake lost you NUMBER, and was consider a (mistake blunder or inaccuaryc, the color changes basend on what).
+                // Add at end... Not that bad! or whoops! that's quite the mistake. Maybe even show the equvialent in chess piecies.
+                // And the rest of logic ofc, make button actually show the best move and change enitre text based on wheter you found it youyself
+                Text(
+                  'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened / 2).round()}',
+                  style: GoogleFonts.oswald(
+                      textStyle: const TextStyle(fontSize: 20)),
+                ),
+                Text(
+                  'when you played the move ${game.worstMove}',
+                  style: GoogleFonts.oswald(
+                      textStyle: const TextStyle(fontSize: 20)),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
