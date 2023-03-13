@@ -24,10 +24,10 @@ class ChessGameModel {
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : gameId = json['id'],
-        userId = json['userId'],
+        userId = json['userId'].toLowerCase(),
         lastFen = json['lastFen'],
-        whitePlayer = json['players']['white']['user']['name'],
-        blackPlayer = json['players']['black']['user']['name'],
+        whitePlayer = json['players']['white']['user']['name'].toLowerCase(),
+        blackPlayer = json['players']['black']['user']['name'].toLowerCase(),
         movesAnalysis = json['analysis'],
         movesAsList = json['movesAsList'];
 }
