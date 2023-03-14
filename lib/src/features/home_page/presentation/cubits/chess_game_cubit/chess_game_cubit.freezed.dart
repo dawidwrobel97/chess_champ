@@ -26,6 +26,7 @@ mixin _$ChessGameState {
   bool get madeWrongMove => throw _privateConstructorUsedError;
   bool get madeTheSameMistake => throw _privateConstructorUsedError;
   bool get madeTheBestMove => throw _privateConstructorUsedError;
+  bool get pressedButtonForSolution => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChessGameStateCopyWith<ChessGameState> get copyWith =>
@@ -47,7 +48,8 @@ abstract class $ChessGameStateCopyWith<$Res> {
       bool enabledMoves,
       bool madeWrongMove,
       bool madeTheSameMistake,
-      bool madeTheBestMove});
+      bool madeTheBestMove,
+      bool pressedButtonForSolution});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$ChessGameStateCopyWithImpl<$Res, $Val extends ChessGameState>
     Object? madeWrongMove = null,
     Object? madeTheSameMistake = null,
     Object? madeTheBestMove = null,
+    Object? pressedButtonForSolution = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -110,6 +113,10 @@ class _$ChessGameStateCopyWithImpl<$Res, $Val extends ChessGameState>
           ? _value.madeTheBestMove
           : madeTheBestMove // ignore: cast_nullable_to_non_nullable
               as bool,
+      pressedButtonForSolution: null == pressedButtonForSolution
+          ? _value.pressedButtonForSolution
+          : pressedButtonForSolution // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -131,7 +138,8 @@ abstract class _$$_ChessGameStateCopyWith<$Res>
       bool enabledMoves,
       bool madeWrongMove,
       bool madeTheSameMistake,
-      bool madeTheBestMove});
+      bool madeTheBestMove,
+      bool pressedButtonForSolution});
 }
 
 /// @nodoc
@@ -154,6 +162,7 @@ class __$$_ChessGameStateCopyWithImpl<$Res>
     Object? madeWrongMove = null,
     Object? madeTheSameMistake = null,
     Object? madeTheBestMove = null,
+    Object? pressedButtonForSolution = null,
   }) {
     return _then(_$_ChessGameState(
       status: null == status
@@ -192,6 +201,10 @@ class __$$_ChessGameStateCopyWithImpl<$Res>
           ? _value.madeTheBestMove
           : madeTheBestMove // ignore: cast_nullable_to_non_nullable
               as bool,
+      pressedButtonForSolution: null == pressedButtonForSolution
+          ? _value.pressedButtonForSolution
+          : pressedButtonForSolution // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -208,7 +221,8 @@ class _$_ChessGameState implements _ChessGameState {
       required this.enabledMoves,
       required this.madeWrongMove,
       required this.madeTheSameMistake,
-      required this.madeTheBestMove});
+      required this.madeTheBestMove,
+      required this.pressedButtonForSolution});
 
   @override
   final Status status;
@@ -228,10 +242,12 @@ class _$_ChessGameState implements _ChessGameState {
   final bool madeTheSameMistake;
   @override
   final bool madeTheBestMove;
+  @override
+  final bool pressedButtonForSolution;
 
   @override
   String toString() {
-    return 'ChessGameState(status: $status, errorMessage: $errorMessage, chessGameModel: $chessGameModel, chessBoardController: $chessBoardController, wrongMove: $wrongMove, enabledMoves: $enabledMoves, madeWrongMove: $madeWrongMove, madeTheSameMistake: $madeTheSameMistake, madeTheBestMove: $madeTheBestMove)';
+    return 'ChessGameState(status: $status, errorMessage: $errorMessage, chessGameModel: $chessGameModel, chessBoardController: $chessBoardController, wrongMove: $wrongMove, enabledMoves: $enabledMoves, madeWrongMove: $madeWrongMove, madeTheSameMistake: $madeTheSameMistake, madeTheBestMove: $madeTheBestMove, pressedButtonForSolution: $pressedButtonForSolution)';
   }
 
   @override
@@ -255,7 +271,10 @@ class _$_ChessGameState implements _ChessGameState {
             (identical(other.madeTheSameMistake, madeTheSameMistake) ||
                 other.madeTheSameMistake == madeTheSameMistake) &&
             (identical(other.madeTheBestMove, madeTheBestMove) ||
-                other.madeTheBestMove == madeTheBestMove));
+                other.madeTheBestMove == madeTheBestMove) &&
+            (identical(
+                    other.pressedButtonForSolution, pressedButtonForSolution) ||
+                other.pressedButtonForSolution == pressedButtonForSolution));
   }
 
   @override
@@ -269,7 +288,8 @@ class _$_ChessGameState implements _ChessGameState {
       enabledMoves,
       madeWrongMove,
       madeTheSameMistake,
-      madeTheBestMove);
+      madeTheBestMove,
+      pressedButtonForSolution);
 
   @JsonKey(ignore: true)
   @override
@@ -288,7 +308,8 @@ abstract class _ChessGameState implements ChessGameState {
       required final bool enabledMoves,
       required final bool madeWrongMove,
       required final bool madeTheSameMistake,
-      required final bool madeTheBestMove}) = _$_ChessGameState;
+      required final bool madeTheBestMove,
+      required final bool pressedButtonForSolution}) = _$_ChessGameState;
 
   @override
   Status get status;
@@ -308,6 +329,8 @@ abstract class _ChessGameState implements ChessGameState {
   bool get madeTheSameMistake;
   @override
   bool get madeTheBestMove;
+  @override
+  bool get pressedButtonForSolution;
   @override
   @JsonKey(ignore: true)
   _$$_ChessGameStateCopyWith<_$_ChessGameState> get copyWith =>

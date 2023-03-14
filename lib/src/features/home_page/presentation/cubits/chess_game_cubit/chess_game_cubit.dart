@@ -16,6 +16,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
           madeTheSameMistake: false,
           madeWrongMove: false,
           madeTheBestMove: false,
+          pressedButtonForSolution: false,
         ));
 
   ChessBoardController chessBoardController = ChessBoardController();
@@ -93,6 +94,10 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     emit(
       state.copyWith(
         enabledMoves: false,
+        pressedButtonForSolution: true,
+        madeTheBestMove: false,
+        madeTheSameMistake: false,
+        madeWrongMove: false,
       ),
     );
   }

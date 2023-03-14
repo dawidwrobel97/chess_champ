@@ -6,7 +6,7 @@ import 'package:chess_app/src/features/home_page/presentation/widgets/bottom_con
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/chess_games_annotations/chess_game_annotations.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_annotations.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart' as ch;
 
 class ChessGame extends StatefulWidget {
@@ -58,7 +58,7 @@ class _UpperBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: MediaQuery.of(context).size.height * 0.08,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Column(

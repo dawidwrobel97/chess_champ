@@ -12,5 +12,6 @@ class ChessGameState with _$ChessGameState {
     required bool madeWrongMove,
     required bool madeTheSameMistake,
     required bool madeTheBestMove,
+    required bool pressedButtonForSolution
   }) = _ChessGameState;
 }
