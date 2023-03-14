@@ -24,6 +24,7 @@ class ChessGameModel {
   int moveOnWhichMistakeHappened = 0;
   String worstMove = '';
 
+
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : gameId = json['id'],
         userId = json['userId'].toLowerCase(),

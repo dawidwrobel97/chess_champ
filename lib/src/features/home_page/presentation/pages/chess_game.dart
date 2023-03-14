@@ -2,6 +2,7 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/bottom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class _ChessGameState extends State<ChessGame> {
               children: [
                 _UpperBox(state: state, game: game),
                 _ChessGameBoard(state: state, game: game),
-                _BottomContainer(state: state, game: game),
+                BottomContainer(state: state, game: game),
               ],
             ),
           );
@@ -167,66 +168,4 @@ List<Widget> _buildBlackAnnotations(List<String> squareNames) {
       ),
     for (var i = 0; i < 8; i++) BlackSideSquareAnnotation(squareNumber: i),
   ];
-}
-
-class _BottomContainer extends StatelessWidget {
-  const _BottomContainer({
-    required this.state,
-    required this.game,
-  });
-
-  final ChessGameState state;
-  final ChessGameModel game;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 7, 10, 12),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.shadowColor,
-              blurRadius: 4.0,
-              spreadRadius: 1.0,
-              offset: const Offset(3, 5),
-            ),
-            BoxShadow(
-              color: AppTheme.shadowColor,
-              blurRadius: 4.0,
-              spreadRadius: 1.0,
-              offset: const Offset(-3, 5),
-            ),
-          ],
-          border: Border.all(width: 2, color: AppTheme.borderColor),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(30),
-          ),
-          color: AppTheme.contanierColor,
-        ),
-        child: SizedBox.expand(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                // TO DO: The mistake lost you NUMBER, and was consider a (mistake blunder or inaccuaryc, the color changes basend on what).
-                // Add at end... Not that bad! or whoops! that's quite the mistake. Maybe even show the equvialent in chess piecies.
-                // And the rest of logic ofc, make button actually show the best move and change enitre text based on wheter you found it youyself
-                Text(
-                  'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened / 2).round()}',
-                  style: GoogleFonts.oswald(
-                      textStyle: const TextStyle(fontSize: 20)),
-                ),
-                Text(
-                  'when you played the move ${game.worstMove}',
-                  style: GoogleFonts.oswald(
-                      textStyle: const TextStyle(fontSize: 20)),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
