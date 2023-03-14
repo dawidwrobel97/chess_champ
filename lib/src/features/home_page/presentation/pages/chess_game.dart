@@ -2,11 +2,11 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/bottom_container.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_widgets/bottom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_annotations.dart';
+import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_widgets/chess_game_annotations.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart' as ch;
 
 class ChessGame extends StatefulWidget {

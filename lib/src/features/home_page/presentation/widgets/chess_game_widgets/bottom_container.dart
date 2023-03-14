@@ -156,6 +156,7 @@ class _UpperRow extends StatelessWidget {
               ),
               Flexible(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Flexible(
                       child: Text(
