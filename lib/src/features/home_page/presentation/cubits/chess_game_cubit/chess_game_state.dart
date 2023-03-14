@@ -9,5 +9,8 @@ class ChessGameState with _$ChessGameState {
     ChessBoardController? chessBoardController,
     State? wrongMove,
     required bool enabledMoves,
+    required bool madeWrongMove,
+    required bool madeTheSameMistake,
+    required bool madeTheBestMove,
   }) = _ChessGameState;
 }

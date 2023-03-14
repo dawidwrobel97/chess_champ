@@ -133,7 +133,13 @@ class _ChessGameBoard extends StatelessWidget {
                         color: Colors.red.withOpacity(0.8),
                       ),
                     ]
-                  : [],
+                  : [
+                      ch.BoardArrow(
+                        from: game.bestMove[0],
+                        to: game.bestMove[1],
+                        color: Colors.green.withOpacity(0.8),
+                      ),
+                    ],
             ),
           ),
         ),

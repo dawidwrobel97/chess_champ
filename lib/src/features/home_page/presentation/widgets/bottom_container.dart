@@ -2,6 +2,7 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomContainer extends StatelessWidget {
@@ -40,7 +41,7 @@ class BottomContainer extends StatelessWidget {
           ),
           color: AppTheme.contanierColor,
         ),
-        child: _EntireContainer(game: game),
+        child: _EntireContainer(game: game, state: state),
       ),
     );
   }
@@ -49,9 +50,11 @@ class BottomContainer extends StatelessWidget {
 class _EntireContainer extends StatelessWidget {
   const _EntireContainer({
     required this.game,
+    required this.state,
   });
 
   final ChessGameModel game;
+  final ChessGameState state;
 
   @override
   Widget build(BuildContext context) {
@@ -60,19 +63,9 @@ class _EntireContainer extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            // TO DO: The mistake lost you NUMBER, and was consider a (mistake blunder or inaccuaryc, the color changes basend on what).
-            // Add at end... Not that bad! or whoops! that's quite the mistake. Maybe even show the equvialent in chess piecies.
-            // And the rest of logic ofc, make button actually show the best move and change enitre text based on wheter you found it youyself
-            UpperText(game: game),
-            Divider(
-              thickness: 1.5,
-              color: AppTheme.borderColor,
-            ),
-            Column(
-              children: [
-                _MainColumn(game: game),
-              ],
-            ),
+            _UpperText(game: game, state: state),
+            _MyDivider(state: state),
+            _MainColumn(game: game, state: state),
           ],
         ),
       ),
@@ -80,20 +73,51 @@ class _EntireContainer extends StatelessWidget {
   }
 }
 
-class UpperText extends StatelessWidget {
-  const UpperText({
-    super.key,
+class _UpperText extends StatelessWidget {
+  const _UpperText({
     required this.game,
+    required this.state,
   });
 
   final ChessGameModel game;
+  final ChessGameState state;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened / 2).round()}\n when you played ${game.worstMove}',
-      style: GoogleFonts.oswald(textStyle: const TextStyle(fontSize: 20)),
-      textAlign: TextAlign.center,
+    return Builder(
+      builder: (context) {
+        if (state.madeTheBestMove == false) {
+          return Text(
+            'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened / 2).round()}\n when you played ${game.worstMove}',
+            style: GoogleFonts.oswald(textStyle: const TextStyle(fontSize: 20)),
+            textAlign: TextAlign.center,
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
+
+class _MyDivider extends StatelessWidget {
+  const _MyDivider({
+    required this.state,
+  });
+
+  final ChessGameState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        if (state.madeTheBestMove == false) {
+          return Divider(
+            thickness: 1.5,
+            color: AppTheme.borderColor,
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }
@@ -101,21 +125,48 @@ class UpperText extends StatelessWidget {
 class _MainColumn extends StatelessWidget {
   const _MainColumn({
     required this.game,
+    required this.state,
   });
 
   final ChessGameModel game;
+  final ChessGameState state;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        Column(
+          children: [
+            _UpperRow(state: state, game: game),
+            _MiddleText(state: state),
+            _SolutionButton(state: state, game: game),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _UpperRow extends StatelessWidget {
+  const _UpperRow({
+    required this.state,
+    required this.game,
+  });
+
+  final ChessGameState state;
+  final ChessGameModel game;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(builder: (context) {
+      if (state.madeTheBestMove == false) {
+        return Row(
           children: [
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Text(
-                  'That move cost you ${game.biggestScoreDifference} points of material!',
+                  'That move cost you ${game.biggestScoreDifference} points of material',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -138,29 +189,111 @@ class _MainColumn extends StatelessWidget {
               ),
             )
           ],
-        ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(4, 10, 4, 4),
-          child: Text(
-            'Can you find the best move instead?',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              'I give up! Show me the best move!',
+        );
+      }
+      return const SizedBox.shrink();
+    });
+  }
+}
+
+class _MiddleText extends StatelessWidget {
+  const _MiddleText({
+    required this.state,
+  });
+
+  final ChessGameState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 10, 4, 4),
+      child: Builder(
+        builder: (context) {
+          if (state.madeTheSameMistake == false &&
+              state.madeWrongMove == false &&
+              state.madeTheBestMove == false) {
+            return const Text(
+              'Can you find the best move instead?',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 16,
+              ),
+            );
+          } else if (state.madeTheSameMistake == true) {
+            return const Flexible(
+              child: Text(
+                'Oops! That\'s the mistake you did! Try again! :)',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            );
+          } else if (state.madeWrongMove == true) {
+            return const Text(
+              'That\'s not it... Try again!',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            );
+          } else if (state.madeTheBestMove == true) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Icon(
+                    Icons.celebration,
+                    size: 50,
+                  ),
+                ),
+                Text(
+                  'Yes!!! That\'s it! Congratulations!\nI can already see you becoming better! ;)',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            );
+          }
+          return const Text(
+              'Uhmm...You aren\'t supposed to see this...akward...');
+        },
+      ),
+    );
+  }
+}
+
+class _SolutionButton extends StatelessWidget {
+  const _SolutionButton({
+    required this.state,
+    required this.game,
+  });
+
+  final ChessGameState state;
+  final ChessGameModel game;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        if (state.madeTheBestMove == false) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                context.read<ChessGameCubit>().makeTheBestMove(game);
+              },
+              child: const Text(
+                'I give up! Show me the best move!',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }
