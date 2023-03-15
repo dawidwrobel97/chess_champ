@@ -9,18 +9,16 @@ class WhiteBottomSquareAnnotation extends StatelessWidget {
 
   final String squareName;
   final int squareNumber;
+  static int outlineOffset = 5;
+  static double margin = 2.5;
 
   @override
   Widget build(BuildContext context) {
-    const int outlineOffset = 5;
-    const int margin = 3;
     final double sizeOfASingleSquare =
-        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+        (MediaQuery.of(context).size.height * 0.55 - outlineOffset) / 8;
     return Positioned(
       bottom: 2,
-      left: sizeOfASingleSquare -
-          (sizeOfASingleSquare - margin) +
-          squareNumber * sizeOfASingleSquare,
+      left: margin + squareNumber * sizeOfASingleSquare,
       child: Text(
         squareName,
         style: TextStyle(
@@ -45,14 +43,12 @@ class BlackBottomSquareAnnotation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int outlineOffset = 5;
-    const int margin = 3;
+    const double margin = 3;
     final double sizeOfASingleSquare =
-        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+        (MediaQuery.of(context).size.height * 0.55 - outlineOffset) / 8;
     return Positioned(
       bottom: 2,
-      left: sizeOfASingleSquare -
-          (sizeOfASingleSquare - margin) +
-          squareNumber * sizeOfASingleSquare,
+      left: margin + squareNumber * sizeOfASingleSquare,
       child: Text(
         squareName,
         style: TextStyle(
@@ -75,14 +71,12 @@ class WhiteSideSquareAnnotation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int outlineOffset = 5;
-    const int margin = 3;
+    const double margin = 3;
     final double sizeOfASingleSquare =
-        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+        (MediaQuery.of(context).size.height * 0.55 - outlineOffset) / 8;
     return Positioned(
       right: 2,
-      top: sizeOfASingleSquare -
-          (sizeOfASingleSquare - margin) +
-          squareNumber * sizeOfASingleSquare,
+      top: margin + squareNumber * sizeOfASingleSquare,
       child: Text(
         (8 - squareNumber).toString(),
         style: TextStyle(
@@ -105,14 +99,12 @@ class BlackSideSquareAnnotation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int outlineOffset = 5;
-    const int margin = 3;
+    const double margin = 3;
     final double sizeOfASingleSquare =
-        (MediaQuery.of(context).size.width - outlineOffset) / 8;
+        (MediaQuery.of(context).size.height * 0.55 - outlineOffset) / 8;
     return Positioned(
       right: 2,
-      top: sizeOfASingleSquare -
-          (sizeOfASingleSquare - margin) +
-          squareNumber * sizeOfASingleSquare,
+      top: margin + squareNumber * sizeOfASingleSquare,
       child: Text(
         (squareNumber + 1).toString(),
         style: TextStyle(

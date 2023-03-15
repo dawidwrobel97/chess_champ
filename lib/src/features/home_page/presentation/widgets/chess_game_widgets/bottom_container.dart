@@ -17,12 +17,8 @@ class BottomContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Container(
-      height: screenSize.height -
-          screenSize.width -
-          screenSize.height * 0.08 -
-          screenSize.height * 0.15,
+      height: MediaQuery.of(context).size.height * 0.3,
       margin: const EdgeInsets.fromLTRB(10, 7, 10, 12),
       decoration: BoxDecoration(
         boxShadow: [
@@ -147,6 +143,7 @@ class _UpperRow extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
                 child: Text(

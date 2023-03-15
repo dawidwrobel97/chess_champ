@@ -34,6 +34,7 @@ class _ChessGameState extends State<ChessGame> {
             appBar: const MyAppBar(),
             backgroundColor: AppTheme.backgroundColor,
             body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _UpperBox(state: state, game: game),
                 _ChessGameBoard(state: state, game: game),
@@ -58,30 +59,27 @@ class _UpperBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.08,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Column(
-          children: [
-            Text(
-              'Game between',
-              style: GoogleFonts.oswald(
-                textStyle: TextStyle(
-                  fontSize: 17,
-                  color: AppTheme.fontColor,
-                ),
+      height: MediaQuery.of(context).size.height * 0.06,
+      child: Column(
+        children: [
+          Text(
+            'Game between',
+            style: GoogleFonts.oswald(
+              textStyle: TextStyle(
+                fontSize: 17,
+                color: AppTheme.fontColor,
               ),
             ),
-            Text(
-              '${game.whitePlayer} and ${game.blackPlayer}',
-              style: GoogleFonts.oswald(
-                textStyle: TextStyle(
-                  color: AppTheme.fontColor,
-                ),
+          ),
+          Text(
+            '${game.whitePlayer} and ${game.blackPlayer}',
+            style: GoogleFonts.oswald(
+              textStyle: TextStyle(
+                color: AppTheme.fontColor,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -115,6 +113,7 @@ class _ChessGameBoard extends StatelessWidget {
               ],
             ),
             child: ch.ChessBoard(
+              size: MediaQuery.of(context).size.height * 0.45,
               enableUserMoves: state.enabledMoves,
               onMove: () {
                 context
