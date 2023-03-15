@@ -10,6 +10,7 @@ class ChessGameModel {
     required this.bestMove,
     required this.biggestScoreDifference,
     required this.moveOnWhichMistakeHappened,
+    required this.worstMove,
   });
   final String gameId;
   final String userId;
@@ -21,6 +22,8 @@ class ChessGameModel {
   List<String> bestMove = [];
   double biggestScoreDifference = 0;
   int moveOnWhichMistakeHappened = 0;
+  String worstMove = '';
+
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : gameId = json['id'],

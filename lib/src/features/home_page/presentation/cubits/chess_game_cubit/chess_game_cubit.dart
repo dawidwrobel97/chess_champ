@@ -13,6 +13,10 @@ class ChessGameCubit extends Cubit<ChessGameState> {
       : super(const ChessGameState(
           status: Status.initial,
           enabledMoves: true,
+          madeTheSameMistake: false,
+          madeWrongMove: false,
+          madeTheBestMove: false,
+          pressedButtonForSolution: false,
         ));
 
   ChessBoardController chessBoardController = ChessBoardController();
@@ -57,6 +61,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
       // They are not mine so I just put this fix here, with it everything works fine
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
+      emit(state.copyWith(madeTheSameMistake: true, madeWrongMove: false));
     }
     // Check whether the move is not the best move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
@@ -65,6 +70,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.chessGameModel!.bestMove[1])) {
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
+      emit(state.copyWith(madeWrongMove: true, madeTheSameMistake: false));
     }
     // Check whether the move is the best possible move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
@@ -73,8 +79,26 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.chessGameModel!.bestMove[1])) {
       chessBoardController.game.half_moves = 1;
       emit(
-        state.copyWith(enabledMoves: false),
+        state.copyWith(
+          madeTheBestMove: true,
+          madeTheSameMistake: false,
+          madeWrongMove: false,
+          enabledMoves: false,
+        ),
       );
     }
+  }
+
+  Future<void> makeTheBestMove(ChessGameModel game) async {
+    chessBoardController.makeMove(from: game.bestMove[0], to: game.bestMove[1]);
+    emit(
+      state.copyWith(
+        enabledMoves: false,
+        pressedButtonForSolution: true,
+        madeTheBestMove: false,
+        madeTheSameMistake: false,
+        madeWrongMove: false,
+      ),
+    );
   }
 }

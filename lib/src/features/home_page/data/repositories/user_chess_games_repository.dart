@@ -77,6 +77,7 @@ class UserChessGamesRepository {
       }
       chessGame.biggestScoreDifference = biggestDifference / 100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
+      chessGame.worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;
       hasBlunder = false;
