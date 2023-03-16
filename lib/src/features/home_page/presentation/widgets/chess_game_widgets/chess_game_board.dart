@@ -25,20 +25,7 @@ class ChessGameBoard extends StatelessWidget {
           tag: game.gameId,
           child: Container(
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: AppTheme.shadowColor,
-                  blurRadius: 4.0,
-                  spreadRadius: 1.0,
-                  offset: const Offset(5, 6),
-                ),
-                BoxShadow(
-                  color: AppTheme.shadowColor,
-                  blurRadius: 4.0,
-                  spreadRadius: 1.0,
-                  offset: const Offset(-5, 6),
-                ),
-              ],
+              boxShadow: AppTheme.containerShadows,
             ),
             child: ch.ChessBoard(
               size: MediaQuery.of(context).size.height * 0.45,

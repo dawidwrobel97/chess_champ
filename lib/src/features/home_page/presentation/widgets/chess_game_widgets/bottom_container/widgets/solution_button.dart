@@ -1,3 +1,4 @@
+import 'package:chess_app/src/common_widgets/my_elevated_button.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class SolutionButton extends StatelessWidget {
             state.pressedButtonForSolution == false) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-            child: ElevatedButton(
+            child: MyElevatedButton(
               onPressed: () {
                 context.read<ChessGameCubit>().makeTheBestMove(game);
               },
@@ -36,7 +37,7 @@ class SolutionButton extends StatelessWidget {
         } else if (state.pressedButtonForSolution == true) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-            child: ElevatedButton(
+            child: MyElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
