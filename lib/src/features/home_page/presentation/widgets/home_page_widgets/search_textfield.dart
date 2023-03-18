@@ -1,4 +1,4 @@
-import 'package:chess_app/src/common_widgets/my_elevated_button.dart';
+import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/home_page_cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,16 +22,16 @@ class SearchTextField extends StatelessWidget {
             child: TextField(
               controller: textEditingController,
               decoration: InputDecoration(
-                labelText: 'Username',
+                hintText: 'Username',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 filled: true,
-                fillColor: const Color(0xFFDDDBDB),
+                fillColor: AppTheme.lighterContainerColor,
               ),
             ),
           ),
-          MyElevatedButton(
+          ElevatedButton(
             onPressed: () {
               submit(context);
             },

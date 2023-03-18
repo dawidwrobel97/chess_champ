@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class ChessGameModel {
   ChessGameModel({
     required this.gameId,
@@ -7,6 +9,7 @@ class ChessGameModel {
     required this.blackPlayer,
     required this.movesAnalysis,
     required this.movesAsList,
+    required this.playedAtInt,
     required this.bestMove,
     required this.biggestScoreDifference,
     required this.moveOnWhichMistakeHappened,
@@ -19,11 +22,16 @@ class ChessGameModel {
   final String blackPlayer;
   final List<dynamic> movesAnalysis;
   final List<String> movesAsList;
+  final int playedAtInt;
   List<String> bestMove = [];
   double biggestScoreDifference = 0;
   int moveOnWhichMistakeHappened = 0;
   String worstMove = '';
 
+  String playedGameAt() {
+    return DateFormat.yMMMMd()
+        .format(DateTime.fromMillisecondsSinceEpoch(playedAtInt));
+  }
 
   ChessGameModel.fromJson(Map<String, dynamic> json)
       : gameId = json['id'],
@@ -32,5 +40,6 @@ class ChessGameModel {
         whitePlayer = json['players']['white']['user']['name'].toLowerCase(),
         blackPlayer = json['players']['black']['user']['name'].toLowerCase(),
         movesAnalysis = json['analysis'],
-        movesAsList = json['movesAsList'];
+        movesAsList = json['movesAsList'],
+        playedAtInt = json['createdAt'];
 }

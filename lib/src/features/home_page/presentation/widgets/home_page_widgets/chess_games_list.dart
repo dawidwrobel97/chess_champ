@@ -20,13 +20,16 @@ class ChessGamesList extends StatelessWidget {
         itemBuilder: (context, index) {
           return MyContainer(
             height: MediaQuery.of(context).size.height * 0.2,
-            child: Row(
-              children: [
-                ChessGameThumbnail(
-                  chessGameModel: chessGamesModels![index],
-                ),
-                GameDescription(chessGamesModel: chessGamesModels![index])
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(0.5),
+              child: Row(
+                children: [
+                  ChessGameThumbnail(
+                    chessGameModel: chessGamesModels![index],
+                  ),
+                  GameDescription(chessGamesModel: chessGamesModels![index])
+                ],
+              ),
             ),
           );
         },
