@@ -36,6 +36,15 @@ class AuthGateCubit extends Cubit<AuthGateState> {
       });
   }
 
+  Future<void> signIn(String email, String password) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

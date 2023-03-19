@@ -6,22 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthGate extends StatelessWidget {
-  AuthGate({super.key});
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  const AuthGate({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthGateCubit()..start(),
-      child: BlocBuilder<AuthGateCubit, AuthGateState>(
+      child: BlocConsumer<AuthGateCubit, AuthGateState>(
+        listener: (context, state) {},
         builder: (context, state) {
           final user = state.user;
           if (user == null) {
-            return AuthPage(
-                emailController: emailController,
-                passwordController: passwordController);
+            return _AuthPage();
           } else {
             return const ChessHomePage();
           }
@@ -31,15 +27,11 @@ class AuthGate extends StatelessWidget {
   }
 }
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({
-    super.key,
-    required this.emailController,
-    required this.passwordController,
-  });
+class _AuthPage extends StatelessWidget {
+  _AuthPage();
 
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +62,11 @@ class AuthPage extends StatelessWidget {
               obscureText: true,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context
+                    .read<AuthGateCubit>()
+                    .signIn(emailController.text, passwordController.text);
+              },
               child: const Text(
                 'Confirm',
               ),

@@ -1,5 +1,6 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
+import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_widgets/bottom_container/bottom_container.dart';
@@ -32,14 +33,31 @@ class _ChessGameState extends State<ChessGame> {
           return Scaffold(
             appBar: const MyAppBar(),
             backgroundColor: AppTheme.backgroundColor,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                UpperBox(state: state, game: game),
-                ChessGameBoard(state: state, game: game),
-                BottomContainer(state: state, game: game),
-              ],
-            ),
+            body: Builder(builder: (context) {
+              switch (state.status) {
+                case (Status.initial):
+                  return const SizedBox.shrink();
+                case (Status.loading):
+                  return const CircularProgressIndicator();
+                case (Status.error):
+                  return Center(
+                    child: SizedBox(
+                      child: Text(
+                        "An error has occured: ${state.errorMessage}",
+                      ),
+                    ),
+                  );
+                case (Status.success):
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      UpperBox(state: state, game: game),
+                      ChessGameBoard(state: state, game: game),
+                      BottomContainer(state: state, game: game),
+                    ],
+                  );
+              }
+            }),
           );
         },
       ),
