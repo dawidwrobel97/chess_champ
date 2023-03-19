@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AuthGateState {
   Status get status => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthGateStateCopyWith<AuthGateState> get copyWith =>
@@ -29,7 +31,7 @@ abstract class $AuthGateStateCopyWith<$Res> {
           AuthGateState value, $Res Function(AuthGateState) then) =
       _$AuthGateStateCopyWithImpl<$Res, AuthGateState>;
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, String? errorMessage, User? user});
 }
 
 /// @nodoc
@@ -46,12 +48,22 @@ class _$AuthGateStateCopyWithImpl<$Res, $Val extends AuthGateState>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMessage = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
   }
 }
@@ -64,7 +76,7 @@ abstract class _$$_AuthGateStateCopyWith<$Res>
       __$$_AuthGateStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, String? errorMessage, User? user});
 }
 
 /// @nodoc
@@ -79,12 +91,22 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMessage = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$_AuthGateState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -92,14 +114,18 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthGateState implements _AuthGateState {
-  const _$_AuthGateState({required this.status});
+  const _$_AuthGateState({required this.status, this.errorMessage, this.user});
 
   @override
   final Status status;
+  @override
+  final String? errorMessage;
+  @override
+  final User? user;
 
   @override
   String toString() {
-    return 'AuthGateState(status: $status)';
+    return 'AuthGateState(status: $status, errorMessage: $errorMessage, user: $user)';
   }
 
   @override
@@ -107,11 +133,14 @@ class _$_AuthGateState implements _AuthGateState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AuthGateState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, status, errorMessage, user);
 
   @JsonKey(ignore: true)
   @override
@@ -121,11 +150,17 @@ class _$_AuthGateState implements _AuthGateState {
 }
 
 abstract class _AuthGateState implements AuthGateState {
-  const factory _AuthGateState({required final Status status}) =
-      _$_AuthGateState;
+  const factory _AuthGateState(
+      {required final Status status,
+      final String? errorMessage,
+      final User? user}) = _$_AuthGateState;
 
   @override
   Status get status;
+  @override
+  String? get errorMessage;
+  @override
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$_AuthGateStateCopyWith<_$_AuthGateState> get copyWith =>
