@@ -19,6 +19,7 @@ mixin _$AuthGateState {
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
+  bool get isLoginPage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthGateStateCopyWith<AuthGateState> get copyWith =>
@@ -31,7 +32,8 @@ abstract class $AuthGateStateCopyWith<$Res> {
           AuthGateState value, $Res Function(AuthGateState) then) =
       _$AuthGateStateCopyWithImpl<$Res, AuthGateState>;
   @useResult
-  $Res call({Status status, String? errorMessage, User? user});
+  $Res call(
+      {Status status, String? errorMessage, User? user, bool isLoginPage});
 }
 
 /// @nodoc
@@ -50,6 +52,7 @@ class _$AuthGateStateCopyWithImpl<$Res, $Val extends AuthGateState>
     Object? status = null,
     Object? errorMessage = freezed,
     Object? user = freezed,
+    Object? isLoginPage = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -64,6 +67,10 @@ class _$AuthGateStateCopyWithImpl<$Res, $Val extends AuthGateState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      isLoginPage: null == isLoginPage
+          ? _value.isLoginPage
+          : isLoginPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -76,7 +83,8 @@ abstract class _$$_AuthGateStateCopyWith<$Res>
       __$$_AuthGateStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, String? errorMessage, User? user});
+  $Res call(
+      {Status status, String? errorMessage, User? user, bool isLoginPage});
 }
 
 /// @nodoc
@@ -93,6 +101,7 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
     Object? status = null,
     Object? errorMessage = freezed,
     Object? user = freezed,
+    Object? isLoginPage = null,
   }) {
     return _then(_$_AuthGateState(
       status: null == status
@@ -107,6 +116,10 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      isLoginPage: null == isLoginPage
+          ? _value.isLoginPage
+          : isLoginPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -114,7 +127,11 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthGateState implements _AuthGateState {
-  const _$_AuthGateState({required this.status, this.errorMessage, this.user});
+  const _$_AuthGateState(
+      {required this.status,
+      this.errorMessage,
+      this.user,
+      required this.isLoginPage});
 
   @override
   final Status status;
@@ -122,10 +139,12 @@ class _$_AuthGateState implements _AuthGateState {
   final String? errorMessage;
   @override
   final User? user;
+  @override
+  final bool isLoginPage;
 
   @override
   String toString() {
-    return 'AuthGateState(status: $status, errorMessage: $errorMessage, user: $user)';
+    return 'AuthGateState(status: $status, errorMessage: $errorMessage, user: $user, isLoginPage: $isLoginPage)';
   }
 
   @override
@@ -136,11 +155,14 @@ class _$_AuthGateState implements _AuthGateState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.isLoginPage, isLoginPage) ||
+                other.isLoginPage == isLoginPage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, errorMessage, user);
+  int get hashCode =>
+      Object.hash(runtimeType, status, errorMessage, user, isLoginPage);
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +175,8 @@ abstract class _AuthGateState implements AuthGateState {
   const factory _AuthGateState(
       {required final Status status,
       final String? errorMessage,
-      final User? user}) = _$_AuthGateState;
+      final User? user,
+      required final bool isLoginPage}) = _$_AuthGateState;
 
   @override
   Status get status;
@@ -161,6 +184,8 @@ abstract class _AuthGateState implements AuthGateState {
   String? get errorMessage;
   @override
   User? get user;
+  @override
+  bool get isLoginPage;
   @override
   @JsonKey(ignore: true)
   _$$_AuthGateStateCopyWith<_$_AuthGateState> get copyWith =>

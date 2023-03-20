@@ -6,5 +6,6 @@ class AuthGateState with _$AuthGateState {
     required Status status,
     String? errorMessage,
     User? user,
+    required bool isLoginPage,
   }) = _AuthGateState;
 }
