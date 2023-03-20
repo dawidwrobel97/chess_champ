@@ -1,4 +1,4 @@
-import 'package:chess_app/src/features/home_page/presentation/pages/home_page.dart';
+import 'package:chess_app/src/features/auth_gate/presentation/pages/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: const ChessHomePage(),
+      home: const AuthGate(),
     );
   }
 }

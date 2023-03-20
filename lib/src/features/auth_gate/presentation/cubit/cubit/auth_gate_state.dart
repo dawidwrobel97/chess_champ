@@ -4,5 +4,8 @@ part of 'auth_gate_cubit.dart';
 class AuthGateState with _$AuthGateState {
   const factory AuthGateState({
     required Status status,
+    String? errorMessage,
+    User? user,
+    required bool isLoginPage,
   }) = _AuthGateState;
 }
