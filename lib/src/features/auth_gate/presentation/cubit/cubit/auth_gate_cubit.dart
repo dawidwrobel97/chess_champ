@@ -23,9 +23,8 @@ class AuthGateCubit extends Cubit<AuthGateState> {
         status: Status.loading,
       ),
     );
-    _streamSubscription = FirebaseAuth.instance
-        .authStateChanges()
-        .listen((user) {
+    _streamSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) {
       emit(
         state.copyWith(
           status: Status.success,
@@ -34,11 +33,14 @@ class AuthGateCubit extends Cubit<AuthGateState> {
         ),
       );
     })
-      ..onError((error) {
-        emit(
-          state.copyWith(status: Status.error, errorMessage: error.toString()),
-        );
-      });
+          ..onError((error) {
+            emit(
+              state.copyWith(
+                status: Status.error,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   Future<void> createAccount(String email, String password) async {

@@ -21,9 +21,9 @@ class ChessGameModel {
   final String whitePlayer;
   final String blackPlayer;
   final List<dynamic> movesAnalysis;
-  final List<String> movesAsList;
+  final List<dynamic> movesAsList;
   final int playedAtInt;
-  List<String> bestMove = [];
+  List<dynamic> bestMove = [];
   double biggestScoreDifference = 0;
   int moveOnWhichMistakeHappened = 0;
   String worstMove = '';
@@ -40,6 +40,6 @@ class ChessGameModel {
         whitePlayer = json['players']['white']['user']['name'].toLowerCase(),
         blackPlayer = json['players']['black']['user']['name'].toLowerCase(),
         movesAnalysis = json['analysis'],
-        movesAsList = json['movesAsList'],
+        movesAsList = json['movesAsList'] as List<dynamic>,
         playedAtInt = json['createdAt'];
 }

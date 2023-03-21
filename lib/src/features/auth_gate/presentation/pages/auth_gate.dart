@@ -69,12 +69,13 @@ class _AuthPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (state.isLoginPage == true) {
-                  context
-                      .read<AuthGateCubit>()
-                      .signIn(emailController.text, passwordController.text);
+                  context.read<AuthGateCubit>().signIn(
+                      emailController.text.trim(),
+                      passwordController.text.trim());
                 } else {
                   context.read<AuthGateCubit>().createAccount(
-                      emailController.text, passwordController.text);
+                      emailController.text.trim(),
+                      passwordController.text.trim());
                 }
               },
               child: Text(

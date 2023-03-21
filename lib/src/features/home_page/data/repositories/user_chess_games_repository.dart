@@ -1,16 +1,30 @@
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserChessGamesRepository {
   UserChessGamesRepository(this._chessGameDataSource);
 
   final ChessGameDataSource _chessGameDataSource;
 
-  Future<List<ChessGameModel>?> getUserChessGamesFromId(String id) async {
+  Future<void> deleteAllCurrentGames() async {
+    await FirebaseFirestore.instance.collection('chess_games').get().then(
+      (querySnapshots) {
+        for (var docSnapshot in querySnapshots.docs) {
+          FirebaseFirestore.instance
+              .collection('chess_games')
+              .doc(docSnapshot.id)
+              .delete();
+        }
+      },
+    );
+  }
+
+  Future<void> addUserGamesIntoFirebase(String id) async {
     final json = await _chessGameDataSource.getUserChessGamesFromId(id);
 
     if (json == null) {
-      return null;
+      return;
     }
 
     final listOfChessGames =
@@ -78,11 +92,6 @@ class UserChessGamesRepository {
       chessGame.biggestScoreDifference = biggestDifference / 100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
       chessGame.worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
-      biggestDifference = 0;
-      moveOnWhichMistakeHappened = 0;
-      hasBlunder = false;
-      hasMistake = false;
-      // We take the best move analysis and split the string into 2 so it's easier to use in the future
       for (int i = 0;
           i <
               chessGame
@@ -94,7 +103,55 @@ class UserChessGamesRepository {
             .movesAnalysis[chessGame.moveOnWhichMistakeHappened + 1]['best']
             .substring(i, i + 2));
       }
+      // Add the now correct game into the database
+      await FirebaseFirestore.instance.collection('chess_games').add({
+        'gameId': chessGame.gameId,
+        'userId': chessGame.userId,
+        'lastFen': chessGame.lastFen,
+        'whitePlayer': chessGame.whitePlayer,
+        'blackPlayer': chessGame.blackPlayer,
+        'movesAnalysis': chessGame.movesAnalysis,
+        'movesAsList': chessGame.movesAsList,
+        'playedAtInt': chessGame.playedAtInt,
+        'bestMove': chessGame.bestMove,
+        'biggestScoreDifference': chessGame.biggestScoreDifference,
+        'moveOnWhichMistakeHappened': chessGame.moveOnWhichMistakeHappened,
+        'worstMove': chessGame.worstMove,
+      });
+      biggestDifference = 0;
+      moveOnWhichMistakeHappened = 0;
+      hasBlunder = false;
+      hasMistake = false;
+      // We take the best move analysis and split the string into 2 so it's easier to use in the future
     }
-    return listOfChessGames;
+  }
+
+  Stream<List<ChessGameModel>> getUserChessGamesFromIdStream(String id) {
+    return FirebaseFirestore.instance
+        .collection('chess_games')
+        .orderBy('playedAtInt', descending: true)
+        .snapshots()
+        .map(
+      (data) {
+        return data.docs.map(
+          (doc) {
+            return ChessGameModel(
+              gameId: doc['gameId'],
+              userId: doc['userId'],
+              lastFen: doc['lastFen'],
+              whitePlayer: doc['whitePlayer'],
+              blackPlayer: doc['blackPlayer'],
+              movesAnalysis: doc['movesAnalysis'],
+              movesAsList: doc['movesAsList'],
+              playedAtInt: doc['playedAtInt'],
+              bestMove: doc['bestMove'],
+              biggestScoreDifference: doc['biggestScoreDifference'],
+              moveOnWhichMistakeHappened: doc['moveOnWhichMistakeHappened'],
+              worstMove: doc['worstMove'],
+            );
+          },
+        ).toList();
+      },
+    );
   }
 }
