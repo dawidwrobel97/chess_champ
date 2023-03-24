@@ -35,7 +35,8 @@ class ChessHomePageState extends State<ChessHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          HomePageCubit(UserChessGamesRepository(ChessGameDataSource())),
+          HomePageCubit(UserChessGamesRepository(ChessGameDataSource()))
+            ..start(),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
@@ -46,12 +47,11 @@ class ChessHomePageState extends State<ChessHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SearchTextField(
-                      textEditingController: _textEditingController),
                   Builder(builder: (context) {
                     switch (state.status) {
                       case Status.initial:
-                        return const SizedBox.shrink();
+                        return SearchTextField(
+                            textEditingController: _textEditingController);
                       case Status.loading:
                         return Expanded(
                           child: Column(
@@ -69,12 +69,44 @@ class ChessHomePageState extends State<ChessHomePage> {
                           ),
                         );
                       case Status.error:
-                        return Center(
-                          child: SizedBox(child: Text(state.errorMessage!)),
+                        return Column(
+                          children: [
+                            SearchTextField(
+                            textEditingController: _textEditingController),
+                            Text(state.errorMessage!),
+                          ],
                         );
                       case Status.success:
-                        return ChessGamesList(
-                            chessGamesModels: chessGamesModels);
+                        return Flexible(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        context
+                                            .read<HomePageCubit>()
+                                            .deleteAllCurrentGames();
+                                      },
+                                      child: const Icon(
+                                        Icons.delete,
+                                      ),
+                                    ),
+                                    Text(
+                                      state.listOfChessGamesModels![0].userId,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ChessGamesList(
+                                  chessGamesModels: chessGamesModels),
+                            ],
+                          ),
+                        );
                     }
                   }),
                 ],

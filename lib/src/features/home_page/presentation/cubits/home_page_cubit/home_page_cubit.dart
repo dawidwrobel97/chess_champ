@@ -17,29 +17,38 @@ class HomePageCubit extends Cubit<HomePageState> {
   final UserChessGamesRepository _userChessGamesRepository;
   StreamSubscription? _streamSubscription;
 
-  Future<void> getUserChessGamesFromId(String id) async {
-    emit(state.copyWith(status: Status.loading));
-    // Remove all currently saved games before getting new ones
-    _userChessGamesRepository.deleteAllCurrentGames();
-    _userChessGamesRepository.addUserGamesIntoFirebase(id);
-    _streamSubscription = _userChessGamesRepository
-        .getUserChessGamesFromIdStream(id)
-        .listen((games) {
-      emit(
-        state.copyWith(
-          listOfChessGamesModels: games,
-          status: Status.success,
-        ),
-      );
-    })
-      ..onError((error) {
+  Future<void> start() async {
+    _streamSubscription =
+        _userChessGamesRepository.getUserChessGamesStream().listen((games) {
+      if (games.isEmpty) {
+        emit(state.copyWith(status: Status.initial));
+      } else {
         emit(
           state.copyWith(
-            errorMessage: error.toString(),
-            status: Status.error,
+            listOfChessGamesModels: games,
+            status: Status.success,
           ),
         );
-      });
+      }
+    })
+          ..onError((error) {
+            emit(
+              state.copyWith(
+                errorMessage: error.toString(),
+                status: Status.error,
+              ),
+            );
+          });
+  }
+
+  Future<void> deleteAllCurrentGames() async {
+    await _userChessGamesRepository.deleteAllCurrentGames();
+    emit(state.copyWith(status: Status.initial));
+  }
+
+  Future<void> getUserChessGamesFromId(String id) async {
+    emit(state.copyWith(status: Status.loading));
+    _userChessGamesRepository.addUserGamesIntoFirebase(id);
   }
 
   @override

@@ -126,7 +126,7 @@ class UserChessGamesRepository {
     }
   }
 
-  Stream<List<ChessGameModel>> getUserChessGamesFromIdStream(String id) {
+  Stream<List<ChessGameModel>> getUserChessGamesStream() {
     return FirebaseFirestore.instance
         .collection('chess_games')
         .orderBy('playedAtInt', descending: true)
