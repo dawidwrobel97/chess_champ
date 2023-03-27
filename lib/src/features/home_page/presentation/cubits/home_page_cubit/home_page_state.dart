@@ -4,7 +4,9 @@ part of 'home_page_cubit.dart';
 class HomePageState with _$HomePageState {
   const factory HomePageState({
     required Status status,
-    List<ChessGameModel>? listOfChessGamesModels,
+    required bool dropDownMenuIsActive,
     String? errorMessage,
+    List<ChessGameModel>? listOfChessGamesModels,
+
   }) = _HomePageState;
 }

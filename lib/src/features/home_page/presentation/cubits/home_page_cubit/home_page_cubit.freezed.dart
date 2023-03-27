@@ -16,10 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomePageState {
+  Status get status => throw _privateConstructorUsedError;
+  bool get dropDownMenuIsActive => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   List<ChessGameModel>? get listOfChessGamesModels =>
       throw _privateConstructorUsedError;
-  Status get status => throw _privateConstructorUsedError;
-  String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -33,9 +34,10 @@ abstract class $HomePageStateCopyWith<$Res> {
       _$HomePageStateCopyWithImpl<$Res, HomePageState>;
   @useResult
   $Res call(
-      {List<ChessGameModel>? listOfChessGamesModels,
-      Status status,
-      String? errorMessage});
+      {Status status,
+      bool dropDownMenuIsActive,
+      String? errorMessage,
+      List<ChessGameModel>? listOfChessGamesModels});
 }
 
 /// @nodoc
@@ -51,23 +53,28 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? listOfChessGamesModels = freezed,
     Object? status = null,
+    Object? dropDownMenuIsActive = null,
     Object? errorMessage = freezed,
+    Object? listOfChessGamesModels = freezed,
   }) {
     return _then(_value.copyWith(
-      listOfChessGamesModels: freezed == listOfChessGamesModels
-          ? _value.listOfChessGamesModels
-          : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
-              as List<ChessGameModel>?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      dropDownMenuIsActive: null == dropDownMenuIsActive
+          ? _value.dropDownMenuIsActive
+          : dropDownMenuIsActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      listOfChessGamesModels: freezed == listOfChessGamesModels
+          ? _value.listOfChessGamesModels
+          : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
+              as List<ChessGameModel>?,
     ) as $Val);
   }
 }
@@ -81,9 +88,10 @@ abstract class _$$_HomePageStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<ChessGameModel>? listOfChessGamesModels,
-      Status status,
-      String? errorMessage});
+      {Status status,
+      bool dropDownMenuIsActive,
+      String? errorMessage,
+      List<ChessGameModel>? listOfChessGamesModels});
 }
 
 /// @nodoc
@@ -97,23 +105,28 @@ class __$$_HomePageStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? listOfChessGamesModels = freezed,
     Object? status = null,
+    Object? dropDownMenuIsActive = null,
     Object? errorMessage = freezed,
+    Object? listOfChessGamesModels = freezed,
   }) {
     return _then(_$_HomePageState(
-      listOfChessGamesModels: freezed == listOfChessGamesModels
-          ? _value._listOfChessGamesModels
-          : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
-              as List<ChessGameModel>?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      dropDownMenuIsActive: null == dropDownMenuIsActive
+          ? _value.dropDownMenuIsActive
+          : dropDownMenuIsActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      listOfChessGamesModels: freezed == listOfChessGamesModels
+          ? _value._listOfChessGamesModels
+          : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
+              as List<ChessGameModel>?,
     ));
   }
 }
@@ -122,11 +135,18 @@ class __$$_HomePageStateCopyWithImpl<$Res>
 
 class _$_HomePageState implements _HomePageState {
   const _$_HomePageState(
-      {final List<ChessGameModel>? listOfChessGamesModels,
-      required this.status,
-      this.errorMessage})
+      {required this.status,
+      required this.dropDownMenuIsActive,
+      this.errorMessage,
+      final List<ChessGameModel>? listOfChessGamesModels})
       : _listOfChessGamesModels = listOfChessGamesModels;
 
+  @override
+  final Status status;
+  @override
+  final bool dropDownMenuIsActive;
+  @override
+  final String? errorMessage;
   final List<ChessGameModel>? _listOfChessGamesModels;
   @override
   List<ChessGameModel>? get listOfChessGamesModels {
@@ -139,13 +159,8 @@ class _$_HomePageState implements _HomePageState {
   }
 
   @override
-  final Status status;
-  @override
-  final String? errorMessage;
-
-  @override
   String toString() {
-    return 'HomePageState(listOfChessGamesModels: $listOfChessGamesModels, status: $status, errorMessage: $errorMessage)';
+    return 'HomePageState(status: $status, dropDownMenuIsActive: $dropDownMenuIsActive, errorMessage: $errorMessage, listOfChessGamesModels: $listOfChessGamesModels)';
   }
 
   @override
@@ -153,19 +168,22 @@ class _$_HomePageState implements _HomePageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HomePageState &&
-            const DeepCollectionEquality().equals(
-                other._listOfChessGamesModels, _listOfChessGamesModels) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.dropDownMenuIsActive, dropDownMenuIsActive) ||
+                other.dropDownMenuIsActive == dropDownMenuIsActive) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality().equals(
+                other._listOfChessGamesModels, _listOfChessGamesModels));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_listOfChessGamesModels),
       status,
-      errorMessage);
+      dropDownMenuIsActive,
+      errorMessage,
+      const DeepCollectionEquality().hash(_listOfChessGamesModels));
 
   @JsonKey(ignore: true)
   @override
@@ -176,16 +194,19 @@ class _$_HomePageState implements _HomePageState {
 
 abstract class _HomePageState implements HomePageState {
   const factory _HomePageState(
-      {final List<ChessGameModel>? listOfChessGamesModels,
-      required final Status status,
-      final String? errorMessage}) = _$_HomePageState;
+      {required final Status status,
+      required final bool dropDownMenuIsActive,
+      final String? errorMessage,
+      final List<ChessGameModel>? listOfChessGamesModels}) = _$_HomePageState;
 
-  @override
-  List<ChessGameModel>? get listOfChessGamesModels;
   @override
   Status get status;
   @override
+  bool get dropDownMenuIsActive;
+  @override
   String? get errorMessage;
+  @override
+  List<ChessGameModel>? get listOfChessGamesModels;
   @override
   @JsonKey(ignore: true)
   _$$_HomePageStateCopyWith<_$_HomePageState> get copyWith =>
