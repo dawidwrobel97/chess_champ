@@ -28,56 +28,85 @@ class ChessHomePageState extends State<ChessHomePage> {
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
-          return Scaffold(
-            backgroundColor: AppTheme.backgroundColor,
-            appBar: HomePageAppBar(
-              name: chessGamesModels![0].userId,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Builder(builder: (context) {
-                    switch (state.status) {
-                      case Status.initial:
-                        return SearchTextField(
-                            textEditingController: _textEditingController);
-                      case Status.loading:
-                        return Expanded(
-                          child: SizedBox.expand(
-                            child: Column(
-                              children: const [
-                                Expanded(
-                                  flex: 3,
-                                  child: SizedBox(),
-                                ),
-                                CircularProgressIndicator(color: Colors.blue),
-                                Expanded(
-                                  flex: 4,
-                                  child: SizedBox(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      case Status.error:
-                        return Column(
-                          children: [
-                            SearchTextField(
-                                textEditingController: _textEditingController),
-                            Text(state.errorMessage!),
-                          ],
-                        );
-                      case Status.success:
-                        return ChessGamesList(
-                            chessGamesModels: chessGamesModels);
-                    }
-                  }),
-                ],
-              ),
-            ),
-          );
+          return Builder(builder: (context) {
+            switch (state.status) {
+              case (Status.initial):
+                return _HomePageScaffold(
+                  name: null,
+                  child: SearchTextField(
+                      textEditingController: _textEditingController),
+                );
+              case (Status.loading):
+                return const _HomePageScaffold(
+                  name: null,
+                  child: _CircularLoadingIndicator(),
+                );
+              case (Status.error):
+                return _HomePageScaffold(
+                  name: null,
+                  child: Column(
+                    children: [
+                      SearchTextField(
+                        textEditingController: _textEditingController,
+                      ),
+                      Text(state.errorMessage!),
+                    ],
+                  ),
+                );
+              case (Status.success):
+                return _HomePageScaffold(
+                  name: chessGamesModels![0].userId,
+                  child: ChessGamesList(chessGamesModels: chessGamesModels),
+                );
+            }
+          });
         },
+      ),
+    );
+  }
+}
+
+class _HomePageScaffold extends StatelessWidget {
+  const _HomePageScaffold({required this.child, required this.name});
+
+  final Widget child;
+  final String? name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppTheme.backgroundColor,
+      appBar: HomePageAppBar(
+        name: name,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: child,
+      ),
+    );
+  }
+}
+
+class _CircularLoadingIndicator extends StatelessWidget {
+  const _CircularLoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SizedBox.expand(
+        child: Column(
+          children: const [
+            Expanded(
+              flex: 3,
+              child: SizedBox(),
+            ),
+            CircularProgressIndicator(color: Colors.blue),
+            Expanded(
+              flex: 4,
+              child: SizedBox(),
+            ),
+          ],
+        ),
       ),
     );
   }
