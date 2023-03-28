@@ -30,8 +30,8 @@ class ChessHomePageState extends State<ChessHomePage> {
           final chessGamesModels = state.listOfChessGamesModels;
           return Scaffold(
             backgroundColor: AppTheme.backgroundColor,
-            appBar: HomePageAppbar(
-              name: state.listOfChessGamesModels?[0].userId,
+            appBar: HomePageAppBar(
+              name: chessGamesModels![0].userId,
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
