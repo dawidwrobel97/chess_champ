@@ -29,11 +29,8 @@ class ChessGameDataSource {
       }
       return responseAsListMap;
     } on DioError catch (error) {
-      if (error.message ==
-          'The request returned an invalid status code of 404.') {
-        throw ('Error: This username doesn\'t exist!');
-      }
+      throw Exception(
+          error.response?.data['error']['message'] ?? 'Unknown error');
     }
-    return null;
   }
 }
