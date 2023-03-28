@@ -18,37 +18,42 @@ class MiddleText extends StatelessWidget {
     return Builder(
       builder: (context) {
         if (state.madeTheSameMistake == true) {
-          return const Text(
-            'Oops! That\'s the mistake you did! Try again! :)',
-            style: TextStyle(
-              fontSize: 18,
-            ),
+          return const _MiddleText(
+            text: 'Oops! That\'s the mistake you did! Try again! :)',
           );
         } else if (state.madeWrongMove == true) {
-          return const Text(
-            'That\'s not it... Try again!',
-            style: TextStyle(
-              fontSize: 18,
-            ),
+          return const _MiddleText(
+            text: 'That\'s not it... Try again!',
           );
         } else if (state.pressedButtonForSolution == true) {
-          return Text(
-            'The best move was moving the piece\n from ${game.bestMove[0]} to ${game.bestMove[1]}. Try again with diffrent game!',
-            style: const TextStyle(
-              fontSize: 18,
-            ),
-            textAlign: TextAlign.center,
+          return _MiddleText(
+            text:
+                'The best move was moving the piece\n from ${game.bestMove[0]} to ${game.bestMove[1]}. Try again with diffrent game!',
           );
         } else if (state.madeTheBestMove == true) {
           return MadeTheBestMoveWidget(game: game);
         }
-        return const Text(
-          'Can you find the best move instead?',
-          style: TextStyle(
-            fontSize: 18,
-          ),
+        return const _MiddleText(
+          text: 'Can you find the best move instead?',
         );
       },
+    );
+  }
+}
+
+class _MiddleText extends StatelessWidget {
+  const _MiddleText({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 17,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }
