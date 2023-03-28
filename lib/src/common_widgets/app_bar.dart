@@ -22,18 +22,23 @@ class HomePageAppbar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      centerTitle: true,
-      title: Text(name ?? ''),
-      actions: [
-        InkWell(
-          onTap: () {
-            context.read<HomePageCubit>().deleteAllCurrentGames();
-          },
-          child: const Icon(
-            Icons.delete,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(name ?? ''),
+          const SizedBox(
+            width: 10,
           ),
-        ),
-      ],
+          InkWell(
+            onTap: () {
+              context.read<HomePageCubit>().deleteAllCurrentGames();
+            },
+            child: const Icon(
+              Icons.delete,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
