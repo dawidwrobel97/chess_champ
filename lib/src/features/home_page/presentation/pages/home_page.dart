@@ -17,19 +17,7 @@ class ChessHomePage extends StatefulWidget {
 }
 
 class ChessHomePageState extends State<ChessHomePage> {
-  late TextEditingController _textEditingController;
-
-  @override
-  void initState() {
-    super.initState();
-    _textEditingController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _textEditingController.dispose();
-  }
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +30,9 @@ class ChessHomePageState extends State<ChessHomePage> {
           final chessGamesModels = state.listOfChessGamesModels;
           return Scaffold(
             backgroundColor: AppTheme.backgroundColor,
-            appBar: const MyAppBar(),
+            appBar: HomePageAppbar(
+              name: state.listOfChessGamesModels?[0].userId,
+            ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -54,59 +44,33 @@ class ChessHomePageState extends State<ChessHomePage> {
                             textEditingController: _textEditingController);
                       case Status.loading:
                         return Expanded(
-                          child: Column(
-                            children: const [
-                              Expanded(
-                                flex: 3,
-                                child: SizedBox(),
-                              ),
-                              CircularProgressIndicator(color: Colors.blue),
-                              Expanded(
-                                flex: 4,
-                                child: SizedBox(),
-                              ),
-                            ],
+                          child: SizedBox.expand(
+                            child: Column(
+                              children: const [
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(),
+                                ),
+                                CircularProgressIndicator(color: Colors.blue),
+                                Expanded(
+                                  flex: 4,
+                                  child: SizedBox(),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       case Status.error:
                         return Column(
                           children: [
                             SearchTextField(
-                            textEditingController: _textEditingController),
+                                textEditingController: _textEditingController),
                             Text(state.errorMessage!),
                           ],
                         );
                       case Status.success:
-                        return Flexible(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        context
-                                            .read<HomePageCubit>()
-                                            .deleteAllCurrentGames();
-                                      },
-                                      child: const Icon(
-                                        Icons.delete,
-                                      ),
-                                    ),
-                                    Text(
-                                      state.listOfChessGamesModels![0].userId,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              ChessGamesList(
-                                  chessGamesModels: chessGamesModels),
-                            ],
-                          ),
-                        );
+                        return ChessGamesList(
+                            chessGamesModels: chessGamesModels);
                     }
                   }),
                 ],
