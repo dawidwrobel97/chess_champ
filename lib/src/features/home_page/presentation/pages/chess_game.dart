@@ -25,6 +25,7 @@ class _ChessGameState extends State<ChessGame> {
   @override
   Widget build(BuildContext context) {
     final game = widget.chessGameModel;
+
     return BlocProvider(
       create: (context) => ChessGameCubit()..start(game),
       child: BlocBuilder<ChessGameCubit, ChessGameState>(

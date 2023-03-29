@@ -54,9 +54,30 @@ class ChessHomePageState extends State<ChessHomePage> {
                   ),
                 );
               case (Status.success):
-                return _HomePageScaffold(
+                return _ChessGameListScaffold(
                   name: chessGamesModels![0].userId,
-                  child: ChessGamesList(chessGamesModels: chessGamesModels),
+                  child: Column(
+                    children: [
+                      Builder(builder: (context) {
+                        if (state.dropDownMenuIsActive == true) {
+                          return Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppTheme.borderColor,
+                                ),
+                                color: AppTheme.lighterContainerColor),
+                          );
+                        } else {
+                          return const SizedBox(
+                            height: 8,
+                          );
+                        }
+                      }),
+                      ChessGamesList(chessGamesModels: chessGamesModels),
+                    ],
+                  ),
                 );
             }
           });
@@ -81,6 +102,27 @@ class _HomePageScaffold extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
+        child: child,
+      ),
+    );
+  }
+}
+
+class _ChessGameListScaffold extends StatelessWidget {
+  const _ChessGameListScaffold({required this.child, required this.name});
+
+  final Widget child;
+  final String? name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppTheme.backgroundColor,
+      appBar: HomePageAppBar(
+        name: name,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: child,
       ),
     );

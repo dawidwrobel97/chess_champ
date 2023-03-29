@@ -21,27 +21,29 @@ class HomePageCubit extends Cubit<HomePageState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription =
-        _userChessGamesRepository.getUserChessGamesStream().listen((listOfChessGamesModels) {
+    _streamSubscription = _userChessGamesRepository
+        .getUserChessGamesStream()
+        .listen((listOfChessGamesModels) {
       if (listOfChessGamesModels.isEmpty) {
         emit(state.copyWith(status: Status.initial));
       } else {
         emit(
           state.copyWith(
             listOfChessGamesModels: listOfChessGamesModels,
+            dropDownMenuIsActive: false,
             status: Status.success,
           ),
         );
       }
     })
-          ..onError((error) {
-            emit(
-              state.copyWith(
-                errorMessage: error.toString(),
-                status: Status.error,
-              ),
-            );
-          });
+      ..onError((error) {
+        emit(
+          state.copyWith(
+            errorMessage: error.toString(),
+            status: Status.error,
+          ),
+        );
+      });
   }
 
   Future<void> deleteAllCurrentGames() async {
@@ -57,7 +59,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   Future<void> dropDownMenu() async {
     if (state.dropDownMenuIsActive == false) {
       emit(state.copyWith(dropDownMenuIsActive: true));
-    } else {
+    } else if (state.dropDownMenuIsActive == true) {
       emit(state.copyWith(dropDownMenuIsActive: false));
     }
   }
