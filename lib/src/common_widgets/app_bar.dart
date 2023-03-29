@@ -44,17 +44,6 @@ class HomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                       : Icons.arrow_drop_up_sharp,
                 ),
               ),
-              const SizedBox(
-                width: 50,
-              ),
-              InkWell(
-                onTap: () {
-                  context.read<HomePageCubit>().deleteAllCurrentGames();
-                },
-                child: const Icon(
-                  Icons.delete,
-                ),
-              ),
             ],
           ),
         );

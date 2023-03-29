@@ -58,23 +58,7 @@ class ChessHomePageState extends State<ChessHomePage> {
                   name: chessGamesModels![0].userId,
                   child: Column(
                     children: [
-                      Builder(builder: (context) {
-                        if (state.dropDownMenuIsActive == true) {
-                          return Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppTheme.borderColor,
-                                ),
-                                color: AppTheme.lighterContainerColor),
-                          );
-                        } else {
-                          return const SizedBox(
-                            height: 8,
-                          );
-                        }
-                      }),
+                      const _DropDownMenu(),
                       ChessGamesList(chessGamesModels: chessGamesModels),
                     ],
                   ),
@@ -125,6 +109,52 @@ class _ChessGameListScaffold extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: child,
       ),
+    );
+  }
+}
+
+class _DropDownMenu extends StatelessWidget {
+  const _DropDownMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomePageCubit, HomePageState>(
+      builder: (context, state) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          height: state.dropDownMenuIsActive == true ? 50 : 0,
+          width: MediaQuery.of(context).size.width / 1.5,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: AppTheme.borderColor,
+              ),
+              color: AppTheme.contanierColor),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 200),
+            opacity: state.dropDownMenuIsActive == true ? 1 : 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Delete user?',
+                  style: TextStyle(fontSize: 20),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    context.read<HomePageCubit>().deleteAllCurrentGames();
+                  },
+                  child: const Icon(
+                    Icons.delete,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
