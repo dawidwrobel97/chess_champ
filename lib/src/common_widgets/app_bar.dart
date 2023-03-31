@@ -27,24 +27,26 @@ class HomePageAppBar extends StatelessWidget with PreferredSizeWidget {
           return AppBar();
         }
         return AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(name!),
-              const SizedBox(
-                width: 10,
+          title: Center(
+            child: InkWell(
+              onTap: () {
+                context.read<HomePageCubit>().dropDownMenu();
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(name!),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    state.dropDownMenuIsActive == false
+                        ? Icons.arrow_drop_down_sharp
+                        : Icons.arrow_drop_up_sharp,
+                  ),
+                ],
               ),
-              InkWell(
-                onTap: () {
-                  context.read<HomePageCubit>().dropDownMenu();
-                },
-                child: Icon(
-                  state.dropDownMenuIsActive == false
-                      ? Icons.arrow_drop_down_sharp
-                      : Icons.arrow_drop_up_sharp,
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },

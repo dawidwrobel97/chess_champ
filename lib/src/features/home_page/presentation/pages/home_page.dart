@@ -1,6 +1,7 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
+import 'package:chess_app/src/features/auth_gate/presentation/cubit/cubit/auth_gate_cubit.dart';
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/home_page_cubit/home_page_cubit.dart';
@@ -33,17 +34,34 @@ class ChessHomePageState extends State<ChessHomePage> {
               case (Status.initial):
                 return _HomePageScaffold(
                   name: null,
-                  child: SearchTextField(
-                      textEditingController: _textEditingController),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SearchTextField(
+                          textEditingController: _textEditingController),
+                      Padding(
+                        padding: const EdgeInsets.all(80.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.read<AuthGateCubit>().signOut();
+                          },
+                          child: const Text('Sign out'),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               case (Status.loading):
                 return const _HomePageScaffold(
                   name: null,
+                  padding: EdgeInsets.all(8),
                   child: _CircularLoadingIndicator(),
                 );
               case (Status.error):
                 return _HomePageScaffold(
                   name: null,
+                  padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
                       SearchTextField(
@@ -54,8 +72,9 @@ class ChessHomePageState extends State<ChessHomePage> {
                   ),
                 );
               case (Status.success):
-                return _ChessGameListScaffold(
+                return _HomePageScaffold(
                   name: chessGamesModels![0].userId,
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: Column(
                     children: [
                       const _DropDownMenu(),
@@ -72,10 +91,12 @@ class ChessHomePageState extends State<ChessHomePage> {
 }
 
 class _HomePageScaffold extends StatelessWidget {
-  const _HomePageScaffold({required this.child, required this.name});
+  const _HomePageScaffold(
+      {required this.child, required this.name, required this.padding});
 
   final Widget child;
   final String? name;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
@@ -85,28 +106,7 @@ class _HomePageScaffold extends StatelessWidget {
         name: name,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: child,
-      ),
-    );
-  }
-}
-
-class _ChessGameListScaffold extends StatelessWidget {
-  const _ChessGameListScaffold({required this.child, required this.name});
-
-  final Widget child;
-  final String? name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
-      appBar: HomePageAppBar(
-        name: name,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+        padding: padding,
         child: child,
       ),
     );
@@ -121,36 +121,51 @@ class _DropDownMenu extends StatelessWidget {
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 400),
-          height: state.dropDownMenuIsActive == true ? 50 : 0,
+          duration: const Duration(milliseconds: 300),
+          height: state.dropDownMenuIsActive == true ? 100 : 10,
           width: MediaQuery.of(context).size.width / 1.5,
           decoration: BoxDecoration(
               border: Border.all(
                 color: AppTheme.borderColor,
               ),
               color: AppTheme.contanierColor),
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 200),
-            opacity: state.dropDownMenuIsActive == true ? 1 : 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Delete user?',
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                InkWell(
-                  onTap: () {
-                    context.read<HomePageCubit>().deleteAllCurrentGames();
-                  },
-                  child: const Icon(
-                    Icons.delete,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Delete user?',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          context.read<HomePageCubit>().deleteAllCurrentGames();
+                        },
+                        child: const Icon(
+                          Icons.delete,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<AuthGateCubit>().signOut();
+                    },
+                    child: const Text('Sign out'),
+                  )
+                ],
+              ),
             ),
           ),
         );
