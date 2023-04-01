@@ -1,6 +1,7 @@
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserChessGamesRepository {
   UserChessGamesRepository(this._chessGameDataSource);
@@ -8,10 +9,16 @@ class UserChessGamesRepository {
   final ChessGameDataSource _chessGameDataSource;
 
   Future<void> deleteAllCurrentGames() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      throw Exception('User isn\'t logged in');
+    }
     await FirebaseFirestore.instance.collection('chess_games').get().then(
       (querySnapshots) {
         for (var docSnapshot in querySnapshots.docs) {
           FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
               .collection('chess_games')
               .doc(docSnapshot.id)
               .delete();
@@ -21,6 +28,10 @@ class UserChessGamesRepository {
   }
 
   Future<void> addUserGamesIntoFirebase(String id) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      throw Exception('User isn\'t logged in');
+    }
     final json = await _chessGameDataSource.getUserChessGamesFromId(id);
 
     if (json == null) {
@@ -104,7 +115,11 @@ class UserChessGamesRepository {
             .substring(i, i + 2));
       }
       // Add the now correct game into the database
-      await FirebaseFirestore.instance.collection('chess_games').add({
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('chess_games')
+          .add({
         'gameId': chessGame.gameId,
         'userId': chessGame.userId,
         'lastFen': chessGame.lastFen,
@@ -127,7 +142,13 @@ class UserChessGamesRepository {
   }
 
   Stream<List<ChessGameModel>> getUserChessGamesStream() {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      throw Exception('User isn\'t logged in');
+    }
     return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
         .collection('chess_games')
         .orderBy('playedAtInt', descending: true)
         .snapshots()
