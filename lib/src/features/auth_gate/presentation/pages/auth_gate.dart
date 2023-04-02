@@ -45,80 +45,127 @@ class _AuthPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppTheme.lighterContainerColor,
-                  hintText: 'E-mail'),
-              controller: emailController,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppTheme.lighterContainerColor,
-                  hintText: 'Password'),
-              controller: passwordController,
-              obscureText: true,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (state.isLoginPage == true) {
-                  context.read<AuthGateCubit>().signIn(
-                      emailController.text.trim(),
-                      passwordController.text.trim());
-                } else {
-                  context.read<AuthGateCubit>().createAccount(
-                      emailController.text.trim(),
-                      passwordController.text.trim());
-                }
-              },
-              child: Text(
-                state.isLoginPage == true ? 'Log In' : 'Sign Up',
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            RichText(
-              text: TextSpan(
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                text: state.isLoginPage == true
-                    ? 'No account?  '
-                    : 'Already have an account? ',
-                children: [
-                  TextSpan(
-                      text: state.isLoginPage == true
-                          ? 'Sign Up'
-                          : 'Log In instead',
-                      style: const TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blue,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          context.read<AuthGateCubit>().switchLoginAndSignUp();
-                        })
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            _EmailTextField(emailController: emailController),
+            const SizedBox(height: 10),
+            _PasswordTextField(passwordController: passwordController),
+            const SizedBox(height: 5),
+            _LogInButton(
+                state: state,
+                emailController: emailController,
+                passwordController: passwordController),
+            const SizedBox(height: 10),
+            _SignUpRichText(state: state),
+            const SizedBox(height: 10),
             Text(
               state.errorMessage ?? '',
               textAlign: TextAlign.center,
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _EmailTextField extends StatelessWidget {
+  const _EmailTextField({
+    required this.emailController,
+  });
+
+  final TextEditingController emailController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: AppTheme.lighterContainerColor,
+          hintText: 'E-mail'),
+      controller: emailController,
+    );
+  }
+}
+
+class _PasswordTextField extends StatelessWidget {
+  const _PasswordTextField({
+    required this.passwordController,
+  });
+
+  final TextEditingController passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: AppTheme.lighterContainerColor,
+          hintText: 'Password'),
+      controller: passwordController,
+      obscureText: true,
+    );
+  }
+}
+
+class _LogInButton extends StatelessWidget {
+  const _LogInButton({
+    required this.state,
+    required this.emailController,
+    required this.passwordController,
+  });
+
+  final AuthGateState state;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        if (state.isLoginPage == true) {
+          context.read<AuthGateCubit>().signIn(
+              emailController.text.trim(), passwordController.text.trim());
+        } else {
+          context.read<AuthGateCubit>().createAccount(
+              emailController.text.trim(), passwordController.text.trim());
+        }
+      },
+      child: Text(
+        state.isLoginPage == true ? 'Log In' : 'Sign Up',
+      ),
+    );
+  }
+}
+
+class _SignUpRichText extends StatelessWidget {
+  const _SignUpRichText({
+    required this.state,
+  });
+
+  final AuthGateState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+        text: state.isLoginPage == true
+            ? 'No account?  '
+            : 'Already have an account? ',
+        children: [
+          TextSpan(
+              text: state.isLoginPage == true ? 'Sign Up' : 'Log In instead',
+              style: const TextStyle(
+                decoration: TextDecoration.underline,
+                color: Colors.blue,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  context.read<AuthGateCubit>().switchLoginAndSignUp();
+                })
+        ],
       ),
     );
   }

@@ -56,7 +56,7 @@ class ChessHomePageState extends State<ChessHomePage> {
                 return const _HomePageScaffold(
                   name: null,
                   padding: EdgeInsets.all(8),
-                  child: _CircularLoadingIndicator(),
+                  child: _CircularLoadingScreen(),
                 );
               case (Status.error):
                 return _HomePageScaffold(
@@ -174,8 +174,8 @@ class _DropDownMenu extends StatelessWidget {
   }
 }
 
-class _CircularLoadingIndicator extends StatelessWidget {
-  const _CircularLoadingIndicator();
+class _CircularLoadingScreen extends StatelessWidget {
+  const _CircularLoadingScreen();
 
   @override
   Widget build(BuildContext context) {
