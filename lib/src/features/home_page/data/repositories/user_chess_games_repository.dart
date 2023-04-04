@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,21 +8,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 class UserChessGamesRepository {
   UserChessGamesRepository(this._chessGameDataSource);
 
-  final ChessGameDataSource _chessGameDataSource;
+  final ChessGameRemoteRetrofitDataSource _chessGameDataSource;
 
   Future<void> addUserGamesIntoFirebase(String id) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       throw Exception('User isn\'t logged in');
     }
-    final json = await _chessGameDataSource.getUserChessGamesFromId(id);
-
-    if (json == null) {
-      return;
+    final response = await _chessGameDataSource.getUserChessGamesFromId(id);
+    //Lichess API sends it's response in a specific way where each line is it's own json string
+    // so we need to seperate them and put them in a List first
+    List<String> responseAsListOfStrings =
+        const LineSplitter().convert(response);
+    final List<Map<String, dynamic>> responseAsListMap = [];
+    for (var i = 0; i < responseAsListOfStrings.length; i++) {
+      responseAsListMap.add(jsonDecode(responseAsListOfStrings[i]));
+      responseAsListMap[i].addAll({'userId': id});
+      // Analysis doesn't have the starting position analysis in it so I have to add one myself
+      responseAsListMap[i]['analysis'].insert(0, {'eval': 26});
+      List<dynamic> movesAsList = responseAsListMap[i]['moves'].split(' ');
+      responseAsListMap[i].addAll({'movesAsList': movesAsList});
     }
-
     final listOfChessGames =
-        json.map((e) => ChessGameModel.fromJson(e)).toList();
+        responseAsListMap.map((e) => ChessGameModel.fromJson(e)).toList();
 
     int biggestDifference = 0;
     int moveOnWhichMistakeHappened = 0;

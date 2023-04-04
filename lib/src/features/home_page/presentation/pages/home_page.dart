@@ -7,6 +7,7 @@ import 'package:chess_app/src/features/home_page/data/repositories/user_chess_ga
 import 'package:chess_app/src/features/home_page/presentation/cubits/home_page_cubit/home_page_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/home_page_widgets/chess_games_list.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/home_page_widgets/search_textfield.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class ChessHomePageState extends State<ChessHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          HomePageCubit(UserChessGamesRepository(ChessGameDataSource()))
+          HomePageCubit(UserChessGamesRepository(ChessGameRemoteRetrofitDataSource(Dio())))
             ..start(),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
