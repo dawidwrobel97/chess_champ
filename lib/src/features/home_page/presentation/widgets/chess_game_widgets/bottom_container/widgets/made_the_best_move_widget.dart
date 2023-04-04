@@ -23,7 +23,7 @@ class MadeTheBestMoveWidget extends StatelessWidget {
           ),
         ),
         Text(
-          'Yes!!! That\'s it! The best move was moving the piece from ${game.bestMove[0]} to ${game.bestMove[1]}!\nI can already see you becoming better! ;)',
+          'Yes!!! That\'s it! The best move was moving the piece from ${game.bestMove![0]} to ${game.bestMove![1]}!\nI can already see you becoming better! ;)',
           style: const TextStyle(
             fontSize: 18,
           ),

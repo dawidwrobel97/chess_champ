@@ -22,7 +22,7 @@ class UpperText extends StatelessWidget {
           return Column(
             children: [
               Text(
-                'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened / 2).round()}\n when you played ${game.worstMove}',
+                'Your biggest mistake in game was on move ${(game.moveOnWhichMistakeHappened! / 2).round()}\n when you played ${game.worstMove}',
                 style: GoogleFonts.oswald(
                     textStyle: const TextStyle(fontSize: 20)),
                 textAlign: TextAlign.center,

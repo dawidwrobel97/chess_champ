@@ -33,10 +33,10 @@ class ChessGameBoard extends StatelessWidget {
               onMove: () {
                 context
                     .read<ChessGameCubit>()
-                    .madeMove(game.moveOnWhichMistakeHappened);
+                    .madeMove(game.moveOnWhichMistakeHappened!);
               },
               controller: state.chessBoardController!,
-              boardOrientation: game.userId == game.whitePlayer
+              boardOrientation: game.userId.toLowerCase() == game.whitePlayer().toLowerCase()
                   ? ch.PlayerColor.white
                   : ch.PlayerColor.black,
               arrows: state.enabledMoves == true
@@ -49,17 +49,17 @@ class ChessGameBoard extends StatelessWidget {
                     ]
                   : [
                       ch.BoardArrow(
-                        from: game.bestMove[0],
-                        to: game.bestMove[1],
+                        from: game.bestMove![0],
+                        to: game.bestMove![1],
                         color: Colors.green.withOpacity(0.8),
                       ),
                     ],
             ),
           ),
         ),
-        if (game.userId == game.whitePlayer)
+        if (game.userId.toLowerCase() == game.whitePlayer().toLowerCase())
           ..._buildWhiteAnnotations(squareNames),
-        if (game.userId == game.blackPlayer)
+        if (game.userId.toLowerCase() == game.blackPlayer().toLowerCase())
           ..._buildBlackAnnotations(squareNames),
       ],
     );

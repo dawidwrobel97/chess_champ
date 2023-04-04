@@ -24,6 +24,7 @@ class UserChessGamesRepository {
 
     int biggestDifference = 0;
     int moveOnWhichMistakeHappened = 0;
+    List<dynamic> bestMove = [];
     bool hasBlunder = false;
     bool hasMistake = false;
     for (final chessGame in listOfChessGames) {
@@ -35,12 +36,14 @@ class UserChessGamesRepository {
         }
         // We only want to see our mistakes so we ignore moves made by our opponent
         // All moves by white are even and all moves by black are odd so this filters the moves based on which color the user is
-        if (chessGame.userId == chessGame.whitePlayer) {
+        if (chessGame.userId.toLowerCase() ==
+            chessGame.whitePlayer().toLowerCase()) {
           if ((i % 2) == 0) {
             continue;
           }
         }
-        if (chessGame.userId == chessGame.blackPlayer) {
+        if (chessGame.userId.toLowerCase() ==
+            chessGame.blackPlayer().toLowerCase()) {
           if ((i % 2) != 0) {
             continue;
           }
@@ -70,11 +73,13 @@ class UserChessGamesRepository {
         int currentDifference = chessGame.movesAnalysis[i]['eval'] -
             chessGame.movesAnalysis[i - 1]['eval'];
         if ((currentDifference).abs() > biggestDifference) {
-          if (chessGame.userId == chessGame.whitePlayer &&
+          if (chessGame.userId.toLowerCase() ==
+                  chessGame.whitePlayer().toLowerCase() &&
               currentDifference < 0) {
             biggestDifference = (currentDifference).abs();
             moveOnWhichMistakeHappened = i - 1;
-          } else if (chessGame.userId == chessGame.blackPlayer &&
+          } else if (chessGame.userId.toLowerCase() ==
+                  chessGame.blackPlayer().toLowerCase() &&
               currentDifference > 0) {
             biggestDifference = (currentDifference).abs();
             moveOnWhichMistakeHappened = i - 1;
@@ -87,14 +92,15 @@ class UserChessGamesRepository {
       for (int i = 0;
           i <
               chessGame
-                  .movesAnalysis[chessGame.moveOnWhichMistakeHappened + 1]
+                  .movesAnalysis[chessGame.moveOnWhichMistakeHappened! + 1]
                       ['best']
                   .length;
           i += 2) {
-        chessGame.bestMove.add(chessGame
-            .movesAnalysis[chessGame.moveOnWhichMistakeHappened + 1]['best']
+        bestMove.add(chessGame
+            .movesAnalysis[chessGame.moveOnWhichMistakeHappened! + 1]['best']
             .substring(i, i + 2));
       }
+      chessGame.bestMove = bestMove;
       // Add the now correct game into the database
       await FirebaseFirestore.instance
           .collection('users')
@@ -104,11 +110,10 @@ class UserChessGamesRepository {
         'gameId': chessGame.gameId,
         'userId': chessGame.userId,
         'lastFen': chessGame.lastFen,
-        'whitePlayer': chessGame.whitePlayer,
-        'blackPlayer': chessGame.blackPlayer,
+        'players': chessGame.players,
         'movesAnalysis': chessGame.movesAnalysis,
         'movesAsList': chessGame.movesAsList,
-        'playedAtInt': chessGame.playedAtInt,
+        'playedAtInt': chessGame.createdAt,
         'bestMove': chessGame.bestMove,
         'biggestScoreDifference': chessGame.biggestScoreDifference,
         'moveOnWhichMistakeHappened': chessGame.moveOnWhichMistakeHappened,
@@ -116,6 +121,7 @@ class UserChessGamesRepository {
       });
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;
+      bestMove = [];
       hasBlunder = false;
       hasMistake = false;
       // We take the best move analysis and split the string into 2 so it's easier to use in the future
@@ -165,11 +171,10 @@ class UserChessGamesRepository {
               gameId: doc['gameId'],
               userId: doc['userId'],
               lastFen: doc['lastFen'],
-              whitePlayer: doc['whitePlayer'],
-              blackPlayer: doc['blackPlayer'],
+              players: doc['players'],
               movesAnalysis: doc['movesAnalysis'],
               movesAsList: doc['movesAsList'],
-              playedAtInt: doc['playedAtInt'],
+              createdAt: doc['playedAtInt'],
               bestMove: doc['bestMove'],
               biggestScoreDifference: doc['biggestScoreDifference'],
               moveOnWhichMistakeHappened: doc['moveOnWhichMistakeHappened'],

@@ -23,12 +23,12 @@ class ChessGameCubit extends Cubit<ChessGameState> {
 
   Future<void> start(ChessGameModel chessGameModel) async {
     emit(state.copyWith(status: Status.loading));
-    for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened + 1; i++) {
+    for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened! + 1; i++) {
       chessBoardController
           .makeMoveWithNormalNotation(chessGameModel.movesAsList[i]);
     }
     final State wrongMove = chessBoardController
-        .game.history[chessGameModel.moveOnWhichMistakeHappened];
+        .game.history[chessGameModel.moveOnWhichMistakeHappened!];
     if (wrongMove.move.piece.name == 'p') {
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
@@ -65,18 +65,18 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     }
     // Check whether the move is not the best move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
-            state.chessGameModel!.bestMove[0]) ||
+            state.chessGameModel!.bestMove![0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
-            state.chessGameModel!.bestMove[1])) {
+            state.chessGameModel!.bestMove![1])) {
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
       emit(state.copyWith(madeWrongMove: true, madeTheSameMistake: false));
     }
     // Check whether the move is the best possible move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
-            state.chessGameModel!.bestMove[0]) &&
+            state.chessGameModel!.bestMove![0]) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
-            state.chessGameModel!.bestMove[1])) {
+            state.chessGameModel!.bestMove![1])) {
       chessBoardController.game.half_moves = 1;
       emit(
         state.copyWith(
@@ -90,7 +90,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
   }
 
   Future<void> makeTheBestMove(ChessGameModel game) async {
-    chessBoardController.makeMove(from: game.bestMove[0], to: game.bestMove[1]);
+    chessBoardController.makeMove(from: game.bestMove![0], to: game.bestMove![1]);
     emit(
       state.copyWith(
         enabledMoves: false,

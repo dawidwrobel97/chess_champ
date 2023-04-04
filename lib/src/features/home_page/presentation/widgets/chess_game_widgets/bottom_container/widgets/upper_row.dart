@@ -28,7 +28,7 @@ class UpperRow extends StatelessWidget {
             ),
             Builder(
               builder: (context) {
-                if (game.biggestScoreDifference <= 2) {
+                if (game.biggestScoreDifference! <= 2) {
                   return Flexible(
                     child: Row(
                       children: [
@@ -46,8 +46,8 @@ class UpperRow extends StatelessWidget {
                     ),
                   );
                 }
-                if (game.biggestScoreDifference > 2 &&
-                    game.biggestScoreDifference <= 4) {
+                if (game.biggestScoreDifference! > 2 &&
+                    game.biggestScoreDifference! <= 4) {
                   return Flexible(
                     child: Row(
                       children: [
@@ -65,8 +65,8 @@ class UpperRow extends StatelessWidget {
                     ),
                   );
                 }
-                if (game.biggestScoreDifference > 4 &&
-                    game.biggestScoreDifference <= 6) {
+                if (game.biggestScoreDifference! > 4 &&
+                    game.biggestScoreDifference! <= 6) {
                   return Flexible(
                     child: Row(
                       children: [

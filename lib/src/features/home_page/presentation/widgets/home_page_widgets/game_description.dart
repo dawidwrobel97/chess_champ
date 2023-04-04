@@ -44,7 +44,7 @@ class GameDescription extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Biggest mistake was made on move ${(chessGamesModel.moveOnWhichMistakeHappened / 2).round()}',
+                          'Biggest mistake was made on move ${(chessGamesModel.moveOnWhichMistakeHappened! / 2).round()}',
                           textAlign: TextAlign.center,
                         ),
                       ],

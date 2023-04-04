@@ -29,7 +29,7 @@ class UpperBox extends StatelessWidget {
             ),
           ),
           Text(
-            '${game.whitePlayer} and ${game.blackPlayer}',
+            '${game.whitePlayer()} and ${game.blackPlayer()}',
             style: GoogleFonts.oswald(
               textStyle: TextStyle(
                 color: AppTheme.fontColor,

@@ -30,8 +30,8 @@ class ChessGameThumbnailState extends State<ChessGameThumbnail> {
         child: IgnorePointer(
           child: ChessBoard(
             controller: controller,
-            boardOrientation: widget.chessGameModel.userId ==
-                    widget.chessGameModel.whitePlayer
+            boardOrientation: widget.chessGameModel.userId.toLowerCase() ==
+                    widget.chessGameModel.whitePlayer().toLowerCase()
                 ? PlayerColor.white
                 : PlayerColor.black,
           ),
