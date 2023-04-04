@@ -8,25 +8,6 @@ class UserChessGamesRepository {
 
   final ChessGameDataSource _chessGameDataSource;
 
-  Future<void> deleteAllCurrentGames() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
-      throw Exception('User isn\'t logged in');
-    }
-    await FirebaseFirestore.instance.collection('chess_games').get().then(
-      (querySnapshots) {
-        for (var docSnapshot in querySnapshots.docs) {
-          FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .collection('chess_games')
-              .doc(docSnapshot.id)
-              .delete();
-        }
-      },
-    );
-  }
-
   Future<void> addUserGamesIntoFirebase(String id) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
@@ -139,6 +120,30 @@ class UserChessGamesRepository {
       hasMistake = false;
       // We take the best move analysis and split the string into 2 so it's easier to use in the future
     }
+  }
+
+  Future<void> deleteAllCurrentGames() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      throw Exception('User isn\'t logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chess_games')
+        .get()
+        .then(
+      (querySnapshots) {
+        for (var docSnapshot in querySnapshots.docs) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('chess_games')
+              .doc(docSnapshot.id)
+              .delete();
+        }
+      },
+    );
   }
 
   Stream<List<ChessGameModel>> getUserChessGamesStream() {

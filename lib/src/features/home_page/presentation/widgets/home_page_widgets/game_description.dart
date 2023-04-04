@@ -22,32 +22,35 @@ class GameDescription extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'Played on ${chessGamesModel.playedGameAt()}',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.oswald(
-                        textStyle: const TextStyle(fontSize: 17)),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Text(
-                          'Biggest mistake: \n${chessGamesModel.biggestScoreDifference}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 16),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Played on ${chessGamesModel.playedGameAt()}',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.oswald(
+                          textStyle: const TextStyle(fontSize: 17)),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Text(
+                            'Biggest mistake: \n${chessGamesModel.biggestScoreDifference}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Biggest mistake was made on move ${(chessGamesModel.moveOnWhichMistakeHappened / 2).round()}',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          'Biggest mistake was made on move ${(chessGamesModel.moveOnWhichMistakeHappened / 2).round()}',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             PopupMenuButton<MenuItem>(

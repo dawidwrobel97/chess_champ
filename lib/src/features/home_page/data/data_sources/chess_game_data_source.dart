@@ -9,8 +9,7 @@ class ChessGameDataSource {
 
     try {
       final response = await dio.get(
-          //TO DO : Werid bug, it tries to get games that aren't analysed
-          'https://lichess.org/api/games/user/$id?max=15&lastFen=true&analysed=true&evals=true');
+          'https://lichess.org/api/games/user/$id?max=10&lastFen=true&analysed=true&evals=true');
       if (response.data == null) {
         return null;
       }

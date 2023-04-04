@@ -5,6 +5,7 @@ import 'package:chess_app/src/features/home_page/presentation/pages/home_page.da
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -41,28 +42,67 @@ class _AuthPage extends StatelessWidget {
       appBar: const MyAppBar(),
       backgroundColor: AppTheme.backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _EmailTextField(emailController: emailController),
-            const SizedBox(height: 10),
-            _PasswordTextField(passwordController: passwordController),
-            const SizedBox(height: 5),
-            _LogInButton(
-                state: state,
+            Image.asset(
+              'lib/src/assets/images/logo5.png',
+              height: MediaQuery.of(context).size.height / 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'ChessChamp',
+                style: GoogleFonts.bebasNeue(
+                  textStyle: const TextStyle(fontSize: 40),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 50,
+            ),
+            _LogInMenu(
                 emailController: emailController,
-                passwordController: passwordController),
-            const SizedBox(height: 10),
-            _SignUpRichText(state: state),
-            const SizedBox(height: 10),
-            Text(
-              state.errorMessage ?? '',
-              textAlign: TextAlign.center,
-            )
+                passwordController: passwordController,
+                state: state),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _LogInMenu extends StatelessWidget {
+  const _LogInMenu({
+    required this.emailController,
+    required this.passwordController,
+    required this.state,
+  });
+
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final AuthGateState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _EmailTextField(emailController: emailController),
+        const SizedBox(height: 10),
+        _PasswordTextField(passwordController: passwordController),
+        const SizedBox(height: 5),
+        _LogInButton(
+            state: state,
+            emailController: emailController,
+            passwordController: passwordController),
+        const SizedBox(height: 10),
+        _SignUpRichText(state: state),
+        const SizedBox(height: 10),
+        Text(
+          state.errorMessage ?? '',
+          textAlign: TextAlign.center,
+        )
+      ],
     );
   }
 }
