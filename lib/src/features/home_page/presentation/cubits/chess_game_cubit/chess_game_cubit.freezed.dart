@@ -50,6 +50,8 @@ abstract class $ChessGameStateCopyWith<$Res> {
       ChessGameModel? chessGameModel,
       ChessBoardController? chessBoardController,
       State? wrongMove});
+
+  $ChessGameModelCopyWith<$Res>? get chessGameModel;
 }
 
 /// @nodoc
@@ -119,6 +121,18 @@ class _$ChessGameStateCopyWithImpl<$Res, $Val extends ChessGameState>
               as State?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChessGameModelCopyWith<$Res>? get chessGameModel {
+    if (_value.chessGameModel == null) {
+      return null;
+    }
+
+    return $ChessGameModelCopyWith<$Res>(_value.chessGameModel!, (value) {
+      return _then(_value.copyWith(chessGameModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -140,6 +154,9 @@ abstract class _$$_ChessGameStateCopyWith<$Res>
       ChessGameModel? chessGameModel,
       ChessBoardController? chessBoardController,
       State? wrongMove});
+
+  @override
+  $ChessGameModelCopyWith<$Res>? get chessGameModel;
 }
 
 /// @nodoc

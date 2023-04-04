@@ -71,6 +71,15 @@ class ChessHomePageState extends State<ChessHomePage> {
                           textEditingController: _textEditingController,
                         ),
                         Text(state.errorMessage!),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.55,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.read<AuthGateCubit>().signOut();
+                          },
+                          child: const Text('Sign out'),
+                        ),
                       ],
                     ),
                   ),

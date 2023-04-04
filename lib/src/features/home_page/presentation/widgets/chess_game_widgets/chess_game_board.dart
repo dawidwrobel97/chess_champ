@@ -36,9 +36,10 @@ class ChessGameBoard extends StatelessWidget {
                     .madeMove(game.moveOnWhichMistakeHappened!);
               },
               controller: state.chessBoardController!,
-              boardOrientation: game.userId.toLowerCase() == game.whitePlayer().toLowerCase()
-                  ? ch.PlayerColor.white
-                  : ch.PlayerColor.black,
+              boardOrientation:
+                  game.userId.toLowerCase() == game.whitePlayer().toLowerCase()
+                      ? ch.PlayerColor.white
+                      : ch.PlayerColor.black,
               arrows: state.enabledMoves == true
                   ? [
                       ch.BoardArrow(

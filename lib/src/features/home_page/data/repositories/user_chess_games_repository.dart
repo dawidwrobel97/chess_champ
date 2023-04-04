@@ -108,13 +108,13 @@ class UserChessGamesRepository {
           .doc(userId)
           .collection('chess_games')
           .add({
-        'gameId': chessGame.gameId,
+        'id': chessGame.gameId,
         'userId': chessGame.userId,
         'lastFen': chessGame.lastFen,
         'players': chessGame.players,
-        'movesAnalysis': chessGame.movesAnalysis,
+        'analysis': chessGame.movesAnalysis,
         'movesAsList': chessGame.movesAsList,
-        'playedAtInt': chessGame.createdAt,
+        'createdAt': chessGame.createdAt,
         'bestMove': chessGame.bestMove,
         'biggestScoreDifference': chessGame.biggestScoreDifference,
         'moveOnWhichMistakeHappened': chessGame.moveOnWhichMistakeHappened,
@@ -161,25 +161,13 @@ class UserChessGamesRepository {
         .collection('users')
         .doc(userId)
         .collection('chess_games')
-        .orderBy('playedAtInt', descending: true)
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(
       (data) {
         return data.docs.map(
           (doc) {
-            return ChessGameModel(
-              gameId: doc['gameId'],
-              userId: doc['userId'],
-              lastFen: doc['lastFen'],
-              players: doc['players'],
-              movesAnalysis: doc['movesAnalysis'],
-              movesAsList: doc['movesAsList'],
-              createdAt: doc['playedAtInt'],
-              bestMove: doc['bestMove'],
-              biggestScoreDifference: doc['biggestScoreDifference'],
-              moveOnWhichMistakeHappened: doc['moveOnWhichMistakeHappened'],
-              worstMove: doc['worstMove'],
-            );
+            return ChessGameModel.fromJson(doc.data());
           },
         ).toList();
       },
