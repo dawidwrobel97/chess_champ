@@ -41,31 +41,33 @@ class _AuthPage extends StatelessWidget {
     return Scaffold(
       appBar: const MyAppBar(),
       backgroundColor: AppTheme.backgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Image.asset(
-              'lib/src/assets/images/logo5.png',
-              height: MediaQuery.of(context).size.height / 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'ChessChamp',
-                style: GoogleFonts.bebasNeue(
-                  textStyle: const TextStyle(fontSize: 40),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+          child: Column(
+            children: [
+              Image.asset(
+                'lib/src/assets/images/logo5.png',
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'ChessChamp',
+                  style: GoogleFonts.bebasNeue(
+                    textStyle: const TextStyle(fontSize: 40),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 50,
-            ),
-            _LogInMenu(
-                emailController: emailController,
-                passwordController: passwordController,
-                state: state),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              _LogInMenu(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  state: state),
+            ],
+          ),
         ),
       ),
     );

@@ -35,21 +35,23 @@ class ChessHomePageState extends State<ChessHomePage> {
                 return _HomePageScaffold(
                   name: null,
                   padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SearchTextField(
-                          textEditingController: _textEditingController),
-                      Padding(
-                        padding: const EdgeInsets.all(80.0),
-                        child: ElevatedButton(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SearchTextField(
+                            textEditingController: _textEditingController),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.55,
+                        ),
+                        ElevatedButton(
                           onPressed: () {
                             context.read<AuthGateCubit>().signOut();
                           },
                           child: const Text('Sign out'),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               case (Status.loading):
@@ -62,13 +64,15 @@ class ChessHomePageState extends State<ChessHomePage> {
                 return _HomePageScaffold(
                   name: null,
                   padding: const EdgeInsets.all(8),
-                  child: Column(
-                    children: [
-                      SearchTextField(
-                        textEditingController: _textEditingController,
-                      ),
-                      Text(state.errorMessage!),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SearchTextField(
+                          textEditingController: _textEditingController,
+                        ),
+                        Text(state.errorMessage!),
+                      ],
+                    ),
                   ),
                 );
               case (Status.success):
