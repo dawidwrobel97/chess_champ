@@ -89,6 +89,7 @@ class UserChessGamesRepository {
       chessGame.biggestScoreDifference = biggestDifference / 100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
       chessGame.worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
+      // We take the best move analysis and split the string into 2 so it's easier to use in the future
       for (int i = 0;
           i <
               chessGame
@@ -124,7 +125,6 @@ class UserChessGamesRepository {
       bestMove = [];
       hasBlunder = false;
       hasMistake = false;
-      // We take the best move analysis and split the string into 2 so it's easier to use in the future
     }
   }
 
