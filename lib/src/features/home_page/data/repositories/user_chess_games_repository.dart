@@ -16,6 +16,8 @@ class UserChessGamesRepository {
       throw Exception('User isn\'t logged in');
     }
     final response = await _chessGameDataSource.getUserChessGamesFromId(id);
+
+
     //Lichess API sends it's response in a specific way where each line is it's own json string
     // so we need to seperate them and put them in a List first
     List<String> responseAsListOfStrings =
@@ -32,14 +34,17 @@ class UserChessGamesRepository {
     final listOfChessGames =
         responseAsListMap.map((e) => ChessGameModel.fromJson(e)).toList();
 
+
+    // Now that we have a proper list of chess games we search each game for biggest mistakes and best moves
     int biggestDifference = 0;
     int moveOnWhichMistakeHappened = 0;
     List<dynamic> bestMove = [];
     bool hasBlunder = false;
     bool hasMistake = false;
     for (final chessGame in listOfChessGames) {
+      // First we go through every move in the game
       for (var i = 1; i < chessGame.movesAnalysis.length - 1; i++) {
-        // If there is a possible mate sequence then no eval is given, so it's impossible to compare, we have to ignore instead
+        // If there is a possible mate sequence then no eval is given, so it's impossible to compare, so we have to ignore instead
         if (chessGame.movesAnalysis[i].containsKey('mate') ||
             chessGame.movesAnalysis[i - 1].containsKey('mate')) {
           continue;
@@ -58,7 +63,8 @@ class UserChessGamesRepository {
             continue;
           }
         }
-        // If analysis dedects a mistake it always sends more than 1 value and gives best possible move
+        // Analysis is only send when a mistake is found
+        // when analysis detects a mistake it always sends more than 1 value and gives best possible move
         // without analsys we don't know what the best move is so we only want moves with analysis
         if (chessGame.movesAnalysis[i].length == 1) {
           continue;
@@ -71,7 +77,7 @@ class UserChessGamesRepository {
         }
         // In analysis there are 3 names for mistakes based on how bad they are: blunder, mistake and inaccuracy
         // but sometimes mistakes and innacuracies can technically have bigger difference number while not being as important as blunders
-        // that's why if there is a blunder it should always take priority
+        // but blunders should always take priority
         if (chessGame.movesAnalysis[i]['judgment']['name'] == 'Mistake' &&
             hasBlunder == true) {
           continue;
@@ -80,6 +86,7 @@ class UserChessGamesRepository {
             (hasBlunder == true || hasMistake == true)) {
           continue;
         }
+        // Once we finally get here we check in our current move is the biggest difference
         int currentDifference = chessGame.movesAnalysis[i]['eval'] -
             chessGame.movesAnalysis[i - 1]['eval'];
         if ((currentDifference).abs() > biggestDifference) {
@@ -96,6 +103,7 @@ class UserChessGamesRepository {
           }
         }
       }
+      // Once we check all moves in a game we save the stats
       chessGame.biggestScoreDifference = biggestDifference / 100;
       chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
       chessGame.worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
@@ -112,7 +120,7 @@ class UserChessGamesRepository {
             .substring(i, i + 2));
       }
       chessGame.bestMove = bestMove;
-      // Add the now correct game into the database
+      // Now we finally add the correct game into the database
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
