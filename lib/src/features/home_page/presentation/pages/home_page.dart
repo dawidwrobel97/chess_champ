@@ -55,7 +55,8 @@ class ChessHomePageState extends State<ChessHomePage> {
                 return const _HomePageScaffold(
                   name: null,
                   padding: EdgeInsets.all(8),
-                  child: _CircularLoadingScreen(),
+                  child: Center(
+                      child: CircularProgressIndicator(color: Colors.blue)),
                 );
               case (Status.error):
                 return _HomePageScaffold(
@@ -145,25 +146,25 @@ class _DropDownMenu extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Delete user?',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          context.read<HomePageCubit>().deleteAllCurrentGames();
-                        },
-                        child: const Icon(
+                  InkWell(
+                    onTap: () {
+                      context.read<HomePageCubit>().deleteAllCurrentGames();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'Delete user?',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Icon(
                           Icons.delete,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -180,31 +181,6 @@ class _DropDownMenu extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _CircularLoadingScreen extends StatelessWidget {
-  const _CircularLoadingScreen();
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox.expand(
-        child: Column(
-          children: const [
-            Expanded(
-              flex: 3,
-              child: SizedBox(),
-            ),
-            CircularProgressIndicator(color: Colors.blue),
-            Expanded(
-              flex: 4,
-              child: SizedBox(),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
