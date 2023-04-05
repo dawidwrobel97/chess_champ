@@ -6,19 +6,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserChessGamesRepository {
-  UserChessGamesRepository(this._chessGameDataSource);
+  UserChessGamesRepository({required this.chessGameDataSource});
 
-  final ChessGameRemoteRetrofitDataSource _chessGameDataSource;
+  final ChessGameRemoteRetrofitDataSource chessGameDataSource;
 
   Future<void> addUserGamesIntoFirebase(String id) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       throw Exception('User isn\'t logged in');
     }
-    final response = await _chessGameDataSource.getUserChessGamesFromId(id);
+    final response = await chessGameDataSource.getUserChessGamesFromId(id);
 
 
-    //Lichess API sends it's response in a specific way where each line is it's own json string
+    // Lichess API sends it's response in a specific way where each line is it's own json string
     // so we need to seperate them and put them in a List first
     List<String> responseAsListOfStrings =
         const LineSplitter().convert(response);

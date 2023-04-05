@@ -10,18 +10,18 @@ part 'home_page_cubit.freezed.dart';
 part 'home_page_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit(
-    this._userChessGamesRepository,
-  ) : super(const HomePageState(
+  HomePageCubit({ required
+    this.userChessGamesRepository,
+}) : super(const HomePageState(
           status: Status.initial,
           dropDownMenuIsActive: false,
         ));
 
-  final UserChessGamesRepository _userChessGamesRepository;
+  final UserChessGamesRepository userChessGamesRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _userChessGamesRepository
+    _streamSubscription = userChessGamesRepository
         .getUserChessGamesStream()
         .listen((listOfChessGamesModels) {
       if (listOfChessGamesModels.isEmpty) {
@@ -47,13 +47,13 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> deleteAllCurrentGames() async {
-    await _userChessGamesRepository.deleteAllCurrentGames();
+    await userChessGamesRepository.deleteAllCurrentGames();
     emit(state.copyWith(status: Status.initial));
   }
 
   Future<void> getUserChessGamesFromId(String id) async {
     emit(state.copyWith(status: Status.loading));
-    _userChessGamesRepository.addUserGamesIntoFirebase(id);
+    userChessGamesRepository.addUserGamesIntoFirebase(id);
   }
 
   Future<void> dropDownMenu() async {

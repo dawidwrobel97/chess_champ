@@ -1,13 +1,11 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/core/enums/enums.dart';
+import 'package:chess_app/src/core/injection_container.dart';
 import 'package:chess_app/src/features/auth_gate/presentation/cubit/cubit/auth_gate_cubit.dart';
-import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
-import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/home_page_cubit/home_page_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/home_page_widgets/chess_games_list.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/home_page_widgets/search_textfield.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,9 +22,7 @@ class ChessHomePageState extends State<ChessHomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          HomePageCubit(UserChessGamesRepository(ChessGameRemoteRetrofitDataSource(Dio())))
-            ..start(),
+      create: (context) => getIt<HomePageCubit>()..start(),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
