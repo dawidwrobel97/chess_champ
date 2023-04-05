@@ -71,6 +71,13 @@ dev_dependencies:
   freezed: ^2.3.2
   retrofit_generator: ^6.0.0+1
   injectable_generator: ^2.1.5
+  flutter_launcher_icons: ^0.12.0
+
+flutter_icons:
+  remove_alpha_ios: true
+  android: true
+  ios: true
+  image_path: "lib/src/assets/images/AppLogo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
