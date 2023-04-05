@@ -1,23 +1,18 @@
-import 'package:chess_app/src/features/auth_gate/presentation/cubit/cubit/auth_gate_cubit.dart';
-import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart';
-import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
-import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
-import 'package:chess_app/src/features/home_page/presentation/cubits/home_page_cubit/home_page_cubit.dart';
+import 'package:chess_app/src/core/injection_container.config.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 final getIt = GetIt.instance;
 
-void configureDependencies() {
-  // Bloc
-  getIt.registerFactory(() => HomePageCubit(userChessGamesRepository: getIt()));
-  getIt.registerFactory(() => ChessGameCubit());
-  getIt.registerFactory(() => AuthGateCubit());
+@InjectableInit()
+void configureDependencies() => getIt.init();
 
-  // Repositories
-  getIt.registerFactory(
-      () => UserChessGamesRepository(chessGameDataSource: getIt()));
+@module
+abstract class RegisterModule {
+  @Named("BaseUrl")
+  String get baseUrl => 'https://lichess.org/api/games/user/';
 
-  // RemoteDataSource
-  getIt.registerFactory(() => ChessGameRemoteRetrofitDataSource(Dio()));
-}
+  @lazySingleton
+  Dio dio(@Named('BaseUrl') String url) => Dio(BaseOptions(baseUrl: url));
+}  

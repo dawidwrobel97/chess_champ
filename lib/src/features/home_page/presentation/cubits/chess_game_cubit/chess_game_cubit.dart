@@ -4,10 +4,12 @@ import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'chess_game_state.dart';
 part 'chess_game_cubit.freezed.dart';
 
+@injectable
 class ChessGameCubit extends Cubit<ChessGameState> {
   ChessGameCubit()
       : super(const ChessGameState(
@@ -23,12 +25,16 @@ class ChessGameCubit extends Cubit<ChessGameState> {
 
   Future<void> start(ChessGameModel chessGameModel) async {
     emit(state.copyWith(status: Status.loading));
+    // First we make moves until the move on which mistake happened, plus 1 more so we know the wrong move
     for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened! + 1; i++) {
       chessBoardController
           .makeMoveWithNormalNotation(chessGameModel.movesAsList[i]);
     }
     final State wrongMove = chessBoardController
         .game.history[chessGameModel.moveOnWhichMistakeHappened!];
+      // This took me 2 days to figure out, but every time I want to undoMove with a pawn i have to make the half.moves value equal to 1 
+      // else it might bug out and not work correctly. I don't actually understand why, but it has to be a deeper issue within flutter_chess_board.dart or chess.dart widgets
+      // They are not mine so I just put this fix here, with it everything works fine
     if (wrongMove.move.piece.name == 'p') {
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
@@ -56,9 +62,6 @@ class ChessGameCubit extends Cubit<ChessGameState> {
             state.wrongMove!.move.fromAlgebraic) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
             state.wrongMove!.move.toAlgebraic)) {
-      // Every time I want to undoMove i have to make the half.moves value equal to 1 else it might bug out and not work correctly
-      // I don't actually understand why, but it has to be a deeper issue within flutter_chess_board.dart or chess.dart widgets
-      // They are not mine so I just put this fix here, with it everything works fine
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
       emit(state.copyWith(madeTheSameMistake: true, madeWrongMove: false));

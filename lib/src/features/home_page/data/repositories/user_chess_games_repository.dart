@@ -4,7 +4,9 @@ import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_da
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class UserChessGamesRepository {
   UserChessGamesRepository({required this.chessGameDataSource});
 

@@ -5,10 +5,12 @@ import 'package:chess_app/src/core/enums/enums.dart';
 import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'home_page_cubit.freezed.dart';
 part 'home_page_state.dart';
 
+@injectable
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit({ required
     this.userChessGamesRepository,

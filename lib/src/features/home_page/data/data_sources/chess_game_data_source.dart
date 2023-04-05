@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'chess_game_data_source.g.dart';
 
-@RestApi(baseUrl: 'https://lichess.org/api/games/user/')
+@injectable
+@RestApi()
 abstract class ChessGameRemoteRetrofitDataSource {
-  factory ChessGameRemoteRetrofitDataSource(Dio dio, {String baseUrl}) =
+  @factoryMethod
+  factory ChessGameRemoteRetrofitDataSource(Dio dio) =
       _ChessGameRemoteRetrofitDataSource;
 
   @GET("/{id}?max=10&lastFen=true&analysed=true&evals=true")

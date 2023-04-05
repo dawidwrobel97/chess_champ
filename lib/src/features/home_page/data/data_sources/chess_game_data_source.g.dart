@@ -13,9 +13,7 @@ class _ChessGameRemoteRetrofitDataSource
   _ChessGameRemoteRetrofitDataSource(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://lichess.org/api/games/user/';
-  }
+  });
 
   final Dio _dio;
 
