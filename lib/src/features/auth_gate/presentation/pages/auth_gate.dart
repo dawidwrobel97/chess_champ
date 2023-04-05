@@ -1,7 +1,7 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/core/injection_container.dart';
-import 'package:chess_app/src/features/auth_gate/presentation/cubit/cubit/auth_gate_cubit.dart';
+import 'package:chess_app/src/features/auth_gate/presentation/cubit/auth_gate_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/pages/home_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

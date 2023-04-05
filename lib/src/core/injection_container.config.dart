@@ -10,7 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:chess_app/src/core/injection_container.dart' as _i9;
-import 'package:chess_app/src/features/auth_gate/presentation/cubit/cubit/auth_gate_cubit.dart'
+import 'package:chess_app/src/features/auth_gate/presentation/cubit/auth_gate_cubit.dart'
     as _i3;
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart'
     as _i6;
