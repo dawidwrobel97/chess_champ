@@ -14,7 +14,7 @@ import 'package:chess_app/src/features/auth_gate/presentation/cubit/auth_gate_cu
     as _i3;
 import 'package:chess_app/src/features/home_page/data/data_sources/chess_game_data_source.dart'
     as _i6;
-import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart'
+import 'package:chess_app/src/features/home_page/domain/repositories/user_chess_games_repository.dart'
     as _i7;
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart'
     as _i4;

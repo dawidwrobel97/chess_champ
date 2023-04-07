@@ -12,14 +12,15 @@ class UserChessGamesRepository {
 
   final ChessGameRemoteRetrofitDataSource chessGameDataSource;
 
-  Future<void> addUserGamesIntoFirebase(String id) async {
+  Future<String> getUserChessGamesFromId(String id) async {
+    return await chessGameDataSource.getUserChessGamesFromId(id);
+  }
+
+  Future<void> addUserGamesIntoFirebase(String id, String response) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       throw Exception('User isn\'t logged in');
     }
-    final response = await chessGameDataSource.getUserChessGamesFromId(id);
-
-
     // Lichess API sends it's response in a specific way where each line is it's own json string
     // so we need to seperate them and put them in a List first
     List<String> responseAsListOfStrings =
@@ -35,7 +36,6 @@ class UserChessGamesRepository {
     }
     final listOfChessGames =
         responseAsListMap.map((e) => ChessGameModel.fromJson(e)).toList();
-
 
     // Now that we have a proper list of chess games we search each game for biggest mistakes and best moves
     int biggestDifference = 0;

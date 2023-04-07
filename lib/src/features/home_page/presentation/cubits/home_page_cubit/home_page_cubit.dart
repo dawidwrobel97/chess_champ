@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:chess_app/src/core/enums.dart';
-import 'package:chess_app/src/features/home_page/data/repositories/user_chess_games_repository.dart';
+import 'package:chess_app/src/features/home_page/domain/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,9 +13,9 @@ part 'home_page_state.dart';
 
 @injectable
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit({ required
-    this.userChessGamesRepository,
-}) : super(const HomePageState(
+  HomePageCubit({
+    required this.userChessGamesRepository,
+  }) : super(const HomePageState(
           status: Status.initial,
           dropDownMenuIsActive: false,
         ));
@@ -55,7 +56,28 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   Future<void> getUserChessGamesFromId(String id) async {
     emit(state.copyWith(status: Status.loading));
-    userChessGamesRepository.addUserGamesIntoFirebase(id);
+    try {
+      final response =
+          await userChessGamesRepository.getUserChessGamesFromId(id);
+      userChessGamesRepository.addUserGamesIntoFirebase(id, response);
+    } on DioError catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.message ==
+                  'The request returned an invalid status code of 404.'
+              ? 'No no player with this username was found!'
+              : error.message,
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> dropDownMenu() async {
