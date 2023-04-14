@@ -66,7 +66,7 @@ class HomePageCubit extends Cubit<HomePageState> {
           status: Status.error,
           errorMessage: error.message ==
                   'The request returned an invalid status code of 404.'
-              ? 'No no player with this username was found!'
+              ? 'No player with this username was found!'
               : error.message,
         ),
       );
