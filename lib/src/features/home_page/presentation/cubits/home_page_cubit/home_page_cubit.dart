@@ -16,14 +16,13 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit({
     required this.userChessGamesRepository,
   }) : super(const HomePageState(
-          status: Status.initial,
-          dropDownMenuIsActive: false,
         ));
 
   final UserChessGamesRepository userChessGamesRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
+    emit(state.copyWith(status: Status.loading));
     _streamSubscription = userChessGamesRepository
         .getUserChessGamesStream()
         .listen((listOfChessGamesModels) {

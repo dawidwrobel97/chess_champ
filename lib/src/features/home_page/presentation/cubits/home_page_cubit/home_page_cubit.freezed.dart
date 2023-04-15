@@ -135,15 +135,17 @@ class __$$_HomePageStateCopyWithImpl<$Res>
 
 class _$_HomePageState implements _HomePageState {
   const _$_HomePageState(
-      {required this.status,
-      required this.dropDownMenuIsActive,
+      {this.status = Status.initial,
+      this.dropDownMenuIsActive = false,
       this.errorMessage,
       final List<ChessGameModel>? listOfChessGamesModels})
       : _listOfChessGamesModels = listOfChessGamesModels;
 
   @override
+  @JsonKey()
   final Status status;
   @override
+  @JsonKey()
   final bool dropDownMenuIsActive;
   @override
   final String? errorMessage;
@@ -194,8 +196,8 @@ class _$_HomePageState implements _HomePageState {
 
 abstract class _HomePageState implements HomePageState {
   const factory _HomePageState(
-      {required final Status status,
-      required final bool dropDownMenuIsActive,
+      {final Status status,
+      final bool dropDownMenuIsActive,
       final String? errorMessage,
       final List<ChessGameModel>? listOfChessGamesModels}) = _$_HomePageState;
 
