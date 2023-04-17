@@ -230,28 +230,34 @@ class __$$_ChessGameStateCopyWithImpl<$Res>
 
 class _$_ChessGameState implements _ChessGameState {
   const _$_ChessGameState(
-      {required this.status,
-      required this.enabledMoves,
-      required this.madeWrongMove,
-      required this.madeTheSameMistake,
-      required this.madeTheBestMove,
-      required this.pressedButtonForSolution,
+      {this.status = Status.initial,
+      this.enabledMoves = true,
+      this.madeWrongMove = false,
+      this.madeTheSameMistake = false,
+      this.madeTheBestMove = false,
+      this.pressedButtonForSolution = false,
       this.errorMessage,
       this.chessGameModel,
       this.chessBoardController,
       this.wrongMove});
 
   @override
+  @JsonKey()
   final Status status;
   @override
+  @JsonKey()
   final bool enabledMoves;
   @override
+  @JsonKey()
   final bool madeWrongMove;
   @override
+  @JsonKey()
   final bool madeTheSameMistake;
   @override
+  @JsonKey()
   final bool madeTheBestMove;
   @override
+  @JsonKey()
   final bool pressedButtonForSolution;
   @override
   final String? errorMessage;
@@ -317,12 +323,12 @@ class _$_ChessGameState implements _ChessGameState {
 
 abstract class _ChessGameState implements ChessGameState {
   const factory _ChessGameState(
-      {required final Status status,
-      required final bool enabledMoves,
-      required final bool madeWrongMove,
-      required final bool madeTheSameMistake,
-      required final bool madeTheBestMove,
-      required final bool pressedButtonForSolution,
+      {final Status status,
+      final bool enabledMoves,
+      final bool madeWrongMove,
+      final bool madeTheSameMistake,
+      final bool madeTheBestMove,
+      final bool pressedButtonForSolution,
       final String? errorMessage,
       final ChessGameModel? chessGameModel,
       final ChessBoardController? chessBoardController,
