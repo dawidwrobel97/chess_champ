@@ -133,13 +133,14 @@ class __$$_HomePageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_HomePageState implements _HomePageState {
+class _$_HomePageState extends _HomePageState {
   const _$_HomePageState(
       {this.status = Status.initial,
       this.dropDownMenuIsActive = false,
       this.errorMessage,
       final List<ChessGameModel>? listOfChessGamesModels})
-      : _listOfChessGamesModels = listOfChessGamesModels;
+      : _listOfChessGamesModels = listOfChessGamesModels,
+        super._();
 
   @override
   @JsonKey()
@@ -160,33 +161,6 @@ class _$_HomePageState implements _HomePageState {
     return EqualUnmodifiableListView(value);
   }
 
-  @override
-  String toString() {
-    return 'HomePageState(status: $status, dropDownMenuIsActive: $dropDownMenuIsActive, errorMessage: $errorMessage, listOfChessGamesModels: $listOfChessGamesModels)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_HomePageState &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.dropDownMenuIsActive, dropDownMenuIsActive) ||
-                other.dropDownMenuIsActive == dropDownMenuIsActive) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(
-                other._listOfChessGamesModels, _listOfChessGamesModels));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      status,
-      dropDownMenuIsActive,
-      errorMessage,
-      const DeepCollectionEquality().hash(_listOfChessGamesModels));
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -194,12 +168,13 @@ class _$_HomePageState implements _HomePageState {
       __$$_HomePageStateCopyWithImpl<_$_HomePageState>(this, _$identity);
 }
 
-abstract class _HomePageState implements HomePageState {
+abstract class _HomePageState extends HomePageState {
   const factory _HomePageState(
       {final Status status,
       final bool dropDownMenuIsActive,
       final String? errorMessage,
       final List<ChessGameModel>? listOfChessGamesModels}) = _$_HomePageState;
+  const _HomePageState._() : super._();
 
   @override
   Status get status;

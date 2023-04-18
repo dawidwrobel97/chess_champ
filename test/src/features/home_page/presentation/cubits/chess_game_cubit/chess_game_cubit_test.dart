@@ -1,16 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
-import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late ChessGameCubit sut;
-  late ChessBoardController controller;
 
   setUp(
     () {
-      controller = ChessBoardController();
       sut = ChessGameCubit();
     },
   );

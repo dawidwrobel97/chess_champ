@@ -5,9 +5,9 @@ import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/features/home_page/domain/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:dio/dio.dart';
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 part 'home_page_cubit.freezed.dart';
 part 'home_page_state.dart';
 
@@ -15,8 +15,7 @@ part 'home_page_state.dart';
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit({
     required this.userChessGamesRepository,
-  }) : super(const HomePageState(
-        ));
+  }) : super(const HomePageState());
 
   final UserChessGamesRepository userChessGamesRepository;
   StreamSubscription? _streamSubscription;
