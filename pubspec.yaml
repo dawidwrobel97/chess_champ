@@ -54,6 +54,7 @@ dependencies:
   retrofit: ^4.0.1
   get_it: ^7.2.0
   injectable: ^2.1.1
+  device_preview: ^0.1.4-beta
 
 
 dev_dependencies:

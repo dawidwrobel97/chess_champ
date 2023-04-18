@@ -15,18 +15,36 @@ void main() {
     },
   );
 
-  group('start', () {
-    blocTest('description', build: ()=>sut,act: (cubit) => cubit.start(ChessGameModel(
-                'GameId123',
-                'TestUser',
-                'Fen123',
-                'players',
-                ['move1', 'move2'],
-                ['e4', 'e5'],
-                12345,
-                ['d4', 'd5'],
-                100,
-                10,
-                'c5c6')), expect: () => ChessGameState(status: status, enabledMoves: enabledMoves, madeWrongMove: madeWrongMove, madeTheSameMistake: madeTheSameMistake, madeTheBestMove: madeTheBestMove, pressedButtonForSolution: pressedButtonForSolution));
-   });
+  group('makeTheBestMove', () {
+    blocTest('description',
+        build: () => sut,
+        act: (cubit) => cubit.makeTheBestMove(ChessGameModel(
+            'GameId123',
+            'TestUser',
+            'Fen123',
+            'players',
+            [
+              'move1',
+              'move2',
+              'move3',
+              'move4',
+              'move5',
+              'move6',
+              'move7',
+            ],
+            ['e4', 'e5'],
+            12345,
+            ['d4', 'd5'],
+            100,
+            2,
+            'c5c6')),
+        expect: () => [
+              const ChessGameState(
+                  enabledMoves: false,
+                  pressedButtonForSolution: true,
+                  madeTheBestMove: false,
+                  madeTheSameMistake: false,
+                  madeWrongMove: false),
+            ]);
+  });
 }
