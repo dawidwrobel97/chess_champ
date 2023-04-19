@@ -1,5 +1,4 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,10 +7,8 @@ class UpperBox extends StatelessWidget {
   const UpperBox({
     super.key,
     required this.state,
-    required this.game,
   });
   final ChessGameState state;
-  final ChessGameModel game;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class UpperBox extends StatelessWidget {
             ),
           ),
           Text(
-            '${game.whitePlayer()} and ${game.blackPlayer()}',
+            '${state.chessGameModel!.whitePlayer()} and ${state.chessGameModel!.blackPlayer()}',
             style: GoogleFonts.oswald(
               textStyle: TextStyle(
                 color: AppTheme.fontColor,

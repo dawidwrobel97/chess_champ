@@ -1,4 +1,3 @@
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:chess_vectors_flutter/chess_vectors_flutter.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +6,9 @@ class UpperRow extends StatelessWidget {
   const UpperRow({
     super.key,
     required this.state,
-    required this.game,
   });
 
   final ChessGameState state;
-  final ChessGameModel game;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +19,13 @@ class UpperRow extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                'That move cost you ${game.biggestScoreDifference} points of material',
+                'That move cost you ${state.chessGameModel!.biggestScoreDifference} points of material',
                 textAlign: TextAlign.center,
               ),
             ),
             Builder(
               builder: (context) {
-                if (game.biggestScoreDifference! <= 2) {
+                if (state.chessGameModel!.biggestScoreDifference! <= 2) {
                   return Flexible(
                     child: Row(
                       children: [
@@ -46,8 +43,8 @@ class UpperRow extends StatelessWidget {
                     ),
                   );
                 }
-                if (game.biggestScoreDifference! > 2 &&
-                    game.biggestScoreDifference! <= 4) {
+                if (state.chessGameModel!.biggestScoreDifference! > 2 &&
+                    state.chessGameModel!.biggestScoreDifference! <= 4) {
                   return Flexible(
                     child: Row(
                       children: [
@@ -65,8 +62,8 @@ class UpperRow extends StatelessWidget {
                     ),
                   );
                 }
-                if (game.biggestScoreDifference! > 4 &&
-                    game.biggestScoreDifference! <= 6) {
+                if (state.chessGameModel!.biggestScoreDifference! > 4 &&
+                    state.chessGameModel!.biggestScoreDifference! <= 6) {
                   return Flexible(
                     child: Row(
                       children: [

@@ -52,9 +52,9 @@ class _ChessGameState extends State<ChessGame> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      UpperBox(state: state, game: game),
-                      ChessGameBoard(state: state, game: game),
-                      BottomContainer(state: state, game: game),
+                      UpperBox(state: state),
+                      ChessGameBoard(state: state),
+                      BottomContainer(state: state),
                     ],
                   );
               }

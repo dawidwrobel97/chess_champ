@@ -1,5 +1,4 @@
 import 'package:chess_app/src/common_widgets/my_elevated_button.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +7,9 @@ class SolutionButton extends StatelessWidget {
   const SolutionButton({
     super.key,
     required this.state,
-    required this.game,
   });
 
   final ChessGameState state;
-  final ChessGameModel game;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +21,9 @@ class SolutionButton extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             child: MyElevatedButton(
               onPressed: () {
-                context.read<ChessGameCubit>().makeTheBestMove(game);
+                context
+                    .read<ChessGameCubit>()
+                    .makeTheBestMove(state.chessGameModel!);
               },
               child: const Text(
                 'I give up! Show me the best move!',

@@ -1,5 +1,4 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
 import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_widgets/chess_game_annotations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +9,9 @@ class ChessGameBoard extends StatelessWidget {
   ChessGameBoard({
     super.key,
     required this.state,
-    required this.game,
   });
 
   final ChessGameState state;
-  final ChessGameModel game;
   final List<String> squareNames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
   @override
@@ -22,7 +19,7 @@ class ChessGameBoard extends StatelessWidget {
     return Stack(
       children: [
         Hero(
-          tag: game.gameId,
+          tag: state.chessGameModel!.gameId,
           child: Container(
             decoration: BoxDecoration(
               boxShadow: AppTheme.containerShadows,
@@ -31,15 +28,14 @@ class ChessGameBoard extends StatelessWidget {
               size: MediaQuery.of(context).size.height * 0.45,
               enableUserMoves: state.enabledMoves,
               onMove: () {
-                context
-                    .read<ChessGameCubit>()
-                    .madeMove(game.moveOnWhichMistakeHappened!);
+                context.read<ChessGameCubit>().madeMove(
+                    state.chessGameModel!.moveOnWhichMistakeHappened!);
               },
               controller: state.chessBoardController!,
-              boardOrientation:
-                  game.userId.toLowerCase() == game.whitePlayer().toLowerCase()
-                      ? ch.PlayerColor.white
-                      : ch.PlayerColor.black,
+              boardOrientation: state.chessGameModel!.userId.toLowerCase() ==
+                      state.chessGameModel!.whitePlayer().toLowerCase()
+                  ? ch.PlayerColor.white
+                  : ch.PlayerColor.black,
               arrows: state.enabledMoves == true
                   ? [
                       ch.BoardArrow(
@@ -50,17 +46,19 @@ class ChessGameBoard extends StatelessWidget {
                     ]
                   : [
                       ch.BoardArrow(
-                        from: game.bestMove![0],
-                        to: game.bestMove![1],
+                        from: state.chessGameModel!.bestMove![0],
+                        to: state.chessGameModel!.bestMove![1],
                         color: Colors.green.withOpacity(0.8),
                       ),
                     ],
             ),
           ),
         ),
-        if (game.userId.toLowerCase() == game.whitePlayer().toLowerCase())
+        if (state.chessGameModel!.userId.toLowerCase() ==
+            state.chessGameModel!.whitePlayer().toLowerCase())
           ..._buildWhiteAnnotations(squareNames),
-        if (game.userId.toLowerCase() == game.blackPlayer().toLowerCase())
+        if (state.chessGameModel!.userId.toLowerCase() ==
+            state.chessGameModel!.blackPlayer().toLowerCase())
           ..._buildBlackAnnotations(squareNames),
       ],
     );
