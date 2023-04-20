@@ -15,10 +15,10 @@ _$_ChessGameModel _$$_ChessGameModelFromJson(Map<String, dynamic> json) =>
       json['analysis'] as List<dynamic>,
       json['movesAsList'] as List<dynamic>,
       json['createdAt'] as int,
-      json['bestMove'] as List<dynamic>?,
-      (json['biggestScoreDifference'] as num?)?.toDouble(),
-      json['moveOnWhichMistakeHappened'] as int?,
-      json['worstMove'] as String?,
+      json['bestMove'] as List<dynamic>,
+      (json['biggestScoreDifference'] as num).toDouble(),
+      json['moveOnWhichMistakeHappened'] as int,
+      json['worstMove'] as String,
     );
 
 Map<String, dynamic> _$$_ChessGameModelToJson(_$_ChessGameModel instance) =>

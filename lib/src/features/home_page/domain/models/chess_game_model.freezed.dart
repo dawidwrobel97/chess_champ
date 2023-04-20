@@ -29,16 +29,10 @@ mixin _$ChessGameModel {
   List<dynamic> get movesAnalysis => throw _privateConstructorUsedError;
   List<dynamic> get movesAsList => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
-  List<dynamic>? get bestMove => throw _privateConstructorUsedError;
-  set bestMove(List<dynamic>? value) => throw _privateConstructorUsedError;
-  double? get biggestScoreDifference => throw _privateConstructorUsedError;
-  set biggestScoreDifference(double? value) =>
-      throw _privateConstructorUsedError;
-  int? get moveOnWhichMistakeHappened => throw _privateConstructorUsedError;
-  set moveOnWhichMistakeHappened(int? value) =>
-      throw _privateConstructorUsedError;
-  String? get worstMove => throw _privateConstructorUsedError;
-  set worstMove(String? value) => throw _privateConstructorUsedError;
+  List<dynamic> get bestMove => throw _privateConstructorUsedError;
+  double get biggestScoreDifference => throw _privateConstructorUsedError;
+  int get moveOnWhichMistakeHappened => throw _privateConstructorUsedError;
+  String get worstMove => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,10 +54,10 @@ abstract class $ChessGameModelCopyWith<$Res> {
       @JsonKey(name: 'analysis') List<dynamic> movesAnalysis,
       List<dynamic> movesAsList,
       int createdAt,
-      List<dynamic>? bestMove,
-      double? biggestScoreDifference,
-      int? moveOnWhichMistakeHappened,
-      String? worstMove});
+      List<dynamic> bestMove,
+      double biggestScoreDifference,
+      int moveOnWhichMistakeHappened,
+      String worstMove});
 }
 
 /// @nodoc
@@ -86,10 +80,10 @@ class _$ChessGameModelCopyWithImpl<$Res, $Val extends ChessGameModel>
     Object? movesAnalysis = null,
     Object? movesAsList = null,
     Object? createdAt = null,
-    Object? bestMove = freezed,
-    Object? biggestScoreDifference = freezed,
-    Object? moveOnWhichMistakeHappened = freezed,
-    Object? worstMove = freezed,
+    Object? bestMove = null,
+    Object? biggestScoreDifference = null,
+    Object? moveOnWhichMistakeHappened = null,
+    Object? worstMove = null,
   }) {
     return _then(_value.copyWith(
       gameId: null == gameId
@@ -120,22 +114,22 @@ class _$ChessGameModelCopyWithImpl<$Res, $Val extends ChessGameModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
-      bestMove: freezed == bestMove
+      bestMove: null == bestMove
           ? _value.bestMove
           : bestMove // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
-      biggestScoreDifference: freezed == biggestScoreDifference
+              as List<dynamic>,
+      biggestScoreDifference: null == biggestScoreDifference
           ? _value.biggestScoreDifference
           : biggestScoreDifference // ignore: cast_nullable_to_non_nullable
-              as double?,
-      moveOnWhichMistakeHappened: freezed == moveOnWhichMistakeHappened
+              as double,
+      moveOnWhichMistakeHappened: null == moveOnWhichMistakeHappened
           ? _value.moveOnWhichMistakeHappened
           : moveOnWhichMistakeHappened // ignore: cast_nullable_to_non_nullable
-              as int?,
-      worstMove: freezed == worstMove
+              as int,
+      worstMove: null == worstMove
           ? _value.worstMove
           : worstMove // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -156,10 +150,10 @@ abstract class _$$_ChessGameModelCopyWith<$Res>
       @JsonKey(name: 'analysis') List<dynamic> movesAnalysis,
       List<dynamic> movesAsList,
       int createdAt,
-      List<dynamic>? bestMove,
-      double? biggestScoreDifference,
-      int? moveOnWhichMistakeHappened,
-      String? worstMove});
+      List<dynamic> bestMove,
+      double biggestScoreDifference,
+      int moveOnWhichMistakeHappened,
+      String worstMove});
 }
 
 /// @nodoc
@@ -180,10 +174,10 @@ class __$$_ChessGameModelCopyWithImpl<$Res>
     Object? movesAnalysis = null,
     Object? movesAsList = null,
     Object? createdAt = null,
-    Object? bestMove = freezed,
-    Object? biggestScoreDifference = freezed,
-    Object? moveOnWhichMistakeHappened = freezed,
-    Object? worstMove = freezed,
+    Object? bestMove = null,
+    Object? biggestScoreDifference = null,
+    Object? moveOnWhichMistakeHappened = null,
+    Object? worstMove = null,
   }) {
     return _then(_$_ChessGameModel(
       null == gameId
@@ -203,33 +197,33 @@ class __$$_ChessGameModelCopyWithImpl<$Res>
           : players // ignore: cast_nullable_to_non_nullable
               as dynamic,
       null == movesAnalysis
-          ? _value.movesAnalysis
+          ? _value._movesAnalysis
           : movesAnalysis // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
       null == movesAsList
-          ? _value.movesAsList
+          ? _value._movesAsList
           : movesAsList // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
       null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
-      freezed == bestMove
-          ? _value.bestMove
+      null == bestMove
+          ? _value._bestMove
           : bestMove // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
-      freezed == biggestScoreDifference
+              as List<dynamic>,
+      null == biggestScoreDifference
           ? _value.biggestScoreDifference
           : biggestScoreDifference // ignore: cast_nullable_to_non_nullable
-              as double?,
-      freezed == moveOnWhichMistakeHappened
+              as double,
+      null == moveOnWhichMistakeHappened
           ? _value.moveOnWhichMistakeHappened
           : moveOnWhichMistakeHappened // ignore: cast_nullable_to_non_nullable
-              as int?,
-      freezed == worstMove
+              as int,
+      null == worstMove
           ? _value.worstMove
           : worstMove // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -242,14 +236,17 @@ class _$_ChessGameModel extends _ChessGameModel {
       this.userId,
       this.lastFen,
       this.players,
-      @JsonKey(name: 'analysis') this.movesAnalysis,
-      this.movesAsList,
+      @JsonKey(name: 'analysis') final List<dynamic> movesAnalysis,
+      final List<dynamic> movesAsList,
       this.createdAt,
-      this.bestMove,
+      final List<dynamic> bestMove,
       this.biggestScoreDifference,
       this.moveOnWhichMistakeHappened,
       this.worstMove)
-      : super._();
+      : _movesAnalysis = movesAnalysis,
+        _movesAsList = movesAsList,
+        _bestMove = bestMove,
+        super._();
 
   factory _$_ChessGameModel.fromJson(Map<String, dynamic> json) =>
       _$$_ChessGameModelFromJson(json);
@@ -263,26 +260,86 @@ class _$_ChessGameModel extends _ChessGameModel {
   final String lastFen;
   @override
   final dynamic players;
+  final List<dynamic> _movesAnalysis;
   @override
   @JsonKey(name: 'analysis')
-  final List<dynamic> movesAnalysis;
+  List<dynamic> get movesAnalysis {
+    if (_movesAnalysis is EqualUnmodifiableListView) return _movesAnalysis;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_movesAnalysis);
+  }
+
+  final List<dynamic> _movesAsList;
   @override
-  final List<dynamic> movesAsList;
+  List<dynamic> get movesAsList {
+    if (_movesAsList is EqualUnmodifiableListView) return _movesAsList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_movesAsList);
+  }
+
   @override
   final int createdAt;
+  final List<dynamic> _bestMove;
   @override
-  List<dynamic>? bestMove;
+  List<dynamic> get bestMove {
+    if (_bestMove is EqualUnmodifiableListView) return _bestMove;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_bestMove);
+  }
+
   @override
-  double? biggestScoreDifference;
+  final double biggestScoreDifference;
   @override
-  int? moveOnWhichMistakeHappened;
+  final int moveOnWhichMistakeHappened;
   @override
-  String? worstMove;
+  final String worstMove;
 
   @override
   String toString() {
     return 'ChessGameModel(gameId: $gameId, userId: $userId, lastFen: $lastFen, players: $players, movesAnalysis: $movesAnalysis, movesAsList: $movesAsList, createdAt: $createdAt, bestMove: $bestMove, biggestScoreDifference: $biggestScoreDifference, moveOnWhichMistakeHappened: $moveOnWhichMistakeHappened, worstMove: $worstMove)';
   }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChessGameModel &&
+            (identical(other.gameId, gameId) || other.gameId == gameId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.lastFen, lastFen) || other.lastFen == lastFen) &&
+            const DeepCollectionEquality().equals(other.players, players) &&
+            const DeepCollectionEquality()
+                .equals(other._movesAnalysis, _movesAnalysis) &&
+            const DeepCollectionEquality()
+                .equals(other._movesAsList, _movesAsList) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            const DeepCollectionEquality().equals(other._bestMove, _bestMove) &&
+            (identical(other.biggestScoreDifference, biggestScoreDifference) ||
+                other.biggestScoreDifference == biggestScoreDifference) &&
+            (identical(other.moveOnWhichMistakeHappened,
+                    moveOnWhichMistakeHappened) ||
+                other.moveOnWhichMistakeHappened ==
+                    moveOnWhichMistakeHappened) &&
+            (identical(other.worstMove, worstMove) ||
+                other.worstMove == worstMove));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      gameId,
+      userId,
+      lastFen,
+      const DeepCollectionEquality().hash(players),
+      const DeepCollectionEquality().hash(_movesAnalysis),
+      const DeepCollectionEquality().hash(_movesAsList),
+      createdAt,
+      const DeepCollectionEquality().hash(_bestMove),
+      biggestScoreDifference,
+      moveOnWhichMistakeHappened,
+      worstMove);
 
   @JsonKey(ignore: true)
   @override
@@ -307,10 +364,10 @@ abstract class _ChessGameModel extends ChessGameModel {
       @JsonKey(name: 'analysis') final List<dynamic> movesAnalysis,
       final List<dynamic> movesAsList,
       final int createdAt,
-      List<dynamic>? bestMove,
-      double? biggestScoreDifference,
-      int? moveOnWhichMistakeHappened,
-      String? worstMove) = _$_ChessGameModel;
+      final List<dynamic> bestMove,
+      final double biggestScoreDifference,
+      final int moveOnWhichMistakeHappened,
+      final String worstMove) = _$_ChessGameModel;
   _ChessGameModel._() : super._();
 
   factory _ChessGameModel.fromJson(Map<String, dynamic> json) =
@@ -333,17 +390,13 @@ abstract class _ChessGameModel extends ChessGameModel {
   @override
   int get createdAt;
   @override
-  List<dynamic>? get bestMove;
-  set bestMove(List<dynamic>? value);
+  List<dynamic> get bestMove;
   @override
-  double? get biggestScoreDifference;
-  set biggestScoreDifference(double? value);
+  double get biggestScoreDifference;
   @override
-  int? get moveOnWhichMistakeHappened;
-  set moveOnWhichMistakeHappened(int? value);
+  int get moveOnWhichMistakeHappened;
   @override
-  String? get worstMove;
-  set worstMove(String? value);
+  String get worstMove;
   @override
   @JsonKey(ignore: true)
   _$$_ChessGameModelCopyWith<_$_ChessGameModel> get copyWith =>

@@ -33,14 +33,19 @@ class UserChessGamesRepository {
       responseAsListMap[i]['analysis'].insert(0, {'eval': 26});
       List<dynamic> movesAsList = responseAsListMap[i]['moves'].split(' ');
       responseAsListMap[i].addAll({'movesAsList': movesAsList});
+      responseAsListMap[i].addAll({'bestMove': []});
+      responseAsListMap[i].addAll({'biggestScoreDifference': 0});
+      responseAsListMap[i].addAll({'moveOnWhichMistakeHappened': 0});
+      responseAsListMap[i].addAll({'worstMove': ''});
     }
     final listOfChessGames =
         responseAsListMap.map((e) => ChessGameModel.fromJson(e)).toList();
 
     // Now that we have a proper list of chess games we search each game for biggest mistakes and best moves
-    int biggestDifference = 0;
+    double biggestDifference = 0;
     int moveOnWhichMistakeHappened = 0;
     List<dynamic> bestMove = [];
+    String worstMove = '';
     bool hasBlunder = false;
     bool hasMistake = false;
     for (final chessGame in listOfChessGames) {
@@ -95,33 +100,31 @@ class UserChessGamesRepository {
           if (chessGame.userId.toLowerCase() ==
                   chessGame.whitePlayer().toLowerCase() &&
               currentDifference < 0) {
-            biggestDifference = (currentDifference).abs();
+            biggestDifference = (currentDifference).abs().toDouble();
             moveOnWhichMistakeHappened = i - 1;
           } else if (chessGame.userId.toLowerCase() ==
                   chessGame.blackPlayer().toLowerCase() &&
               currentDifference > 0) {
-            biggestDifference = (currentDifference).abs();
+            biggestDifference = (currentDifference).abs().toDouble();
             moveOnWhichMistakeHappened = i - 1;
           }
         }
       }
       // Once we check all moves in a game we save the stats
-      chessGame.biggestScoreDifference = biggestDifference / 100;
-      chessGame.moveOnWhichMistakeHappened = moveOnWhichMistakeHappened;
-      chessGame.worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
+      biggestDifference /= 100;
+      worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
       // We take the best move analysis and split the string into 2 so it's easier to use in the future
       for (int i = 0;
           i <
               chessGame
-                  .movesAnalysis[chessGame.moveOnWhichMistakeHappened! + 1]
+                  .movesAnalysis[moveOnWhichMistakeHappened + 1]
                       ['best']
                   .length;
           i += 2) {
         bestMove.add(chessGame
-            .movesAnalysis[chessGame.moveOnWhichMistakeHappened! + 1]['best']
+            .movesAnalysis[moveOnWhichMistakeHappened + 1]['best']
             .substring(i, i + 2));
       }
-      chessGame.bestMove = bestMove;
       // Now we finally add the correct game into the database
       await FirebaseFirestore.instance
           .collection('users')
@@ -135,10 +138,10 @@ class UserChessGamesRepository {
         'analysis': chessGame.movesAnalysis,
         'movesAsList': chessGame.movesAsList,
         'createdAt': chessGame.createdAt,
-        'bestMove': chessGame.bestMove,
-        'biggestScoreDifference': chessGame.biggestScoreDifference,
-        'moveOnWhichMistakeHappened': chessGame.moveOnWhichMistakeHappened,
-        'worstMove': chessGame.worstMove,
+        'bestMove': bestMove,
+        'biggestScoreDifference': biggestDifference,
+        'moveOnWhichMistakeHappened': moveOnWhichMistakeHappened,
+        'worstMove': worstMove,
       });
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;

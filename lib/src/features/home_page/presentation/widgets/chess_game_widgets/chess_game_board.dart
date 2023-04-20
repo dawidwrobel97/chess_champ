@@ -28,8 +28,9 @@ class ChessGameBoard extends StatelessWidget {
               size: MediaQuery.of(context).size.height * 0.45,
               enableUserMoves: state.enabledMoves,
               onMove: () {
-                context.read<ChessGameCubit>().madeMove(
-                    state.chessGameModel!.moveOnWhichMistakeHappened!);
+                context
+                    .read<ChessGameCubit>()
+                    .madeMove(state.chessGameModel!.moveOnWhichMistakeHappened);
               },
               controller: state.chessBoardController!,
               boardOrientation: state.chessGameModel!.userId.toLowerCase() ==
@@ -46,8 +47,8 @@ class ChessGameBoard extends StatelessWidget {
                     ]
                   : [
                       ch.BoardArrow(
-                        from: state.chessGameModel!.bestMove![0],
-                        to: state.chessGameModel!.bestMove![1],
+                        from: state.chessGameModel!.bestMove[0],
+                        to: state.chessGameModel!.bestMove[1],
                         color: Colors.green.withOpacity(0.8),
                       ),
                     ],

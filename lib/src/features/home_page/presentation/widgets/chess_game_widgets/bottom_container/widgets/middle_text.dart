@@ -25,7 +25,7 @@ class MiddleText extends StatelessWidget {
         } else if (state.pressedButtonForSolution == true) {
           return _MiddleText(
             text:
-                'The best move was moving the piece\n from ${state.chessGameModel!.bestMove![0]} to ${state.chessGameModel!.bestMove![1]}. Try again with diffrent game!',
+                'The best move was moving the piece\n from ${state.chessGameModel!.bestMove[0]} to ${state.chessGameModel!.bestMove[1]}. Try again with diffrent game!',
           );
         } else if (state.madeTheBestMove == true) {
           return MadeTheBestMoveWidget(game: state.chessGameModel!);

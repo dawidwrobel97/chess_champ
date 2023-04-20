@@ -25,7 +25,7 @@ class UpperRow extends StatelessWidget {
             ),
             Builder(
               builder: (context) {
-                if (state.chessGameModel!.biggestScoreDifference! <= 2) {
+                if (state.chessGameModel!.biggestScoreDifference <= 2) {
                   return _TextWithIcon(
                     text: 'For comparison, 1 point of material equals a pawn!',
                     icon: WhitePawn(
@@ -33,8 +33,8 @@ class UpperRow extends StatelessWidget {
                     ),
                   );
                 }
-                if (state.chessGameModel!.biggestScoreDifference! > 2 &&
-                    state.chessGameModel!.biggestScoreDifference! <= 4) {
+                if (state.chessGameModel!.biggestScoreDifference > 2 &&
+                    state.chessGameModel!.biggestScoreDifference <= 4) {
                   return _TextWithIcon(
                       text:
                           'For comparison, 3 points of material equals a knight!',
@@ -42,8 +42,8 @@ class UpperRow extends StatelessWidget {
                         size: 60,
                       ));
                 }
-                if (state.chessGameModel!.biggestScoreDifference! > 4 &&
-                    state.chessGameModel!.biggestScoreDifference! <= 6) {
+                if (state.chessGameModel!.biggestScoreDifference > 4 &&
+                    state.chessGameModel!.biggestScoreDifference <= 6) {
                   return _TextWithIcon(
                       text:
                           'For comparison, 5 points of material equals a rook!',

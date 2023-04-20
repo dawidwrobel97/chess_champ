@@ -40,8 +40,6 @@ void main() {
         build: () => sut,
         act: (cubit) => cubit.start(),
         expect: () => [
-              // isA<HomePageState>(),
-              // isA<HomePageState>(),
               const HomePageState(
                 status: Status.loading,
               ),

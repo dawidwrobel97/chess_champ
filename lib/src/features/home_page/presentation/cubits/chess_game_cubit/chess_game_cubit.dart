@@ -18,12 +18,12 @@ class ChessGameCubit extends Cubit<ChessGameState> {
   Future<void> start(ChessGameModel chessGameModel) async {
     emit(state.copyWith(status: Status.loading));
     // First we make moves until the move on which mistake happened, plus 1 more so we know the wrong move
-    for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened! + 1; i++) {
+    for (var i = 0; i < chessGameModel.moveOnWhichMistakeHappened + 1; i++) {
       chessBoardController
           .makeMoveWithNormalNotation(chessGameModel.movesAsList[i]);
     }
     final State wrongMove = chessBoardController
-        .game.history[chessGameModel.moveOnWhichMistakeHappened!];
+        .game.history[chessGameModel.moveOnWhichMistakeHappened];
     // This took me 2 days to figure out, but every time I want to undoMove with a pawn i have to make the half.moves value equal to 1
     // else it might bug out and not work correctly. I don't actually understand why, but it has to be a deeper issue within flutter_chess_board.dart or chess.dart widgets
     // They are not mine so I just put this fix here, with it everything works fine
@@ -60,18 +60,18 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     }
     // Check whether the move is not the best move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic !=
-            state.chessGameModel!.bestMove![0]) ||
+            state.chessGameModel!.bestMove[0]) ||
         (chessBoardController.game.history[move].move.toAlgebraic !=
-            state.chessGameModel!.bestMove![1])) {
+            state.chessGameModel!.bestMove[1])) {
       chessBoardController.game.half_moves = 1;
       chessBoardController.undoMove();
       emit(state.copyWith(madeWrongMove: true, madeTheSameMistake: false));
     }
     // Check whether the move is the best possible move
     else if ((chessBoardController.game.history[move].move.fromAlgebraic ==
-            state.chessGameModel!.bestMove![0]) &&
+            state.chessGameModel!.bestMove[0]) &&
         (chessBoardController.game.history[move].move.toAlgebraic ==
-            state.chessGameModel!.bestMove![1])) {
+            state.chessGameModel!.bestMove[1])) {
       chessBoardController.game.half_moves = 1;
       emit(
         state.copyWith(
@@ -85,8 +85,7 @@ class ChessGameCubit extends Cubit<ChessGameState> {
   }
 
   Future<void> makeTheBestMove(ChessGameModel game) async {
-    chessBoardController.makeMove(
-        from: game.bestMove![0], to: game.bestMove![1]);
+    chessBoardController.makeMove(from: game.bestMove[0], to: game.bestMove[1]);
     emit(
       state.copyWith(
         enabledMoves: false,
