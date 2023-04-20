@@ -18,7 +18,7 @@ void main() {
     sut = HomePageCubit(userChessGamesRepository: repository);
   });
 
-  group('getUserChessGamesFormId', () {
+  group('getUserChessGamesStream', () {
     setUp(() {
       when(() => repository.getUserChessGamesStream())
           .thenAnswer((_) => Stream.value([

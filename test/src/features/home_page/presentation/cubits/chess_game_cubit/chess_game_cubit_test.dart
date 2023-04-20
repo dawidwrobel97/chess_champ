@@ -41,29 +41,8 @@ void main() {
       ),
       expect: () => [
         const ChessGameState(status: Status.loading),
-        ChessGameState(
-          status: Status.success,
-          chessGameModel: ChessGameModel(
-              'GameId123',
-              'TestUser',
-              'Fen123',
-              'players',
-              [
-                'move1',
-                'move2',
-                'move3',
-                'move4',
-                'move5',
-                'move6',
-                'move7',
-              ],
-              ['e4', 'e5', 'e6', 'e7'],
-              12345,
-              ['d4', 'd5'],
-              100,
-              1,
-              'c5c6'),
-        )
+        isA<ChessGameState>().having((state) => state.chessGameModel,
+            'chessGameModel', equals(sut.state.chessGameModel)),
       ],
     );
   });

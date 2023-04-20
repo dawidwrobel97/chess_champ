@@ -26,77 +26,37 @@ class UpperRow extends StatelessWidget {
             Builder(
               builder: (context) {
                 if (state.chessGameModel!.biggestScoreDifference! <= 2) {
-                  return Flexible(
-                    child: Row(
-                      children: [
-                        const Flexible(
-                          child: Text(
-                              'For comparison, 1 point of material equals a pawn!'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                          child: WhitePawn(
-                            size: 60,
-                          ),
-                        )
-                      ],
+                  return _TextWithIcon(
+                    text: 'For comparison, 1 point of material equals a pawn!',
+                    icon: WhitePawn(
+                      size: 60,
                     ),
                   );
                 }
                 if (state.chessGameModel!.biggestScoreDifference! > 2 &&
                     state.chessGameModel!.biggestScoreDifference! <= 4) {
-                  return Flexible(
-                    child: Row(
-                      children: [
-                        const Flexible(
-                          child: Text(
-                              'For comparison, 3 points of material equals a knight!'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                          child: WhiteKnight(
-                            size: 60,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return _TextWithIcon(
+                      text:
+                          'For comparison, 3 points of material equals a knight!',
+                      icon: WhiteKnight(
+                        size: 60,
+                      ));
                 }
                 if (state.chessGameModel!.biggestScoreDifference! > 4 &&
                     state.chessGameModel!.biggestScoreDifference! <= 6) {
-                  return Flexible(
-                    child: Row(
-                      children: [
-                        const Flexible(
-                          child: Text(
-                              'For comparison, 5 points of material equals a rook!'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                          child: WhiteRook(
-                            size: 60,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return _TextWithIcon(
+                      text:
+                          'For comparison, 5 points of material equals a rook!',
+                      icon: WhiteRook(
+                        size: 60,
+                      ));
                 }
-                return Flexible(
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        child: Text(
-                            'For comparison, 8 points of material equals a queen!'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                        child: WhiteQueen(
-                          size: 60,
-                        ),
-                      )
-                    ],
-                  ),
-                );
+                return _TextWithIcon(
+                    text:
+                        'For comparison, 8 points of material equals a queen!',
+                    icon: WhiteQueen(
+                      size: 60,
+                    ));
               },
             )
           ],
@@ -104,5 +64,35 @@ class UpperRow extends StatelessWidget {
       }
       return const SizedBox.shrink();
     });
+  }
+}
+
+class _TextWithIcon extends StatelessWidget {
+  const _TextWithIcon({
+    required this.text,
+    required this.icon,
+  });
+
+  final String text;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Row(
+        children: [
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+            child: icon,
+          )
+        ],
+      ),
+    );
   }
 }
