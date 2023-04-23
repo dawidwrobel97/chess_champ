@@ -93,11 +93,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> dropDownMenu() async {
-    if (state.dropDownMenuIsActive == false) {
-      emit(state.copyWith(dropDownMenuIsActive: true));
-    } else if (state.dropDownMenuIsActive == true) {
-      emit(state.copyWith(dropDownMenuIsActive: false));
-    }
+    emit(state.copyWith(dropDownMenuIsActive: !state.dropDownMenuIsActive));
   }
 
   @override
