@@ -19,6 +19,18 @@ void main() {
   });
 
   group('start', () {
+    group('should call getUserChessStream() method', () {
+      setUp(() => when(() => repository.getUserChessGamesStream())
+          .thenAnswer((_) => Stream.value([])));
+      blocTest('should call getUserChessStream() method',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          verify: (_) => {
+                verify(
+                  () => repository.getUserChessGamesStream(),
+                ).called(1)
+              });
+    });
     group('succes', () {
       setUp(() {
         when(() => repository.getUserChessGamesStream())
@@ -37,7 +49,8 @@ void main() {
                       'c5c6')
                 ]));
       });
-      blocTest('Emits HomePageState with Status.loading, then emits the list of chess games with Status.success and dropDownMenuIsActive: false',
+      blocTest(
+          'Emits HomePageState with Status.loading, then emits the list of chess games with Status.success and dropDownMenuIsActive: false',
           build: () => sut,
           act: (cubit) => cubit.start(),
           expect: () => [
@@ -69,7 +82,8 @@ void main() {
         when(() => repository.getUserChessGamesStream())
             .thenThrow('test-error');
       });
-      blocTest('Emits Status.loading then emits Status.error with error message',
+      blocTest(
+          'Emits Status.loading then emits Status.error with error message',
           build: () => sut,
           act: (cubit) => cubit.start(),
           expect: () => [
@@ -79,6 +93,44 @@ void main() {
                   errorMessage: 'test-error',
                 ),
               ]);
+    });
+  });
+
+  group('deleteAllCurrentGames', () {
+    group('Should call deleteAllCurrentGames() method', () {
+      setUp(() {
+        when(() => repository.deleteAllCurrentGames())
+            .thenAnswer((_) async => []);
+      });
+      blocTest('Should call deleteAllCurrentGames() method',
+          build: () => sut,
+          act: (cubit) => cubit.deleteAllCurrentGames(),
+          verify: (_) =>
+              {verify(() => repository.deleteAllCurrentGames()).called(1)});
+    });
+    group('success', () {
+      setUp(() {
+        when(() => repository.deleteAllCurrentGames())
+            .thenAnswer((_) async => []);
+      });
+      blocTest(
+        'Should emit the method deleteAllCurrentGames() and emit HomePageStatus with Status.initial',
+        build: () => sut,
+        act: (cubit) => cubit.deleteAllCurrentGames(),
+        expect: () => [const HomePageState(status: Status.initial)],
+      );
+    });
+    group('failure', () {
+      setUp(() {
+        when(() => repository.deleteAllCurrentGames())
+            .thenThrow('test-error');
+      });
+      blocTest(
+        'Should emit the method deleteAllCurrentGames() and emit HomePageStatus with Status.initial',
+        build: () => sut,
+        act: (cubit) => cubit.deleteAllCurrentGames(),
+        expect: () => [const HomePageState(status: Status.error,errorMessage: 'test-error')],
+      );
     });
   });
 }

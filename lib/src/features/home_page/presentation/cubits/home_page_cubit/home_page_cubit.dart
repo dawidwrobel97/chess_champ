@@ -49,8 +49,21 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> deleteAllCurrentGames() async {
-    await userChessGamesRepository.deleteAllCurrentGames();
-    emit(state.copyWith(status: Status.initial));
+    try {
+      await userChessGamesRepository.deleteAllCurrentGames();
+      emit(
+        state.copyWith(
+          status: Status.initial,
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> getUserChessGamesFromId(String id) async {
