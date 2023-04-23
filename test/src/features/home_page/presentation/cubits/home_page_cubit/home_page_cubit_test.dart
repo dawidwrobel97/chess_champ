@@ -18,33 +18,11 @@ void main() {
     sut = HomePageCubit(userChessGamesRepository: repository);
   });
 
-  group('getUserChessGamesStream', () {
-    setUp(() {
-      when(() => repository.getUserChessGamesStream())
-          .thenAnswer((_) => Stream.value([
-                ChessGameModel(
-                    'GameId123',
-                    'TestUser',
-                    'Fen123',
-                    'players',
-                    ['move1', 'move2'],
-                    ['e4', 'e5'],
-                    12345,
-                    ['d4', 'd5'],
-                    100,
-                    10,
-                    'c5c6')
-              ]));
-    });
-    blocTest<HomePageCubit, HomePageState>('',
-        build: () => sut,
-        act: (cubit) => cubit.start(),
-        expect: () => [
-              const HomePageState(
-                status: Status.loading,
-              ),
-              HomePageState(
-                listOfChessGamesModels: [
+  group('start', () {
+    group('succes', () {
+      setUp(() {
+        when(() => repository.getUserChessGamesStream())
+            .thenAnswer((_) => Stream.value([
                   ChessGameModel(
                       'GameId123',
                       'TestUser',
@@ -57,10 +35,50 @@ void main() {
                       100,
                       10,
                       'c5c6')
-                ],
-                status: Status.success,
-                dropDownMenuIsActive: false,
-              )
-            ]);
+                ]));
+      });
+      blocTest('Emits HomePageState with Status.loading, then emits the list of chess games with Status.success and dropDownMenuIsActive: false',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          expect: () => [
+                const HomePageState(
+                  status: Status.loading,
+                ),
+                HomePageState(
+                  listOfChessGamesModels: [
+                    ChessGameModel(
+                        'GameId123',
+                        'TestUser',
+                        'Fen123',
+                        'players',
+                        ['move1', 'move2'],
+                        ['e4', 'e5'],
+                        12345,
+                        ['d4', 'd5'],
+                        100,
+                        10,
+                        'c5c6')
+                  ],
+                  status: Status.success,
+                  dropDownMenuIsActive: false,
+                )
+              ]);
+    });
+    group('failure', () {
+      setUp(() {
+        when(() => repository.getUserChessGamesStream())
+            .thenThrow('test-error');
+      });
+      blocTest('Emits Status.loading then emits Status.error with error message',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          expect: () => [
+                const HomePageState(status: Status.loading),
+                const HomePageState(
+                  status: Status.error,
+                  errorMessage: 'test-error',
+                ),
+              ]);
+    });
   });
 }

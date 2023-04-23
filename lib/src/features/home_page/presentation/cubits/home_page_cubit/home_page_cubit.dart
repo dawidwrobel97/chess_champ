@@ -21,30 +21,31 @@ class HomePageCubit extends Cubit<HomePageState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(state.copyWith(status: Status.loading));
-    _streamSubscription = userChessGamesRepository
-        .getUserChessGamesStream()
-        .listen((listOfChessGamesModels) {
-      if (listOfChessGamesModels.isEmpty) {
-        emit(state.copyWith(status: Status.initial));
-      } else {
-        emit(
-          state.copyWith(
-            listOfChessGamesModels: listOfChessGamesModels,
-            dropDownMenuIsActive: false,
-            status: Status.success,
-          ),
-        );
-      }
-    })
-      ..onError((error) {
-        emit(
-          state.copyWith(
-            errorMessage: error.toString(),
-            status: Status.error,
-          ),
-        );
+    try {
+      emit(state.copyWith(status: Status.loading));
+      _streamSubscription = userChessGamesRepository
+          .getUserChessGamesStream()
+          .listen((listOfChessGamesModels) {
+        if (listOfChessGamesModels.isEmpty) {
+          emit(state.copyWith(status: Status.initial));
+        } else {
+          emit(
+            state.copyWith(
+              listOfChessGamesModels: listOfChessGamesModels,
+              dropDownMenuIsActive: false,
+              status: Status.success,
+            ),
+          );
+        }
       });
+    } catch (error) {
+      emit(
+        state.copyWith(
+          errorMessage: error.toString(),
+          status: Status.error,
+        ),
+      );
+    }
   }
 
   Future<void> deleteAllCurrentGames() async {
