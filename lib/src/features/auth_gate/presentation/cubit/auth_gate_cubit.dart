@@ -11,38 +11,31 @@ part 'auth_gate_state.dart';
 
 @injectable
 class AuthGateCubit extends Cubit<AuthGateState> {
-  AuthGateCubit()
-      : super(const AuthGateState(
-          status: Status.initial,
-          isLoginPage: true,
-        ));
+  AuthGateCubit() : super(const AuthGateState());
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(
-      state.copyWith(
-        status: Status.loading,
-      ),
-    );
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    try {
+      emit(state.copyWith(status: Status.loading));
+      _streamSubscription =
+          FirebaseAuth.instance.authStateChanges().listen((user) {
+        emit(
+          state.copyWith(
+            status: Status.success,
+            user: user,
+            errorMessage: '',
+          ),
+        );
+      });
+    } catch (error) {
       emit(
         state.copyWith(
-          status: Status.success,
-          user: user,
-          errorMessage: '',
+          status: Status.error,
+          errorMessage: error.toString(),
         ),
       );
-    })
-          ..onError((error) {
-            emit(
-              state.copyWith(
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    }
   }
 
   Future<void> createAccount(String email, String password) async {
@@ -92,17 +85,10 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   Future<void> switchLoginAndSignUp() async {
     try {
-      if (state.isLoginPage == true) {
-        emit(state.copyWith(
-          isLoginPage: false,
-          errorMessage: '',
-        ));
-      } else {
-        emit(state.copyWith(
-          isLoginPage: true,
-          errorMessage: '',
-        ));
-      }
+      emit(state.copyWith(
+        isLoginPage: !state.isLoginPage,
+        errorMessage: '',
+      ));
     } catch (error) {
       emit(
         state.copyWith(

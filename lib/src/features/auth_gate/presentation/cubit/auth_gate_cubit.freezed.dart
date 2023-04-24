@@ -128,14 +128,16 @@ class __$$_AuthGateStateCopyWithImpl<$Res>
 
 class _$_AuthGateState implements _AuthGateState {
   const _$_AuthGateState(
-      {required this.status,
-      required this.isLoginPage,
+      {this.status = Status.initial,
+      this.isLoginPage = true,
       this.errorMessage,
       this.user});
 
   @override
+  @JsonKey()
   final Status status;
   @override
+  @JsonKey()
   final bool isLoginPage;
   @override
   final String? errorMessage;
@@ -173,8 +175,8 @@ class _$_AuthGateState implements _AuthGateState {
 
 abstract class _AuthGateState implements AuthGateState {
   const factory _AuthGateState(
-      {required final Status status,
-      required final bool isLoginPage,
+      {final Status status,
+      final bool isLoginPage,
       final String? errorMessage,
       final User? user}) = _$_AuthGateState;
 

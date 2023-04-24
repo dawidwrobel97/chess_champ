@@ -21,8 +21,11 @@ void main() {
 
   group('start', () {
     group('should call getUserChessStream() method', () {
-      setUp(() => when(() => repository.getUserChessGamesStream())
-          .thenAnswer((_) => Stream.value([])));
+      setUp(
+        () => when(() => repository.getUserChessGamesStream()).thenAnswer(
+          (_) => Stream.value([]),
+        ),
+      );
       blocTest('should call getUserChessStream() method',
           build: () => sut,
           act: (cubit) => cubit.start(),
