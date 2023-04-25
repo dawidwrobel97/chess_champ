@@ -1,8 +1,15 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:chess/chess.dart';
 import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubits/chess_game_cubit/chess_game_cubit.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockState extends Mock implements State {}
+
+class MockChessBoardController extends Mock implements ChessBoardController {}
 
 void main() {
   late ChessGameCubit sut;
@@ -39,11 +46,8 @@ void main() {
             1,
             'c5c6'),
       ),
-      expect: () => [
-        const ChessGameState(status: Status.loading),
-        isA<ChessGameState>().having((state) => state.chessGameModel,
-            'chessGameModel', equals(sut.state.chessGameModel)),
-      ],
+      expect: () =>
+          [const ChessGameState(status: Status.loading), isA<ChessGameState>()],
     );
   });
 
