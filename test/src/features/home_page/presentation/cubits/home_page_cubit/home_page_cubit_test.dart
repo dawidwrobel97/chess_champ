@@ -20,13 +20,13 @@ void main() {
   });
 
   group('start', () {
-    group('should call getUserChessStream() method', () {
+    group('verify method is called', () {
       setUp(
         () => when(() => repository.getUserChessGamesStream()).thenAnswer(
           (_) => Stream.value([]),
         ),
       );
-      blocTest('should call getUserChessStream() method',
+      blocTest('should call getUserChessStream() method once',
           build: () => sut,
           act: (cubit) => cubit.start(),
           verify: (_) => {
@@ -35,7 +35,7 @@ void main() {
                 ).called(1)
               });
     });
-    group('succes', () {
+    group('succes with ChessGameModel response', () {
       setUp(() {
         when(() => repository.getUserChessGamesStream())
             .thenAnswer((_) => Stream.value([
@@ -81,6 +81,24 @@ void main() {
                 )
               ]);
     });
+    group('success with empty response', () {
+      setUp(() {
+        when(() => repository.getUserChessGamesStream())
+            .thenAnswer((_) => Stream.value([]));
+      });
+      blocTest(
+          'Emits HomePageState with Status.loading, then emits HomePageState with Status.initial',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          expect: () => [
+                const HomePageState(
+                  status: Status.loading,
+                ),
+                const HomePageState(
+                  status: Status.initial,
+                )
+              ]);
+    });
     group('failure', () {
       setUp(() {
         when(() => repository.getUserChessGamesStream())
@@ -101,12 +119,12 @@ void main() {
   });
 
   group('deleteAllCurrentGames', () {
-    group('Should call deleteAllCurrentGames() method', () {
+    group('verify method is called', () {
       setUp(() {
         when(() => repository.deleteAllCurrentGames())
             .thenAnswer((_) async => []);
       });
-      blocTest('Should call deleteAllCurrentGames() method',
+      blocTest('Should call deleteAllCurrentGames() method once',
           build: () => sut,
           act: (cubit) => cubit.deleteAllCurrentGames(),
           verify: (_) =>
@@ -146,9 +164,7 @@ void main() {
     });
   });
   group('getUserChessGamesFromId', () {
-    group(
-        'Should call getUserChessGamesFromId() method once and addUserGamesIntoFirebase() method once',
-        () {
+    group('verify methods are called', () {
       setUp(() {
         when(() => repository.getUserChessGamesFromId('id'))
             .thenAnswer((_) async => 'response');

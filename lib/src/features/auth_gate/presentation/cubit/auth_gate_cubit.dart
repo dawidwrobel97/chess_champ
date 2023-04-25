@@ -11,15 +11,15 @@ part 'auth_gate_state.dart';
 
 @injectable
 class AuthGateCubit extends Cubit<AuthGateState> {
-  AuthGateCubit() : super(const AuthGateState());
+  AuthGateCubit({required this.firebaseAuth}) : super(const AuthGateState());
 
+  final FirebaseAuth firebaseAuth;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
     try {
       emit(state.copyWith(status: Status.loading));
-      _streamSubscription =
-          FirebaseAuth.instance.authStateChanges().listen((user) {
+      _streamSubscription = firebaseAuth.authStateChanges().listen((user) {
         emit(
           state.copyWith(
             status: Status.success,
@@ -40,7 +40,7 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   Future<void> createAccount(String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -56,7 +56,7 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   Future<void> signIn(String email, String password) async {
     try {
-      (await FirebaseAuth.instance.signInWithEmailAndPassword(
+      (await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       ));
@@ -72,7 +72,7 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   Future<void> signOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await firebaseAuth.signOut();
     } catch (error) {
       emit(
         state.copyWith(
