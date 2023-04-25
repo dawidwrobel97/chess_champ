@@ -56,10 +56,10 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   Future<void> signIn(String email, String password) async {
     try {
-      (await firebaseAuth.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
-      ));
+      );
     } catch (error) {
       emit(
         state.copyWith(
@@ -84,19 +84,10 @@ class AuthGateCubit extends Cubit<AuthGateState> {
   }
 
   Future<void> switchLoginAndSignUp() async {
-    try {
-      emit(state.copyWith(
-        isLoginPage: !state.isLoginPage,
-        errorMessage: '',
-      ));
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
+    emit(state.copyWith(
+      isLoginPage: !state.isLoginPage,
+      errorMessage: '',
+    ));
   }
 
   @override

@@ -101,13 +101,92 @@ void main() async {
       setUp(() {
         when(() => firebaseAuth.createUserWithEmailAndPassword(
             email: 'email', password: 'password')).thenThrow('test-error');
-        blocTest(
-          'Should emit AuthGateState with Status.error and errorMessage',
-          build: () => sut,
-          act: (cubit) => cubit.start(),
-          expect: () => [const AuthGateState(status: Status.error)],
+      });
+      blocTest(
+        'Should emit AuthGateState with Status.error and errorMessage',
+        build: () => sut,
+        act: (cubit) => cubit.createAccount('email', 'password'),
+        expect: () => [
+          const AuthGateState(status: Status.error, errorMessage: 'test-error'),
+        ],
+      );
+    });
+  });
+  group('signIn', () {
+    group('verify method is called', () {
+      setUp(() {
+        when(() => firebaseAuth.signInWithEmailAndPassword(
+            email: 'email', password: 'password')).thenAnswer(
+          (_) async => userCredential,
         );
       });
+      blocTest('Shoul call signInWithEmailAndPassword() method once',
+          build: () => sut,
+          act: (cubit) => cubit.signIn('email', 'password'),
+          verify: (_) => {
+                verify(
+                  () => firebaseAuth.signInWithEmailAndPassword(
+                      email: 'email', password: 'password'),
+                ).called(1)
+              });
+    });
+    group('failure', () {
+      setUp(() {
+        when(() => firebaseAuth.signInWithEmailAndPassword(
+            email: 'email', password: 'password')).thenThrow('test-error');
+      });
+      blocTest(
+        'Should emiit AuthGateState with Status.error and errorMessage',
+        build: () => sut,
+        act: (cubit) => cubit.signIn('email', 'password'),
+        expect: () => [
+          const AuthGateState(status: Status.error, errorMessage: 'test-error'),
+        ],
+      );
+    });
+  });
+  group('signOut', () {
+    group('verify method is called', () {
+      setUp(() {
+        when(() => firebaseAuth.signOut()).thenAnswer(
+          (_) async => [],
+        );
+      });
+      blocTest('Shoul call signOut() method once',
+          build: () => sut,
+          act: (cubit) => cubit.signOut(),
+          verify: (_) => {
+                verify(
+                  () => firebaseAuth.signOut(),
+                ).called(1)
+              });
+    });
+    group('failure', () {
+      setUp(() {
+        when(() => firebaseAuth.signOut()).thenThrow('test-error');
+      });
+      blocTest(
+        'Should emiit AuthGateState with Status.error and errorMessage',
+        build: () => sut,
+        act: (cubit) => cubit.signOut(),
+        expect: () => [
+          const AuthGateState(status: Status.error, errorMessage: 'test-error'),
+        ],
+      );
+    });
+  });
+  group('switchLoginAndSignUp', () {
+    group('success', () {
+      blocTest(
+          'Should emit AuthGateState with isLoginPage with opposite boolean, and errorMessage as empty string',
+          build: () => sut,
+          act: (cubit) => cubit.switchLoginAndSignUp(),
+          expect: () => [
+                const AuthGateState(
+                  isLoginPage: false,
+                  errorMessage: '',
+                )
+              ]);
     });
   });
 }
