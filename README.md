@@ -1,16 +1,19 @@
-# chess_app
+# Chess Champ
 
-A new Flutter project.
+Chess Champ is a flutter app meant to help chess players improve on thier mistakes.
 
-## Getting Started
+## Bulit with
 
-This project is a starting point for a Flutter application.
+Dart/Flutter - main language and framework.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Most important used dependencies
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc) v8.1.2 - A library used for state management
+- [cloud_firestore](https://pub.dev/packages/cloud_firestore) v4.4.5 - Cloud hosted database
+- [firebase_auth](https://pub.dev/packages/firebase_auth) v4.2.2 - A library used for authentication
+- [json_serializable](https://pub.dev/packages/json_serializable) v6.6.1 - A library for automatically generating code for converting to and from JSON
+- [dio](https://pub.dev/packages/dio) v5.0.0 -  HTTP client for managing Lichess API
+- [retrofit](https://pub.dev/packages/retrofit) v4.0.1 - A dio client generator
+- [get_it](https://pub.dev/packages/get_it) v7.2.0 -  Service locator that allows to decouple the interface from a concrete implementation
+- [injectable](https://pub.dev/packages/injectable) v2.1.1 - get_it generator
+- [freezed](https://pub.dev/packages/freezed) v2.3.2 - Code generation for immutable classes
+- [bloc_test](https://pub.dev/packages/bloc_test) v9.1.1 - A testing library for testing bloc
