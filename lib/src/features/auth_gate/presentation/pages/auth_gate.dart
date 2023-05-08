@@ -54,7 +54,7 @@ class _AuthPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'ChessChamp',
+                  'Chess Champ',
                   style: GoogleFonts.bebasNeue(
                     textStyle: const TextStyle(fontSize: 40),
                   ),
