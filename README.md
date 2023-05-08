@@ -3,9 +3,9 @@
 Chess Champ is a flutter app meant to help chess players improve on thier mistakes.
 
 <p float = "left">
-    <img src="lib/src/assets/images/app1.jpg" height=400 width=180 > 
-    <img src="lib/src/assets/images/app2.jpg" height=400 width=180 >
-    <img src="lib/src/assets/images/app3.jpg" height=400 width=180 >
+    <img src="lib/src/assets/images/app1.jpg" height=577.2 width=260 > 
+    <img src="lib/src/assets/images/app2.jpg" height=577.2 width=260 >
+    <img src="lib/src/assets/images/app3.jpg" height=577.2 width=260 >
 </p>
 
 ## Bulit with
