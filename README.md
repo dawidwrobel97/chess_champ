@@ -4,7 +4,7 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
 
 ## Bulit with
 
-Dart/Flutter - main language and framework.
+!(lib/src/assets/images/flutter.png)Dart/Flutter - main language and framework.
 
 ### Most important used dependencies
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc) v8.1.2 - A library used for state management
