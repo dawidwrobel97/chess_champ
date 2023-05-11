@@ -22,4 +22,4 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
 - [get_it](https://pub.dev/packages/get_it) v7.2.0 -  Service locator that allows to decouple the interface from a concrete implementation
 - [injectable](https://pub.dev/packages/injectable) v2.1.1 - get_it generator
 - [freezed](https://pub.dev/packages/freezed) v2.3.2 - Code generation for immutable classes
-- [bloc_test](https://pub.dev/packages/bloc_test) v9.1.1 - A testing library for testing bloc
+- [bloc_test](https://pub.dev/packages/bloc_test) v9.1.1 - A testing library for bloc

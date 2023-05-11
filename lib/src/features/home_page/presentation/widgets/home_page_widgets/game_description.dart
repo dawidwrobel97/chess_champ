@@ -69,7 +69,7 @@ class GameDescription extends StatelessWidget {
               itemBuilder: (context) => const [
                 PopupMenuItem(
                   value: MenuItem.select,
-                  child: Text('Wybierz'),
+                  child: Text('Select'),
                 ),
               ],
             ),
