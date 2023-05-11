@@ -2,7 +2,7 @@
 
 # Chess Champ
 
-Chess Champ is a flutter app meant to help chess players improve on thier mistakes.
+Chess Champ is a flutter app meant to help chess players improve on their, mistakes.
 
 <p float = "left">
     <img src="lib/src/assets/images/app1.jpg" height=577.2 width=260 > 
@@ -29,7 +29,7 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
 
 ## Overview
 
-Chess Champ is meant to be used as a training app when learning chess. It allows the user to enter thier lichess account and the app downloads thier last 10 games. It then calculates the biggest mistake the user made in each of these games and gives the user a chance to try and find the best move instead. Alternatively if you can't find the best move you can press a button to give out the solution.
+Chess Champ is meant to be used as a training app when learning chess. It allows the user to enter their, lichess account and the app downloads their, last 10 games. It then calculates the biggest mistake the user made in each of these games and gives the user a chance to try and find the best move instead. Alternatively if you can't find the best move you can press a button to give out the solution.
 
 ## How does it work?
 - First, user logs in  with an existing account or creates a new one.
@@ -41,12 +41,12 @@ https://github.com/dawidwrobel97/chess_app/assets/117597306/5501aeb2-4052-4056-b
 
 https://github.com/dawidwrobel97/chess_app/assets/117597306/180ee916-9282-4999-b734-9412a3f95785
 
-- From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. Now the user can attempt to find what move was best. If you can't find it, you can press the solutin button for an anwser.
+- From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. Now the user can attempt to find what move was best. If you can't find it, you can press the solution button for an answer.
 
 
 https://github.com/dawidwrobel97/chess_app/assets/117597306/c6920099-d4f7-495f-bfdd-5c8d3f5ff1d8
 
-At any moment you can delete the current lichess account and use a diffrent one
+At any moment you can delete the current lichess account and use a different one
 
 
 https://github.com/dawidwrobel97/chess_app/assets/117597306/a1301c2a-ad7e-442e-9de6-0644756df136
