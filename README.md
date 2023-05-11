@@ -1,3 +1,5 @@
+<div align="center">
+
 # Chess Champ
 
 Chess Champ is a flutter app meant to help chess players improve on thier mistakes.
@@ -7,6 +9,7 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
     <img src="lib/src/assets/images/app2.jpg" height=577.2 width=260 >
     <img src="lib/src/assets/images/app3.jpg" height=577.2 width=260 >
 </p>
+</div>
 
 ## Bulit with
 
@@ -24,10 +27,29 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
 - [freezed](https://pub.dev/packages/freezed) v2.3.2 - Code generation for immutable classes
 - [bloc_test](https://pub.dev/packages/bloc_test) v9.1.1 - A testing library for bloc
 
-## Features
-### How does it work?
+## Overview
 
-### Other features
-Authorization and sign up using FirebaseAuth
-https://github-production-user-asset-6210df.s3.amazonaws.com/117597306/237763691-77cefe88-2f07-4caf-a1ee-5cd742859e2e.mp4
+Chess Champ is meant to be used as a training app when learning chess. It allows the user to enter thier lichess account and the app downloads thier last 10 games. It then calculates the biggest mistake the user made in each of these games and gives the user a chance to try and find the best move instead. Alternatively if you can't find the best move you can press a button to give out the solution.
+
+## How does it work?
+- First, user logs in  with an existing account or creates a new one.
+
+https://github.com/dawidwrobel97/chess_app/assets/117597306/5501aeb2-4052-4056-b468-b6a1b4b6b745
+
+- Then you can enter your lichess account username(or some other person you might want to check)
+
+
+https://github.com/dawidwrobel97/chess_app/assets/117597306/180ee916-9282-4999-b734-9412a3f95785
+
+- From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. Now the user can attempt to find what move was best. If you can't find it, you can press the solutin button for an anwser.
+
+
+https://github.com/dawidwrobel97/chess_app/assets/117597306/c6920099-d4f7-495f-bfdd-5c8d3f5ff1d8
+
+At any moment you can delete the current lichess account and use a diffrent one
+
+
+https://github.com/dawidwrobel97/chess_app/assets/117597306/a1301c2a-ad7e-442e-9de6-0644756df136
+
+
 
