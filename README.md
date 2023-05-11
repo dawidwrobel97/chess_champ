@@ -29,5 +29,5 @@ Chess Champ is a flutter app meant to help chess players improve on thier mistak
 
 ### Other features
 Authorization and sign up using FirebaseAuth
-[https://github.com/dawidwrobel97/chess_app/assets/117597306/77cefe88-2f07-4caf-a1ee-5cd742859e2e]
+https://github-production-user-asset-6210df.s3.amazonaws.com/117597306/237763691-77cefe88-2f07-4caf-a1ee-5cd742859e2e.mp4
 
