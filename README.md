@@ -29,7 +29,7 @@ Chess Champ is a flutter app meant to help chess players improve on their mistak
 
 ## Overview
 
-Chess Champ is an app meant to be used to learn chess. It uses [lichess](https://lichess.org) API, worlds biggest free chess website. It allows the user to enter their lichess account and the app downloads their last 10 games. It then calculates the biggest mistake the user made in each of these games and gives the user a chance to try and find the best move instead. Alternatively if you can't find the best move you can press a button to give out the solution.
+Chess Champ is an app meant to be used to learn chess. It uses [lichess](https://lichess.org) API, worlds biggest free chess website. It allows the user to enter their lichess account and the app downloads their last 10 games. It then calculates the biggest mistake the user made in each of these games and gives the user a chance to try and find the best move instead. Alternatively if user can't find the best move they can press a button to give out the solution.
 
 ## How does it work?
 - First, user logs in  with an existing account or creates a new one.
