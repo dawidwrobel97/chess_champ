@@ -93,7 +93,7 @@ class UserChessGamesRepository {
             (hasBlunder == true || hasMistake == true)) {
           continue;
         }
-        // Once we finally get here we check in our current move is the biggest difference
+        // Once we finally get here we check if our current move is the biggest difference
         int currentDifference = chessGame.movesAnalysis[i]['eval'] -
             chessGame.movesAnalysis[i - 1]['eval'];
         if ((currentDifference).abs() > biggestDifference) {
