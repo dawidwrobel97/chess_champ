@@ -31,22 +31,14 @@ class ChessHomePageState extends State<ChessHomePage> {
               case (Status.initial):
                 return _HomePageScaffold(
                   name: null,
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const _DropDownMenu(),
                         SearchTextField(
                             textEditingController: _textEditingController),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.55,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthGateCubit>().signOut();
-                          },
-                          child: const Text('Sign out'),
-                        ),
                       ],
                     ),
                   ),
@@ -61,23 +53,15 @@ class ChessHomePageState extends State<ChessHomePage> {
               case (Status.error):
                 return _HomePageScaffold(
                   name: null,
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        const _DropDownMenu(),
                         SearchTextField(
                           textEditingController: _textEditingController,
                         ),
                         Text(state.errorMessage!),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.55,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthGateCubit>().signOut();
-                          },
-                          child: const Text('Sign out'),
-                        ),
                       ],
                     ),
                   ),

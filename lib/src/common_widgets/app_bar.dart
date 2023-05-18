@@ -23,9 +23,6 @@ class HomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
-        if (name == null) {
-          return AppBar();
-        }
         return AppBar(
           title: Center(
             child: InkWell(
@@ -35,7 +32,7 @@ class HomePageAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(name!),
+                  Text(name != null ? name! : 'Input a user'),
                   const SizedBox(
                     width: 10,
                   ),
