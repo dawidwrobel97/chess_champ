@@ -32,48 +32,77 @@ class ChessHomePageState extends State<ChessHomePage> {
                 return _HomePageScaffold(
                   name: null,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const _DropDownMenu(),
-                        SearchTextField(
-                            textEditingController: _textEditingController),
-                      ],
-                    ),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const _DropDownMenu(),
+                            SearchTextField(
+                                textEditingController: _textEditingController),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 );
               case (Status.loading):
-                return const _HomePageScaffold(
+                return _HomePageScaffold(
                   name: null,
-                  padding: EdgeInsets.all(8),
-                  child: Center(
-                      child: CircularProgressIndicator(color: Colors.blue)),
+                  padding: const EdgeInsets.all(8),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      const Center(
+                        child: CircularProgressIndicator(color: Colors.blue),
+                      )
+                    ],
+                  ),
                 );
               case (Status.error):
                 return _HomePageScaffold(
                   name: null,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const _DropDownMenu(),
-                        SearchTextField(
-                          textEditingController: _textEditingController,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const _DropDownMenu(),
+                            SearchTextField(
+                              textEditingController: _textEditingController,
+                            ),
+                            Text(state.errorMessage!),
+                          ],
                         ),
-                        Text(state.errorMessage!),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               case (Status.success):
                 return _HomePageScaffold(
                   name: chessGamesModels![0].userId,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      const _DropDownMenu(),
-                      ChessGamesList(chessGamesModels: chessGamesModels),
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      Column(
+                        children: [
+                          const _DropDownMenu(),
+                          ChessGamesList(chessGamesModels: chessGamesModels),
+                        ],
+                      ),
                     ],
                   ),
                 );
@@ -104,6 +133,7 @@ class _HomePageScaffold extends StatelessWidget {
         padding: padding,
         child: child,
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
