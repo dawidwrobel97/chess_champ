@@ -31,65 +31,78 @@ class ChessHomePageState extends State<ChessHomePage> {
               case (Status.initial):
                 return _HomePageScaffold(
                   name: null,
-                  padding: const EdgeInsets.all(8),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SearchTextField(
-                            textEditingController: _textEditingController),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.55,
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const _DropDownMenu(),
+                            SearchTextField(
+                                textEditingController: _textEditingController),
+                          ],
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthGateCubit>().signOut();
-                          },
-                          child: const Text('Sign out'),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               case (Status.loading):
-                return const _HomePageScaffold(
+                return _HomePageScaffold(
                   name: null,
-                  padding: EdgeInsets.all(8),
-                  child: Center(
-                      child: CircularProgressIndicator(color: Colors.blue)),
+                  padding: const EdgeInsets.all(8),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      const Center(
+                        child: CircularProgressIndicator(color: Colors.blue),
+                      )
+                    ],
+                  ),
                 );
               case (Status.error):
                 return _HomePageScaffold(
                   name: null,
-                  padding: const EdgeInsets.all(8),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SearchTextField(
-                          textEditingController: _textEditingController,
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const _DropDownMenu(),
+                            SearchTextField(
+                              textEditingController: _textEditingController,
+                            ),
+                            Text(state.errorMessage!),
+                          ],
                         ),
-                        Text(state.errorMessage!),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.55,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthGateCubit>().signOut();
-                          },
-                          child: const Text('Sign out'),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               case (Status.success):
                 return _HomePageScaffold(
                   name: chessGamesModels![0].userId,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      const _DropDownMenu(),
-                      ChessGamesList(chessGamesModels: chessGamesModels),
+                      Center(
+                        child: Image.asset('lib/src/assets/images/logo5.png'),
+                      ),
+                      Column(
+                        children: [
+                          const _DropDownMenu(),
+                          ChessGamesList(chessGamesModels: chessGamesModels),
+                        ],
+                      ),
                     ],
                   ),
                 );
@@ -120,6 +133,7 @@ class _HomePageScaffold extends StatelessWidget {
         padding: padding,
         child: child,
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
