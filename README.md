@@ -34,22 +34,30 @@ Chess Champ is an app meant to be used to learn chess. It uses [lichess](https:/
 ## How does it work?
 - First, user logs in  with an existing account or creates a new one.
 
-https://github.com/dawidwrobel97/chess_app/assets/117597306/5501aeb2-4052-4056-b468-b6a1b4b6b745
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/d79f8ea7-d70e-49f1-b2fb-3493f978e1e0
+
 
 - Then you can enter your lichess account username(or some other person you might want to check)
 
 
-https://github.com/dawidwrobel97/chess_app/assets/117597306/180ee916-9282-4999-b734-9412a3f95785
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/93f6d538-44ba-45cb-8f05-9abcf859407f
+
 
 - From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. Now the user can attempt to find what move was best. If you can't find it, you can press the solution button for an answer.
 
 
-https://github.com/dawidwrobel97/chess_app/assets/117597306/c6920099-d4f7-495f-bfdd-5c8d3f5ff1d8
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/0ed507f4-e99f-482e-a19c-5f1b0b580c26
+
 
 At any moment you can delete the current lichess account and use a different one
 
 
-https://github.com/dawidwrobel97/chess_app/assets/117597306/a1301c2a-ad7e-442e-9de6-0644756df136
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/d2a6afc6-cabf-479a-a18c-14c40e09c230
+
 
 
 
