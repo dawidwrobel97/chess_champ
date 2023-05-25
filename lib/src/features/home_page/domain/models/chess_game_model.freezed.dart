@@ -33,6 +33,7 @@ mixin _$ChessGameModel {
   double get biggestScoreDifference => throw _privateConstructorUsedError;
   int get moveOnWhichMistakeHappened => throw _privateConstructorUsedError;
   String get worstMove => throw _privateConstructorUsedError;
+  bool get isPerfectGame => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +58,8 @@ abstract class $ChessGameModelCopyWith<$Res> {
       List<dynamic> bestMove,
       double biggestScoreDifference,
       int moveOnWhichMistakeHappened,
-      String worstMove});
+      String worstMove,
+      bool isPerfectGame});
 }
 
 /// @nodoc
@@ -84,6 +86,7 @@ class _$ChessGameModelCopyWithImpl<$Res, $Val extends ChessGameModel>
     Object? biggestScoreDifference = null,
     Object? moveOnWhichMistakeHappened = null,
     Object? worstMove = null,
+    Object? isPerfectGame = null,
   }) {
     return _then(_value.copyWith(
       gameId: null == gameId
@@ -130,6 +133,10 @@ class _$ChessGameModelCopyWithImpl<$Res, $Val extends ChessGameModel>
           ? _value.worstMove
           : worstMove // ignore: cast_nullable_to_non_nullable
               as String,
+      isPerfectGame: null == isPerfectGame
+          ? _value.isPerfectGame
+          : isPerfectGame // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -153,7 +160,8 @@ abstract class _$$_ChessGameModelCopyWith<$Res>
       List<dynamic> bestMove,
       double biggestScoreDifference,
       int moveOnWhichMistakeHappened,
-      String worstMove});
+      String worstMove,
+      bool isPerfectGame});
 }
 
 /// @nodoc
@@ -178,6 +186,7 @@ class __$$_ChessGameModelCopyWithImpl<$Res>
     Object? biggestScoreDifference = null,
     Object? moveOnWhichMistakeHappened = null,
     Object? worstMove = null,
+    Object? isPerfectGame = null,
   }) {
     return _then(_$_ChessGameModel(
       null == gameId
@@ -224,6 +233,10 @@ class __$$_ChessGameModelCopyWithImpl<$Res>
           ? _value.worstMove
           : worstMove // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isPerfectGame
+          ? _value.isPerfectGame
+          : isPerfectGame // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -242,7 +255,8 @@ class _$_ChessGameModel extends _ChessGameModel {
       final List<dynamic> bestMove,
       this.biggestScoreDifference,
       this.moveOnWhichMistakeHappened,
-      this.worstMove)
+      this.worstMove,
+      this.isPerfectGame)
       : _movesAnalysis = movesAnalysis,
         _movesAsList = movesAsList,
         _bestMove = bestMove,
@@ -293,10 +307,12 @@ class _$_ChessGameModel extends _ChessGameModel {
   final int moveOnWhichMistakeHappened;
   @override
   final String worstMove;
+  @override
+  final bool isPerfectGame;
 
   @override
   String toString() {
-    return 'ChessGameModel(gameId: $gameId, userId: $userId, lastFen: $lastFen, players: $players, movesAnalysis: $movesAnalysis, movesAsList: $movesAsList, createdAt: $createdAt, bestMove: $bestMove, biggestScoreDifference: $biggestScoreDifference, moveOnWhichMistakeHappened: $moveOnWhichMistakeHappened, worstMove: $worstMove)';
+    return 'ChessGameModel(gameId: $gameId, userId: $userId, lastFen: $lastFen, players: $players, movesAnalysis: $movesAnalysis, movesAsList: $movesAsList, createdAt: $createdAt, bestMove: $bestMove, biggestScoreDifference: $biggestScoreDifference, moveOnWhichMistakeHappened: $moveOnWhichMistakeHappened, worstMove: $worstMove, isPerfectGame: $isPerfectGame)';
   }
 
   @override
@@ -322,7 +338,9 @@ class _$_ChessGameModel extends _ChessGameModel {
                 other.moveOnWhichMistakeHappened ==
                     moveOnWhichMistakeHappened) &&
             (identical(other.worstMove, worstMove) ||
-                other.worstMove == worstMove));
+                other.worstMove == worstMove) &&
+            (identical(other.isPerfectGame, isPerfectGame) ||
+                other.isPerfectGame == isPerfectGame));
   }
 
   @JsonKey(ignore: true)
@@ -339,7 +357,8 @@ class _$_ChessGameModel extends _ChessGameModel {
       const DeepCollectionEquality().hash(_bestMove),
       biggestScoreDifference,
       moveOnWhichMistakeHappened,
-      worstMove);
+      worstMove,
+      isPerfectGame);
 
   @JsonKey(ignore: true)
   @override
@@ -367,7 +386,8 @@ abstract class _ChessGameModel extends ChessGameModel {
       final List<dynamic> bestMove,
       final double biggestScoreDifference,
       final int moveOnWhichMistakeHappened,
-      final String worstMove) = _$_ChessGameModel;
+      final String worstMove,
+      final bool isPerfectGame) = _$_ChessGameModel;
   _ChessGameModel._() : super._();
 
   factory _ChessGameModel.fromJson(Map<String, dynamic> json) =
@@ -397,6 +417,8 @@ abstract class _ChessGameModel extends ChessGameModel {
   int get moveOnWhichMistakeHappened;
   @override
   String get worstMove;
+  @override
+  bool get isPerfectGame;
   @override
   @JsonKey(ignore: true)
   _$$_ChessGameModelCopyWith<_$_ChessGameModel> get copyWith =>

@@ -19,6 +19,7 @@ class ChessGameModel with _$ChessGameModel {
     double biggestScoreDifference,
     int moveOnWhichMistakeHappened,
     String worstMove,
+    bool isPerfectGame,
   ) = _ChessGameModel;
 
   factory ChessGameModel.fromJson(Map<String, dynamic> json) =>

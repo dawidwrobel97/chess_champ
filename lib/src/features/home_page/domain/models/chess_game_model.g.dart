@@ -19,6 +19,7 @@ _$_ChessGameModel _$$_ChessGameModelFromJson(Map<String, dynamic> json) =>
       (json['biggestScoreDifference'] as num).toDouble(),
       json['moveOnWhichMistakeHappened'] as int,
       json['worstMove'] as String,
+      json['isPerfectGame'] as bool,
     );
 
 Map<String, dynamic> _$$_ChessGameModelToJson(_$_ChessGameModel instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$_ChessGameModelToJson(_$_ChessGameModel instance) =>
       'biggestScoreDifference': instance.biggestScoreDifference,
       'moveOnWhichMistakeHappened': instance.moveOnWhichMistakeHappened,
       'worstMove': instance.worstMove,
+      'isPerfectGame': instance.isPerfectGame,
     };

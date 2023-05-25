@@ -37,6 +37,7 @@ class UserChessGamesRepository {
       responseAsListMap[i].addAll({'biggestScoreDifference': 0});
       responseAsListMap[i].addAll({'moveOnWhichMistakeHappened': 0});
       responseAsListMap[i].addAll({'worstMove': ''});
+      responseAsListMap[i].addAll({'isPerfectGame': false});
     }
     final listOfChessGames =
         responseAsListMap.map((e) => ChessGameModel.fromJson(e)).toList();
@@ -48,6 +49,7 @@ class UserChessGamesRepository {
     String worstMove = '';
     bool hasBlunder = false;
     bool hasMistake = false;
+    bool isPerfectGame = false;
     for (final chessGame in listOfChessGames) {
       // First we go through every move in the game
       for (var i = 1; i < chessGame.movesAnalysis.length - 1; i++) {
@@ -110,20 +112,22 @@ class UserChessGamesRepository {
           }
         }
       }
-      // Once we check all moves in a game we save the stats
-      biggestDifference /= 100;
-      worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
-      // We take the best move analysis and split the string into 2 so it's easier to use in the future
-      for (int i = 0;
-          i <
-              chessGame
-                  .movesAnalysis[moveOnWhichMistakeHappened + 1]
-                      ['best']
-                  .length;
-          i += 2) {
-        bestMove.add(chessGame
-            .movesAnalysis[moveOnWhichMistakeHappened + 1]['best']
-            .substring(i, i + 2));
+      if (moveOnWhichMistakeHappened != 0) {
+        // Once we check all moves in a game we save the stats
+        biggestDifference /= 100;
+        worstMove = chessGame.movesAsList[moveOnWhichMistakeHappened];
+        // We take the best move analysis and split the string into 2 so it's easier to use in the future
+        for (int i = 0;
+            i <
+                chessGame.movesAnalysis[moveOnWhichMistakeHappened + 1]['best']
+                    .length;
+            i += 2) {
+          bestMove.add(chessGame.movesAnalysis[moveOnWhichMistakeHappened + 1]
+                  ['best']
+              .substring(i, i + 2));
+        }
+      } else {
+        isPerfectGame = true;
       }
       // Now we finally add the correct game into the database
       await FirebaseFirestore.instance
@@ -142,12 +146,14 @@ class UserChessGamesRepository {
         'biggestScoreDifference': biggestDifference,
         'moveOnWhichMistakeHappened': moveOnWhichMistakeHappened,
         'worstMove': worstMove,
+        'isPerfectGame': isPerfectGame,
       });
       biggestDifference = 0;
       moveOnWhichMistakeHappened = 0;
       bestMove = [];
       hasBlunder = false;
       hasMistake = false;
+      isPerfectGame = false;
     }
   }
 

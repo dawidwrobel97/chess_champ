@@ -40,17 +40,19 @@ void main() {
         when(() => repository.getUserChessGamesStream())
             .thenAnswer((_) => Stream.value([
                   ChessGameModel(
-                      'GameId123',
-                      'TestUser',
-                      'Fen123',
-                      'players',
-                      ['move1', 'move2'],
-                      ['e4', 'e5'],
-                      12345,
-                      ['d4', 'd5'],
-                      100,
-                      10,
-                      'c5c6')
+                    'GameId123',
+                    'TestUser',
+                    'Fen123',
+                    'players',
+                    ['move1', 'move2'],
+                    ['e4', 'e5'],
+                    12345,
+                    ['d4', 'd5'],
+                    100,
+                    10,
+                    'c5c6',
+                    false,
+                  )
                 ]));
       });
       blocTest(
@@ -64,17 +66,19 @@ void main() {
                 HomePageState(
                   listOfChessGamesModels: [
                     ChessGameModel(
-                        'GameId123',
-                        'TestUser',
-                        'Fen123',
-                        'players',
-                        ['move1', 'move2'],
-                        ['e4', 'e5'],
-                        12345,
-                        ['d4', 'd5'],
-                        100,
-                        10,
-                        'c5c6')
+                      'GameId123',
+                      'TestUser',
+                      'Fen123',
+                      'players',
+                      ['move1', 'move2'],
+                      ['e4', 'e5'],
+                      12345,
+                      ['d4', 'd5'],
+                      100,
+                      10,
+                      'c5c6',
+                      false,
+                    )
                   ],
                   status: Status.success,
                   dropDownMenuIsActive: false,
