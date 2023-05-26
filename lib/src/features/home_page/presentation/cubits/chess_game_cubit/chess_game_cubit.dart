@@ -24,14 +24,17 @@ class ChessGameCubit extends Cubit<ChessGameState> {
     }
     final State wrongMove = chessBoardController
         .game.history[chessGameModel.moveOnWhichMistakeHappened];
-    // Every time I want to undoMove with a pawn i have to make the half.moves value equal to 1
+    // Every time I want to undoMove with a pawn or rook i have to make the half.moves value equal to 1
     // else it might bug out and not work correctly. I don't actually understand why, but it has to be a deeper issue within flutter_chess_board.dart or chess.dart widgets
     // They are not mine so I just put this fix here, with it everything works fine
-    if (wrongMove.move.piece.name == 'p') {
-      chessBoardController.game.half_moves = 1;
-      chessBoardController.undoMove();
-    }
+    // if (wrongMove.move.piece.name == 'p' || wrongMove.move.piece.name == 'r') {
+    //   chessBoardController.game.half_moves = 1;
+    //   chessBoardController.undoMove();
+    //   chessBoardController.game.half_moves = 0;
+    // }
+    chessBoardController.game.half_moves = 1;
     chessBoardController.undoMove();
+    chessBoardController.game.half_moves = 0;
 
     try {
       emit(state.copyWith(
