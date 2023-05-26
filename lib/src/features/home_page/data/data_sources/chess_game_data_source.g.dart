@@ -33,7 +33,7 @@ class _ChessGameRemoteRetrofitDataSource
     )
         .compose(
           _dio.options,
-          '/${id}?max=10&lastFen=true&analysed=true&evals=true',
+          '/${id}?max=10&lastFen=true&analysed=true&evals=true&perfType=ultraBullet,bullet,blitz,rapid,classical',
           queryParameters: queryParameters,
           data: _data,
         )

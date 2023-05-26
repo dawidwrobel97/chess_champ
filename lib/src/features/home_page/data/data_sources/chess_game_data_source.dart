@@ -11,7 +11,8 @@ abstract class ChessGameRemoteRetrofitDataSource {
   factory ChessGameRemoteRetrofitDataSource(Dio dio) =
       _ChessGameRemoteRetrofitDataSource;
 
-  @GET("/{id}?max=10&lastFen=true&analysed=true&evals=true")
+  @GET(
+      "/{id}?max=10&lastFen=true&analysed=true&evals=true&perfType=ultraBullet,bullet,blitz,rapid,classical")
   @Headers(<String, dynamic>{"Accept": "application/x-ndjson"})
   Future<String> getUserChessGamesFromId(@Path("id") String id);
 }
