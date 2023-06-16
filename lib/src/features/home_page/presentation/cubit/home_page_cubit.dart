@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:chess_app/src/core/enums.dart';
-import 'package:chess_app/src/features/home_page/domain/repositories/user_chess_games_repository.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/domain/repositories/user_chess_games_repository.dart';
+import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:chess_app/src/core/enums.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/home_page/presentation/cubit/home_page_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:chess_app/src/features/home_page/domain/repositories/user_chess_games_repository.dart';
+import 'package:chess_app/src/domain/repositories/user_chess_games_repository.dart';
 
 class MockUserChessGamesRepository extends Mock
     implements UserChessGamesRepository {}

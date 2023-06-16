@@ -1,5 +1,5 @@
 import 'package:chess_app/src/common_widgets/my_elevated_button.dart';
-import 'package:chess_app/src/features/home_page/domain/models/chess_game_model.dart';
+import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:flutter/material.dart';
 
 class MadeTheBestMoveWidget extends StatelessWidget {
