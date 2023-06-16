@@ -1,7 +1,7 @@
 import 'package:chess_app/src/common_widgets/my_container.dart';
 import 'package:chess_app/src/domain/models/chess_game_model.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/chess_game_thumbnail.dart';
-import 'package:chess_app/src/features/home_page/presentation/widgets/game_description.dart';
+import 'package:chess_app/src/features/home_page/widgets/chess_game_thumbnail.dart';
+import 'package:chess_app/src/features/home_page/widgets/game_description.dart';
 import 'package:flutter/material.dart';
 
 class ChessGamesList extends StatelessWidget {

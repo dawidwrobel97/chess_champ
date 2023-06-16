@@ -14,11 +14,11 @@ import 'package:chess_app/src/data/data_sources/chess_game_data_source.dart'
     as _i7;
 import 'package:chess_app/src/domain/repositories/user_chess_games_repository.dart'
     as _i8;
-import 'package:chess_app/src/features/auth_gate/presentation/cubit/auth_gate_cubit.dart'
+import 'package:chess_app/src/features/auth_gate/cubit/auth_gate_cubit.dart'
     as _i5;
-import 'package:chess_app/src/features/chess_game/presentation/cubit/chess_game_cubit.dart'
+import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart'
     as _i3;
-import 'package:chess_app/src/features/home_page/presentation/cubit/home_page_cubit.dart'
+import 'package:chess_app/src/features/home_page/cubit/home_page_cubit.dart'
     as _i9;
 import 'package:dio/dio.dart' as _i6;
 import 'package:firebase_auth/firebase_auth.dart' as _i4;

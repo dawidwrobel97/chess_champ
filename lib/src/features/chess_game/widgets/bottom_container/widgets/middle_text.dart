@@ -1,5 +1,5 @@
-import 'package:chess_app/src/features/chess_game/presentation/cubit/chess_game_cubit.dart';
-import 'package:chess_app/src/features/chess_game/presentation/widgets/bottom_container/widgets/made_the_best_move_widget.dart';
+import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart';
+import 'package:chess_app/src/features/chess_game/widgets/bottom_container/widgets/made_the_best_move_widget.dart';
 import 'package:flutter/material.dart';
 
 class MiddleText extends StatelessWidget {

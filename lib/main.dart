@@ -1,5 +1,5 @@
 import 'package:chess_app/src/core/injection_container.dart';
-import 'package:chess_app/src/features/auth_gate/presentation/pages/auth_gate.dart';
+import 'package:chess_app/src/features/auth_gate/pages/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'src/firebase/firebase_options.dart';

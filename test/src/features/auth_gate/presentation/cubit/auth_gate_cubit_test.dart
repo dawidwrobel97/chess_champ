@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:chess_app/src/core/enums.dart';
-import 'package:chess_app/src/features/auth_gate/presentation/cubit/auth_gate_cubit.dart';
+import 'package:chess_app/src/features/auth_gate/cubit/auth_gate_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

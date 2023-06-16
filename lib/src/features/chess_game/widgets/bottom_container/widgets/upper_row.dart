@@ -1,4 +1,4 @@
-import 'package:chess_app/src/features/chess_game/presentation/cubit/chess_game_cubit.dart';
+import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart';
 import 'package:chess_vectors_flutter/chess_vectors_flutter.dart';
 import 'package:flutter/material.dart';
 

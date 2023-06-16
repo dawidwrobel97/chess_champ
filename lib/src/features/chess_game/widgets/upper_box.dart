@@ -1,5 +1,5 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
-import 'package:chess_app/src/features/chess_game/presentation/cubit/chess_game_cubit.dart';
+import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

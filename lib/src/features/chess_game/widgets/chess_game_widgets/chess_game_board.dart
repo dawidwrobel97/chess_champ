@@ -1,6 +1,6 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
-import 'package:chess_app/src/features/chess_game/presentation/cubit/chess_game_cubit.dart';
-import 'package:chess_app/src/features/chess_game/presentation/widgets/chess_game_annotations.dart';
+import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart';
+import 'package:chess_app/src/features/chess_game/widgets/chess_game_annotations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart' as ch;
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/domain/models/chess_game_model.dart';
-import 'package:chess_app/src/features/chess_game/presentation/pages/chess_game.dart';
+import 'package:chess_app/src/features/chess_game/pages/chess_game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
