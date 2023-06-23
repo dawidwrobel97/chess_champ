@@ -1,6 +1,6 @@
 import 'package:chess_app/src/common_widgets/my_container.dart';
 import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart';
-import 'package:chess_app/src/features/chess_game/widgets/chess_game_widgets/bottom_container/widgets/middle_text.dart';
+import 'package:chess_app/src/features/chess_game/widgets/bottom_container/widgets/middle_text.dart';
 import 'package:chess_app/src/features/chess_game/widgets/bottom_container/widgets/solution_button.dart';
 import 'package:chess_app/src/features/chess_game/widgets/bottom_container/widgets/upper_row.dart';
 import 'package:chess_app/src/features/chess_game/widgets/bottom_container/widgets/upper_text.dart';
