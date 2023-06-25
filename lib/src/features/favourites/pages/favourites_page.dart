@@ -13,7 +13,7 @@ class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<FavouritesCubit>(),
+      create: (context) => getIt<FavouritesCubit>()..start(),
       child: BlocBuilder<FavouritesCubit, FavouritesState>(
         builder: (context, state) {
           return Scaffold(

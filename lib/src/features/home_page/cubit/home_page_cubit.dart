@@ -96,6 +96,10 @@ class HomePageCubit extends Cubit<HomePageState> {
     emit(state.copyWith(dropDownMenuIsActive: !state.dropDownMenuIsActive));
   }
 
+  Future<void> saveToFavourites(ChessGameModel chessGameModel) async{
+    userChessGamesRepository.addGameToFavourites(chessGameModel);
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();
