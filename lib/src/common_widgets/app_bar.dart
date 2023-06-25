@@ -24,26 +24,29 @@ class HomePageAppBar extends StatelessWidget with PreferredSizeWidget {
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
         return AppBar(
-          title: Center(
-            child: InkWell(
-              onTap: () {
-                context.read<HomePageCubit>().dropDownMenu();
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(name != null ? name! : 'Input a user'),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    state.dropDownMenuIsActive == false
-                        ? Icons.arrow_drop_down_sharp
-                        : Icons.arrow_drop_up_sharp,
-                  ),
-                ],
-              ),
-            ),
+          centerTitle: true,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  context.read<HomePageCubit>().dropDownMenu();
+                },
+                child: Row(
+                  children: [
+                    Text(name != null ? name! : 'Input a user'),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      state.dropDownMenuIsActive == false
+                          ? Icons.arrow_drop_down_sharp
+                          : Icons.arrow_drop_up_sharp,
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         );
       },
