@@ -190,4 +190,26 @@ class UserChessGamesRepository {
       },
     );
   }
+
+  Future<void> addGameToFavourites(ChessGameModel chessGame) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favourites')
+        .add({
+      'id': chessGame.gameId,
+      'userId': chessGame.userId,
+      'lastFen': chessGame.lastFen,
+      'players': chessGame.players,
+      'analysis': chessGame.movesAnalysis,
+      'movesAsList': chessGame.movesAsList,
+      'createdAt': chessGame.createdAt,
+      'bestMove': chessGame.bestMove,
+      'biggestScoreDifference': chessGame.biggestScoreDifference,
+      'moveOnWhichMistakeHappened': chessGame.moveOnWhichMistakeHappened,
+      'worstMove': chessGame.worstMove,
+      'isPerfectGame': chessGame.isPerfectGame,
+    });
+  }
 }

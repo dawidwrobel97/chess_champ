@@ -2,9 +2,9 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/app_bar.dart';
 import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/core/injection_container.dart';
-import 'package:chess_app/src/features/auth_gate/cubit/auth_gate_cubit.dart';
 import 'package:chess_app/src/features/home_page/cubit/home_page_cubit.dart';
 import 'package:chess_app/src/features/home_page/widgets/chess_games_list.dart';
+import 'package:chess_app/src/common_widgets/menu_drawer.dart';
 import 'package:chess_app/src/features/home_page/widgets/search_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -133,6 +133,7 @@ class _HomePageScaffold extends StatelessWidget {
         padding: padding,
         child: child,
       ),
+      drawer: const MenuDrawer(),
       resizeToAvoidBottomInset: false,
     );
   }
@@ -147,7 +148,7 @@ class _DropDownMenu extends StatelessWidget {
       builder: (context, state) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          height: state.dropDownMenuIsActive == true ? 100 : 10,
+          height: state.dropDownMenuIsActive == true ? 45 : 10,
           width: MediaQuery.of(context).size.width / 1.5,
           decoration: BoxDecoration(
               border: Border.all(
@@ -180,15 +181,6 @@ class _DropDownMenu extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<AuthGateCubit>().signOut();
-                    },
-                    child: const Text('Sign out'),
-                  )
                 ],
               ),
             ),
