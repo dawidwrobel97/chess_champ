@@ -5,7 +5,6 @@ import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/domain/repositories/user_chess_games_repository.dart';
 import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 part 'home_page_cubit.freezed.dart';
@@ -105,7 +104,17 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> saveToFavourites(ChessGameModel chessGameModel) async {
-    userChessGamesRepository.addGameToFavourites(chessGameModel);
+    final response =
+        await userChessGamesRepository.addGameToFavourites(chessGameModel);
+    if (response == true) {
+      emit(state.copyWith(gameGotAddedToFavourites: true));
+    } else {
+      emit(state.copyWith(gameGotAddedToFavourites: false));
+    }
+  }
+
+  Future<void> changeGameGotAddedToFavouritesToNull() async {
+    emit(state.copyWith(gameGotAddedToFavourites: null));
   }
 
   @override

@@ -21,6 +21,7 @@ mixin _$HomePageState {
   String? get errorMessage => throw _privateConstructorUsedError;
   List<ChessGameModel>? get listOfChessGamesModels =>
       throw _privateConstructorUsedError;
+  bool? get gameGotAddedToFavourites => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $HomePageStateCopyWith<$Res> {
       {Status status,
       bool dropDownMenuIsActive,
       String? errorMessage,
-      List<ChessGameModel>? listOfChessGamesModels});
+      List<ChessGameModel>? listOfChessGamesModels,
+      bool? gameGotAddedToFavourites});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? dropDownMenuIsActive = null,
     Object? errorMessage = freezed,
     Object? listOfChessGamesModels = freezed,
+    Object? gameGotAddedToFavourites = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -75,6 +78,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.listOfChessGamesModels
           : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
               as List<ChessGameModel>?,
+      gameGotAddedToFavourites: freezed == gameGotAddedToFavourites
+          ? _value.gameGotAddedToFavourites
+          : gameGotAddedToFavourites // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -91,7 +98,8 @@ abstract class _$$_HomePageStateCopyWith<$Res>
       {Status status,
       bool dropDownMenuIsActive,
       String? errorMessage,
-      List<ChessGameModel>? listOfChessGamesModels});
+      List<ChessGameModel>? listOfChessGamesModels,
+      bool? gameGotAddedToFavourites});
 }
 
 /// @nodoc
@@ -109,6 +117,7 @@ class __$$_HomePageStateCopyWithImpl<$Res>
     Object? dropDownMenuIsActive = null,
     Object? errorMessage = freezed,
     Object? listOfChessGamesModels = freezed,
+    Object? gameGotAddedToFavourites = freezed,
   }) {
     return _then(_$_HomePageState(
       status: null == status
@@ -127,6 +136,10 @@ class __$$_HomePageStateCopyWithImpl<$Res>
           ? _value._listOfChessGamesModels
           : listOfChessGamesModels // ignore: cast_nullable_to_non_nullable
               as List<ChessGameModel>?,
+      gameGotAddedToFavourites: freezed == gameGotAddedToFavourites
+          ? _value.gameGotAddedToFavourites
+          : gameGotAddedToFavourites // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -138,7 +151,8 @@ class _$_HomePageState extends _HomePageState {
       {this.status = Status.initial,
       this.dropDownMenuIsActive = false,
       this.errorMessage,
-      final List<ChessGameModel>? listOfChessGamesModels})
+      final List<ChessGameModel>? listOfChessGamesModels,
+      this.gameGotAddedToFavourites})
       : _listOfChessGamesModels = listOfChessGamesModels,
         super._();
 
@@ -161,6 +175,40 @@ class _$_HomePageState extends _HomePageState {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final bool? gameGotAddedToFavourites;
+
+  @override
+  String toString() {
+    return 'HomePageState(status: $status, dropDownMenuIsActive: $dropDownMenuIsActive, errorMessage: $errorMessage, listOfChessGamesModels: $listOfChessGamesModels, gameGotAddedToFavourites: $gameGotAddedToFavourites)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_HomePageState &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.dropDownMenuIsActive, dropDownMenuIsActive) ||
+                other.dropDownMenuIsActive == dropDownMenuIsActive) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality().equals(
+                other._listOfChessGamesModels, _listOfChessGamesModels) &&
+            (identical(
+                    other.gameGotAddedToFavourites, gameGotAddedToFavourites) ||
+                other.gameGotAddedToFavourites == gameGotAddedToFavourites));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      dropDownMenuIsActive,
+      errorMessage,
+      const DeepCollectionEquality().hash(_listOfChessGamesModels),
+      gameGotAddedToFavourites);
+
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -173,7 +221,8 @@ abstract class _HomePageState extends HomePageState {
       {final Status status,
       final bool dropDownMenuIsActive,
       final String? errorMessage,
-      final List<ChessGameModel>? listOfChessGamesModels}) = _$_HomePageState;
+      final List<ChessGameModel>? listOfChessGamesModels,
+      final bool? gameGotAddedToFavourites}) = _$_HomePageState;
   const _HomePageState._() : super._();
 
   @override
@@ -184,6 +233,8 @@ abstract class _HomePageState extends HomePageState {
   String? get errorMessage;
   @override
   List<ChessGameModel>? get listOfChessGamesModels;
+  @override
+  bool? get gameGotAddedToFavourites;
   @override
   @JsonKey(ignore: true)
   _$$_HomePageStateCopyWith<_$_HomePageState> get copyWith =>

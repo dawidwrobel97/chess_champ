@@ -23,7 +23,31 @@ class ChessHomePageState extends State<ChessHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<HomePageCubit>()..start(),
-      child: BlocBuilder<HomePageCubit, HomePageState>(
+      child: BlocConsumer<HomePageCubit, HomePageState>(
+        listener: (context, state) {
+          if (state.gameGotAddedToFavourites == true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Game added to favourites'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            context
+                .read<HomePageCubit>()
+                .changeGameGotAddedToFavouritesToNull();
+          }
+          if (state.gameGotAddedToFavourites == false) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Failed adding the game'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            context
+                .read<HomePageCubit>()
+                .changeGameGotAddedToFavouritesToNull();
+          }
+        },
         builder: (context, state) {
           final chessGamesModels = state.listOfChessGamesModels;
           return Builder(builder: (context) {
