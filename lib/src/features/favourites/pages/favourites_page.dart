@@ -2,7 +2,7 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/common_widgets/menu_drawer.dart';
 import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/core/injection_container.dart';
-import 'package:chess_app/src/features/favourites/cubit/cubit/favourites_cubit.dart';
+import 'package:chess_app/src/features/favourites/cubit/favourites_cubit.dart';
 import 'package:chess_app/src/features/favourites/widgets/favourites__games_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

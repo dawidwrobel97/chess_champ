@@ -20,7 +20,7 @@ import 'package:chess_app/src/features/auth_gate/cubit/auth_gate_cubit.dart'
     as _i6;
 import 'package:chess_app/src/features/chess_game/cubit/chess_game_cubit.dart'
     as _i3;
-import 'package:chess_app/src/features/favourites/cubit/cubit/favourites_cubit.dart'
+import 'package:chess_app/src/features/favourites/cubit/favourites_cubit.dart'
     as _i8;
 import 'package:chess_app/src/features/home_page/cubit/home_page_cubit.dart'
     as _i11;
