@@ -2,13 +2,13 @@ import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:chess_app/src/features/chess_game/pages/chess_game.dart';
-import 'package:chess_app/src/features/home_page/cubit/home_page_cubit.dart';
+import 'package:chess_app/src/features/favourites/cubit/cubit/favourites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GameDescription extends StatelessWidget {
-  const GameDescription({
+class FavouritesGameDescription extends StatelessWidget {
+  const FavouritesGameDescription({
     super.key,
     required this.chessGamesModel,
   });
@@ -22,17 +22,17 @@ class GameDescription extends StatelessWidget {
         color: AppTheme.lighterContainerColor,
         child: Builder(builder: (context) {
           if (chessGamesModel.isPerfectGame == false) {
-            return _GameDescription(chessGamesModel: chessGamesModel);
+            return _FavouritesGameDescription(chessGamesModel: chessGamesModel);
           }
-          return const _PerfectGameDescription();
+          return const _PerfectFavouritesGameDescription();
         }),
       ),
     );
   }
 }
 
-class _PerfectGameDescription extends StatelessWidget {
-  const _PerfectGameDescription();
+class _PerfectFavouritesGameDescription extends StatelessWidget {
+  const _PerfectFavouritesGameDescription();
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,8 @@ class _PerfectGameDescription extends StatelessWidget {
   }
 }
 
-class _GameDescription extends StatelessWidget {
-  const _GameDescription({
+class _FavouritesGameDescription extends StatelessWidget {
+  const _FavouritesGameDescription({
     required this.chessGamesModel,
   });
 
@@ -63,15 +63,16 @@ class _GameDescription extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _GameDescriptionText(chessGamesModel: chessGamesModel),
-        _GameDescriptionPopupMenuButton(chessGamesModel: chessGamesModel),
+        _FavouritesGameDescriptionText(chessGamesModel: chessGamesModel),
+        _FavouritesGameDescriptionPopupMenuButton(
+            chessGamesModel: chessGamesModel),
       ],
     );
   }
 }
 
-class _GameDescriptionText extends StatelessWidget {
-  const _GameDescriptionText({
+class _FavouritesGameDescriptionText extends StatelessWidget {
+  const _FavouritesGameDescriptionText({
     required this.chessGamesModel,
   });
 
@@ -114,8 +115,8 @@ class _GameDescriptionText extends StatelessWidget {
   }
 }
 
-class _GameDescriptionPopupMenuButton extends StatelessWidget {
-  const _GameDescriptionPopupMenuButton({
+class _FavouritesGameDescriptionPopupMenuButton extends StatelessWidget {
+  const _FavouritesGameDescriptionPopupMenuButton({
     required this.chessGamesModel,
   });
 
@@ -135,21 +136,14 @@ class _GameDescriptionPopupMenuButton extends StatelessWidget {
             ),
           );
         }
-        if (MenuItem.favourite == value) {
-          context.read<HomePageCubit>().saveToFavourites(chessGamesModel);
-        }
         if (MenuItem.delete == value) {
-          context.read<HomePageCubit>().deleteGame(chessGamesModel.gameId);
+          context.read<FavouritesCubit>().deleteGame(chessGamesModel.gameId);
         }
       },
       itemBuilder: (context) => const [
         PopupMenuItem(
           value: MenuItem.select,
           child: Text('Select'),
-        ),
-        PopupMenuItem(
-          value: MenuItem.favourite,
-          child: Text('Favourite'),
         ),
         PopupMenuItem(
           value: MenuItem.delete,

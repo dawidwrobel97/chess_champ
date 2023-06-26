@@ -169,6 +169,25 @@ class UserChessGamesRepository {
     }
   }
 
+  Future<void> deleteGame(String id) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    String docId = '';
+    var collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chess_games');
+    var snapshots = await collection.where('id', isEqualTo: id).get();
+    for (var doc in snapshots.docs) {
+      docId = doc.id;
+    }
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chess_games')
+        .doc(docId)
+        .delete();
+  }
+
   Stream<List<ChessGameModel>> getUserChessGamesStream() {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {

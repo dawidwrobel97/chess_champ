@@ -48,14 +48,22 @@ class HomePageCubit extends Cubit<HomePageState> {
     }
   }
 
+  Future<void> deleteGame(String id) async {
+    try {
+      await userChessGamesRepository.deleteGame(id);
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
+  }
+
   Future<void> deleteAllCurrentGames() async {
     try {
       await userChessGamesRepository.deleteAllCurrentGames();
-      emit(
-        state.copyWith(
-          status: Status.initial,
-        ),
-      );
     } catch (error) {
       emit(
         state.copyWith(
@@ -96,7 +104,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     emit(state.copyWith(dropDownMenuIsActive: !state.dropDownMenuIsActive));
   }
 
-  Future<void> saveToFavourites(ChessGameModel chessGameModel) async{
+  Future<void> saveToFavourites(ChessGameModel chessGameModel) async {
     userChessGamesRepository.addGameToFavourites(chessGameModel);
   }
 

@@ -45,6 +45,19 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     }
   }
 
+  Future<void> deleteGame(String id) async {
+    try {
+      await favouritesPageRepository.deleteGame(id);
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

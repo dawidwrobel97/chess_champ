@@ -27,5 +27,22 @@ class FavouritesPageRepository {
     );
   }
 
-  
+  Future<void> deleteGame(String id) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    String docId = '';
+    var collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favourites');
+    var snapshots = await collection.where('id', isEqualTo: id).get();
+    for (var doc in snapshots.docs) {
+      docId = doc.id;
+    }
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favourites')
+        .doc(docId)
+        .delete();
+  }
 }
