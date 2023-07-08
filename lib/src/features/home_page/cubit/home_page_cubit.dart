@@ -104,17 +104,40 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> saveToFavourites(ChessGameModel chessGameModel) async {
-    final response =
-        await userChessGamesRepository.addGameToFavourites(chessGameModel);
-    if (response == true) {
-      emit(state.copyWith(gameGotAddedToFavourites: true));
-    } else {
-      emit(state.copyWith(gameGotAddedToFavourites: false));
+    try {
+      final response =
+          await userChessGamesRepository.addGameToFavourites(chessGameModel);
+      if (response == AddGameToFavourites.added) {
+        emit(state.copyWith(
+            gameGotAddedToFavourites: AddGameToFavourites.added));
+      } else if (response == AddGameToFavourites.repeat) {
+        emit(state.copyWith(
+            gameGotAddedToFavourites: AddGameToFavourites.repeat));
+      } else if (response == AddGameToFavourites.tooManyGames) {
+        emit(state.copyWith(
+            gameGotAddedToFavourites: AddGameToFavourites.tooManyGames));
+      }
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 
   Future<void> changeGameGotAddedToFavouritesToNull() async {
-    emit(state.copyWith(gameGotAddedToFavourites: null));
+    try {
+      emit(state.copyWith(gameGotAddedToFavourites: null));
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override

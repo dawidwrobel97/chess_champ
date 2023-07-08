@@ -8,7 +8,7 @@ class HomePageState with _$HomePageState {
     @Default(false) bool dropDownMenuIsActive,
     String? errorMessage,
     List<ChessGameModel>? listOfChessGamesModels,
-    bool? gameGotAddedToFavourites,
+    Enum? gameGotAddedToFavourites,
   }) = _HomePageState;
 
   // @override

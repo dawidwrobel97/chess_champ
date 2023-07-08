@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chess_app/src/core/enums.dart';
 import 'package:chess_app/src/data/data_sources/chess_game_data_source.dart';
 import 'package:chess_app/src/domain/models/chess_game_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -210,13 +211,17 @@ class UserChessGamesRepository {
     );
   }
 
-  Future<bool> addGameToFavourites(ChessGameModel chessGame) async {
-    bool didGameGotAdded = true;
+  Future<Enum> addGameToFavourites(ChessGameModel chessGame) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     var collection = FirebaseFirestore.instance
         .collection('users')
         .doc(userId)
         .collection('favourites');
+    final documentCount =
+        await collection.count().get().then((res) => res.count);
+    if (documentCount >= 10) {
+      return AddGameToFavourites.tooManyGames;
+    }
     var snapshots =
         await collection.where('id', isEqualTo: chessGame.gameId).get();
     if (snapshots.docs.isEmpty) {
@@ -238,10 +243,9 @@ class UserChessGamesRepository {
         'worstMove': chessGame.worstMove,
         'isPerfectGame': chessGame.isPerfectGame,
       });
-      return didGameGotAdded;
+      return AddGameToFavourites.added;
     } else {
-      didGameGotAdded = false;
-      return didGameGotAdded;
+      return AddGameToFavourites.repeat;
     }
   }
 }

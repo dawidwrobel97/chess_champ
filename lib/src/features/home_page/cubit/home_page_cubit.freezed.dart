@@ -21,7 +21,7 @@ mixin _$HomePageState {
   String? get errorMessage => throw _privateConstructorUsedError;
   List<ChessGameModel>? get listOfChessGamesModels =>
       throw _privateConstructorUsedError;
-  bool? get gameGotAddedToFavourites => throw _privateConstructorUsedError;
+  Enum? get gameGotAddedToFavourites => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -39,7 +39,7 @@ abstract class $HomePageStateCopyWith<$Res> {
       bool dropDownMenuIsActive,
       String? errorMessage,
       List<ChessGameModel>? listOfChessGamesModels,
-      bool? gameGotAddedToFavourites});
+      Enum? gameGotAddedToFavourites});
 }
 
 /// @nodoc
@@ -81,7 +81,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
       gameGotAddedToFavourites: freezed == gameGotAddedToFavourites
           ? _value.gameGotAddedToFavourites
           : gameGotAddedToFavourites // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as Enum?,
     ) as $Val);
   }
 }
@@ -99,7 +99,7 @@ abstract class _$$_HomePageStateCopyWith<$Res>
       bool dropDownMenuIsActive,
       String? errorMessage,
       List<ChessGameModel>? listOfChessGamesModels,
-      bool? gameGotAddedToFavourites});
+      Enum? gameGotAddedToFavourites});
 }
 
 /// @nodoc
@@ -139,7 +139,7 @@ class __$$_HomePageStateCopyWithImpl<$Res>
       gameGotAddedToFavourites: freezed == gameGotAddedToFavourites
           ? _value.gameGotAddedToFavourites
           : gameGotAddedToFavourites // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as Enum?,
     ));
   }
 }
@@ -176,7 +176,7 @@ class _$_HomePageState extends _HomePageState {
   }
 
   @override
-  final bool? gameGotAddedToFavourites;
+  final Enum? gameGotAddedToFavourites;
 
   @override
   String toString() {
@@ -222,7 +222,7 @@ abstract class _HomePageState extends HomePageState {
       final bool dropDownMenuIsActive,
       final String? errorMessage,
       final List<ChessGameModel>? listOfChessGamesModels,
-      final bool? gameGotAddedToFavourites}) = _$_HomePageState;
+      final Enum? gameGotAddedToFavourites}) = _$_HomePageState;
   const _HomePageState._() : super._();
 
   @override
@@ -234,7 +234,7 @@ abstract class _HomePageState extends HomePageState {
   @override
   List<ChessGameModel>? get listOfChessGamesModels;
   @override
-  bool? get gameGotAddedToFavourites;
+  Enum? get gameGotAddedToFavourites;
   @override
   @JsonKey(ignore: true)
   _$$_HomePageStateCopyWith<_$_HomePageState> get copyWith =>

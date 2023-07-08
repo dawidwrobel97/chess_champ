@@ -25,7 +25,7 @@ class ChessHomePageState extends State<ChessHomePage> {
       create: (context) => getIt<HomePageCubit>()..start(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
         listener: (context, state) {
-          if (state.gameGotAddedToFavourites == true) {
+          if (state.gameGotAddedToFavourites == AddGameToFavourites.added) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Game added to favourites'),
@@ -36,10 +36,23 @@ class ChessHomePageState extends State<ChessHomePage> {
                 .read<HomePageCubit>()
                 .changeGameGotAddedToFavouritesToNull();
           }
-          if (state.gameGotAddedToFavourites == false) {
+          if (state.gameGotAddedToFavourites == AddGameToFavourites.repeat) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Failed adding the game'),
+                content:
+                    Text('Failed adding the game: Game already in favourites'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            context
+                .read<HomePageCubit>()
+                .changeGameGotAddedToFavouritesToNull();
+          }
+          if (state.gameGotAddedToFavourites ==
+              AddGameToFavourites.tooManyGames) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Failed adding the game: Too many games'),
                 backgroundColor: Colors.red,
               ),
             );
