@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class FavouritesPageRepository {
+class FavouritesRepository {
   Stream<List<ChessGameModel>> getUserChessGamesStream() {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {

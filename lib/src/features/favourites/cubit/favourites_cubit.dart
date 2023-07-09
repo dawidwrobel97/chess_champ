@@ -12,16 +12,16 @@ part 'favourites_cubit.freezed.dart';
 
 @injectable
 class FavouritesCubit extends Cubit<FavouritesState> {
-  FavouritesCubit({required this.favouritesPageRepository})
+  FavouritesCubit({required this.favouritesRepository})
       : super(const FavouritesState());
 
   StreamSubscription? _streamSubscription;
-  FavouritesPageRepository favouritesPageRepository;
+  FavouritesRepository favouritesRepository;
 
   Future<void> start() async {
     try {
       emit(state.copyWith(status: Status.loading));
-      _streamSubscription = favouritesPageRepository
+      _streamSubscription = favouritesRepository
           .getUserChessGamesStream()
           .listen((listOfChessGamesModels) {
         if (listOfChessGamesModels.isEmpty) {
@@ -47,7 +47,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
 
   Future<void> deleteGame(String id) async {
     try {
-      await favouritesPageRepository.deleteGame(id);
+      await favouritesRepository.deleteGame(id);
     } catch (error) {
       emit(
         state.copyWith(

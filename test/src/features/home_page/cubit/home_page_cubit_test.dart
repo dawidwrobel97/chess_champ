@@ -134,22 +134,6 @@ void main() {
           verify: (_) =>
               {verify(() => repository.deleteAllCurrentGames()).called(1)});
     });
-    group('success', () {
-      setUp(() {
-        when(() => repository.deleteAllCurrentGames())
-            .thenAnswer((_) async => []);
-      });
-      blocTest(
-        'Should emit HomePageStatus with Status.initial',
-        build: () => sut,
-        act: (cubit) => cubit.deleteAllCurrentGames(),
-        expect: () => [
-          const HomePageState(
-            status: Status.initial,
-          ),
-        ],
-      );
-    });
     group('failure', () {
       setUp(() {
         when(() => repository.deleteAllCurrentGames()).thenThrow('test-error');

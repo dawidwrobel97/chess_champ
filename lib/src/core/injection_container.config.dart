@@ -42,8 +42,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final registerModule = _$RegisterModule();
     gh.factory<_i3.ChessGameCubit>(() => _i3.ChessGameCubit());
-    gh.factory<_i4.FavouritesPageRepository>(
-        () => _i4.FavouritesPageRepository());
+    gh.factory<_i4.FavouritesRepository>(() => _i4.FavouritesRepository());
     gh.lazySingleton<_i5.FirebaseAuth>(() => registerModule.firebaseAuth);
     gh.factory<String>(
       () => registerModule.baseUrl,
@@ -54,7 +53,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i7.Dio>(
         () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')));
     gh.factory<_i8.FavouritesCubit>(() => _i8.FavouritesCubit(
-        favouritesPageRepository: gh<_i4.FavouritesPageRepository>()));
+        favouritesRepository: gh<_i4.FavouritesRepository>()));
     gh.factory<_i9.ChessGameRemoteRetrofitDataSource>(
         () => _i9.ChessGameRemoteRetrofitDataSource(gh<_i7.Dio>()));
     gh.factory<_i10.UserChessGamesRepository>(() =>
