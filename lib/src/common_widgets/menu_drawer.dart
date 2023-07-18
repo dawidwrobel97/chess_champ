@@ -42,7 +42,7 @@ class MenuDrawer extends StatelessWidget {
                       leading: const Icon(Icons.star),
                       title: const Text('Favourite'),
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const FavouritesPage(),
                           ),
