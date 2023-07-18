@@ -35,28 +35,49 @@ Chess Champ is an app meant to be used to learn chess. It uses [lichess](https:/
 - First, user logs in  with an existing account or creates a new one.
 
 
-https://github.com/dawidwrobel97/chess_champ/assets/117597306/d79f8ea7-d70e-49f1-b2fb-3493f978e1e0
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/50f0be6a-099e-47a7-bc6c-25e747b82c79
+
 
 
 - Then you can enter your lichess account username(or some other person you might want to check)
 
 
 
-https://github.com/dawidwrobel97/chess_champ/assets/117597306/93f6d538-44ba-45cb-8f05-9abcf859407f
-
-
-- From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. Now the user can attempt to find what move was best. If you can't find it, you can press the solution button for an answer.
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/27d562a4-a070-431c-ad18-ac14f83b623a
 
 
 
-https://github.com/dawidwrobel97/chess_champ/assets/117597306/0ed507f4-e99f-482e-a19c-5f1b0b580c26
 
-
-At any moment you can delete the current lichess account and use a different one
+- From here you can check any of the games in the list. Once opened, the app will show you what was the wrong move you played with a red arrow, along with some stats and a solution button underneath. The point of the app is to see, if the user can find the best move instead on his own. If you can't find it, you can press the solution button for an answer.
 
 
 
-https://github.com/dawidwrobel97/chess_champ/assets/117597306/d2a6afc6-cabf-479a-a18c-14c40e09c230
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/8129bd18-8304-4909-94e9-afc995990fd3
+
+
+
+
+- You can favourite any game you download.
+
+
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/19014cad-09de-4274-95a7-a41893899735
+
+
+  
+- At any moment you can delete individual games, or delete the curret lichess user to search for another.
+
+
+
+
+https://github.com/dawidwrobel97/chess_champ/assets/117597306/e8dbc04b-43d8-462e-b9dc-8932969e5232
+
+
+
+- And more to come :)
+
+
 
 
 
