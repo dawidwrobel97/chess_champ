@@ -16,6 +16,19 @@ class ChessHomePage extends StatefulWidget {
   State<ChessHomePage> createState() => ChessHomePageState();
 }
 
+void _displaySnackBar(
+    {required BuildContext context,
+    required Color color,
+    required String text}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text),
+      backgroundColor: color,
+    ),
+  );
+  context.read<HomePageCubit>().changeGameGotAddedToFavouritesToNull();
+}
+
 class ChessHomePageState extends State<ChessHomePage> {
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -26,39 +39,26 @@ class ChessHomePageState extends State<ChessHomePage> {
       child: BlocConsumer<HomePageCubit, HomePageState>(
         listener: (context, state) {
           if (state.gameGotAddedToFavourites == AddGameToFavourites.added) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Game added to favourites'),
-                backgroundColor: Colors.green,
-              ),
+            _displaySnackBar(
+              context: context,
+              color: Colors.green,
+              text: 'Game added to favourites',
             );
-            context
-                .read<HomePageCubit>()
-                .changeGameGotAddedToFavouritesToNull();
           }
           if (state.gameGotAddedToFavourites == AddGameToFavourites.repeat) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content:
-                    Text('Failed adding the game: Game already in favourites'),
-                backgroundColor: Colors.red,
-              ),
+            _displaySnackBar(
+              context: context,
+              color: Colors.red,
+              text: 'Failed adding the game: Game already in favourites',
             );
-            context
-                .read<HomePageCubit>()
-                .changeGameGotAddedToFavouritesToNull();
           }
           if (state.gameGotAddedToFavourites ==
               AddGameToFavourites.tooManyGames) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Failed adding the game: Too many games'),
-                backgroundColor: Colors.red,
-              ),
+            _displaySnackBar(
+              context: context,
+              color: Colors.red,
+              text: 'Failed adding the game: Too many games',
             );
-            context
-                .read<HomePageCubit>()
-                .changeGameGotAddedToFavouritesToNull();
           }
         },
         builder: (context, state) {
