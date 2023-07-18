@@ -57,8 +57,12 @@ class _FavouritesPageBody extends StatelessWidget {
                 case (Status.error):
                   return Center(child: Text(state.errorMessage.toString()));
                 case (Status.success):
-                  return FavouritesChessGamesList(
-                      chessGamesModels: chessGameModels);
+                  return Column(
+                    children: [
+                      FavouritesChessGamesList(
+                          chessGamesModels: chessGameModels),
+                    ],
+                  );
               }
             },
           )
