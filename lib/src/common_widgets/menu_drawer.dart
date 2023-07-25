@@ -1,5 +1,6 @@
 import 'package:chess_app/src/app_theme/app_theme.dart';
 import 'package:chess_app/src/features/auth_gate/cubit/auth_gate_cubit.dart';
+import 'package:chess_app/src/features/auth_gate/pages/auth_gate.dart';
 import 'package:chess_app/src/features/favourites/pages/favourites_page.dart';
 import 'package:chess_app/src/features/home_page/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,11 @@ class MenuDrawer extends StatelessWidget {
                   title: const Text('Logout'),
                   onTap: () {
                     context.read<AuthGateCubit>().signOut();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => const AuthGate(),
+                      ),
+                    );
                   },
                 ),
               ),
